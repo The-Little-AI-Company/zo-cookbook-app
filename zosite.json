@@ -1,0 +1,15 @@
+{
+  "name": "zo-cookbook-app",
+  "local_port": 50638,
+  "entrypoint": "bun run dev",
+  "publish": {
+    "label": "zo-cookbook-app",
+    "type": "http",
+    "entrypoint": "bun run prod",
+    "published_port": 51281,
+    "env": {
+      "NODE_ENV": "production",
+      "ZO_CLIENT_IDENTITY_TOKEN": "none"
+    }
+  }
+}
