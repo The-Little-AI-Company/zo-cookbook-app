@@ -2,61 +2,52 @@ This file provides guidance when working with code in this repository. The READM
 
 # Project Notes
 
-## Zo Cookbook — Connect & Run Pipeline
+## Zo Cookbook — Public discovery, private execution
 
-The cookbook is a gallery of 550+ recipes (apps, spaces, automations, prompts) that are individually runnable against a user's Zo Computer via the Zo API.
+The cookbook is a gallery of 550+ recipes (apps, spaces, automations, prompts), but it no longer tries to execute them through a public proxy or ask visitors for Zo API tokens.
 
-### Architecture: Connect → Run → Display
+### Architecture: Browse → Copy brief → Open Zo
 
-1. **Connect flow** (`/connect` page): User pastes a Zo access token (from Settings > Access Tokens). Token is saved to `localStorage` — no server-side validation on connect, fail-fast on actual use.
-2. **Run flow** (`RunButton` → `runOnZo` → `POST /api/run` → Zo API): Client sends the token via `x-zo-api-key` header to the backend proxy. The proxy forwards it to `https://api.zo.computer/zo/ask` with proper auth formatting (Bearer prefix for `zo_sk_*` tokens, raw for JWT identity tokens).
-3. **Display**: Results rendered as markdown via `marked`. Errors shown inline in the card with actionable messages.
+1. **Public cookbook** (`/`): visitors browse recipes by category, search, or discover mode.
+2. **Recipe actions** (`RecipeActions`): every expanded card offers stable handoff actions:
+   - **Open Zo**
+   - **Build/Deploy in Zo** (action-specific label)
+   - **Copy recipe**
+3. **Private execution**: clicking an action copies a structured build brief to the clipboard and opens Zo in a new tab. The actual work happens inside the user’s own Zo Computer, not inside this published site.
+
+### Why the old model was removed
+
+The old Connect + Run architecture asked people to paste API tokens into the cookbook and relied on a public `/api/run` proxy. That was the wrong shape.
+
+It created:
+- auth confusion
+- proxy-specific 5xx/HTML failure modes
+- trust problems for a public site
+- too much complexity for what should be a simple discovery tool
+
+The cookbook now behaves like a launchpad, not a public API client.
 
 ### Key files
 
-- `server.ts` — Hono backend with `/api/run` proxy route
-- `src/lib/zo-connection.ts` — Client-side token storage + `runOnZo()` fetch wrapper
-- `src/components/run-button.tsx` — Run/Deploy UI with loading/error/success states
-- `src/pages/connect.tsx` — Token input page
-- `src/components/zo-connect.tsx` — Header connection status indicator
-- `backend-lib/zo-api.ts` — Server-side Zo API helper (used for internal calls with `ZO_CLIENT_IDENTITY_TOKEN`)
-
-### Bug fix: DOCTYPE parse crash (2026-04-13)
-
-**Symptom**: `Unexpected token '<', "<!DOCTYPE "... is not valid JSON` when running recipes.
-
-**Root causes fixed**:
-1. `c.req.json()` in `/api/run` had no try-catch — malformed requests returned Hono's default "Internal Server Error" plain text instead of JSON.
-2. No timeout on the Zo API fetch — long-running AI tasks could hang past the proxy timeout, which would return an HTML error page. Added 120s AbortController timeout with a 504 JSON response.
-3. Error detail from Zo API was double-serialized — JSON error body was embedded as a string inside another JSON response. Now parsed and flattened.
-
-### Bug fix: preview proxy replacing 5xx JSON with HTML (2026-04-13)
-
-**Symptom**: the UI showed `Server returned an unexpected response. Try again.` and the browser logged `/api/run 502`, even though the local app route itself was returning JSON.
-
-**What was actually wrong**:
-- On localhost, `/api/run` behaved correctly.
-- In the Zo preview path, upstream 5xx responses from `/api/run` could be rewritten/replaced by an HTML error page before they reached the browser.
-- That made the client see HTML where it expected JSON, even after the earlier parsing hardening.
-
-**Fix**:
-- `/api/run` now behaves like a JSON RPC endpoint, not a raw upstream pass-through.
-- It still uses `401` for invalid API keys and `400` for bad requests.
-- But upstream Zo API failures, timeouts, and transport errors now return a JSON envelope with `ok: false` instead of a 5xx status, so the browser reliably receives JSON through the preview proxy.
-- `runOnZo()` now checks `data.ok === false` and surfaces the returned error message directly.
+- `src/pages/cookbook.tsx` — main cookbook UI, filters, category views, card rendering
+- `src/components/recipe-actions.tsx` — shared handoff action system for prompts, automations, spaces, and apps
+- `src/data/cookbook-data.ts` — recipe dataset used by the UI
+- `src/App.tsx` — simplified routing (cookbook only)
+- `server.ts` — minimal Bun + Hono + Vite host; no run proxy
 
 ### Design decisions
 
-- **Proxy pattern is intentional**: The app is designed to be published publicly. Visitors bring their own Zo API key. The proxy exists because the Zo API doesn't allow CORS from arbitrary origins.
-- **No validation on connect**: Saves the key immediately, fails on first use. This avoids unnecessary API calls and complexity.
-- **Token format detection**: `eyJ*` = JWT identity token (sent raw), anything else = access token (sent with `Bearer` prefix). Both work with the Zo API.
+- **No token entry**: the site does not ask for API keys anymore.
+- **No public execution proxy**: removed because it was brittle and the wrong trust model.
+- **Handoff over fake magic**: better to copy a clean brief into Zo than pretend a public cookbook can safely and reliably operate someone else’s machine.
+- **Action labels match intent**: prompts open, spaces deploy, apps build, automations deploy.
 
 ---
 
 # Documentation
 
 This is a **Zo Site** - a web application running on a user's Zo computer that combines:
-- **Backend**: Bun + Hono server with API routes
+- **Backend**: Bun + Hono server for routing and static/app hosting
 - **Frontend**: React + Vite with client-side routing, shadcn/ui components, and Tailwind CSS 4
 - **Single Process**: Vite runs in middleware mode (no separate dev server)
 
@@ -76,12 +67,8 @@ This is a **Zo Site** - a web application running on a user's Zo computer that c
 │   └── images/
 │       └── pegasus.png    # Example image (loaded via <img src="/images/pegasus.png">)
 ├── backend-lib/
-│   └── zo-api.ts         # Helper for calling Zo API
+│   └── zo-api.ts         # Optional helper for future server-side Zo API calls
 └── src/
-    ├── main.tsx          # React entry point
-    ├── App.tsx           # Router setup
-    ├── styles.css        # Global styles
-    └── pages/            # Page components
 ```
 
 ### Development vs Production
