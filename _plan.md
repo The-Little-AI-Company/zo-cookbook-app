@@ -52,4 +52,4 @@ The cookbook has no connect flow, no token entry, no public run proxy, and every
 - [x] Typecheck the app again
 - [x] Verify the cleanup in-browser
 - [x] Update README if the behavior changed
-- [ ] Commit the cleanup pass
+- [x] Commit the cleanup pass

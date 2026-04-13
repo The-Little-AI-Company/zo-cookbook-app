@@ -14,7 +14,7 @@ The cookbook is a gallery of 550+ recipes (apps, spaces, automations, prompts), 
    - **Open Zo**
    - **Build/Deploy in Zo** (action-specific label)
    - **Copy recipe**
-4. **Private execution**: clicking an action copies a structured build brief to the clipboard and opens Zo in a new tab. The actual work happens inside the user’s own Zo Computer, not inside this published site.
+4. **Private execution**: clicking an action copies a structured build brief to the clipboard and opens the user's Zo workspace URL (`https://<handle>.zo.computer`) so the desktop app can catch it when installed. The actual work happens inside the user’s own Zo Computer, not inside this published site.
 
 ### Why the old model was removed
 
@@ -42,6 +42,7 @@ The cookbook now behaves like a launchpad, not a public API client.
 - **No public execution proxy**: removed because it was brittle and the wrong trust model.
 - **Handoff over fake magic**: better to copy a clean brief into Zo than pretend a public cookbook can safely and reliably operate someone else’s machine.
 - **Action labels match intent**: prompts open, spaces deploy, apps build, automations deploy.
+- **Workspace target, not marketing site**: handoff buttons open the Zo workspace URL, not `zo.computer`.
 
 ---
 

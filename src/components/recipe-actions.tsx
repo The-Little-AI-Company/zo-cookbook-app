@@ -11,7 +11,7 @@ type RecipeActionsProps = {
   accentColor?: string;
 };
 
-const ZO_URL = "https://zo.computer";
+const ZO_APP_URL = "https://jeffkazzee.zo.computer";
 
 type ToastState = { kind: "idle" | "copied" | "opened"; message: string };
 
@@ -117,13 +117,13 @@ export function RecipeActions({ type, item, accentColor = "var(--blue)" }: Recip
 
   const handleOpen = useCallback(async () => {
     await copyText(brief);
-    window.open(ZO_URL, "_blank", "noopener,noreferrer");
-    flash("opened", "Recipe copied. Zo opened in a new tab.");
+    window.open(ZO_APP_URL, "_blank", "noopener,noreferrer");
+    flash("opened", "Recipe copied. Zo workspace opened.");
   }, [brief, flash]);
 
   const handlePrimary = useCallback(async () => {
     await copyText(brief);
-    window.open(ZO_URL, "_blank", "noopener,noreferrer");
+    window.open(ZO_APP_URL, "_blank", "noopener,noreferrer");
     flash("opened", `${getPrimaryLabel(type)} brief copied. Paste it into Zo.`);
   }, [brief, flash, type]);
 
