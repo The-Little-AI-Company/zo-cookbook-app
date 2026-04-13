@@ -21,30 +21,30 @@ const ZO_API_TIMEOUT = 120_000;
 app.post("/api/run", async (c) => {
   const apiKey = c.req.header("x-zo-api-key");
   if (!apiKey) {
-    return c.json({ error: "No API key provided" }, 401);
+    return c.json({ ok: false, error: "No API key provided" }, 401);
   }
 
   let body: Record<string, unknown>;
   try {
     body = await c.req.json();
   } catch {
-    return c.json({ error: "Invalid request body" }, 400);
+    return c.json({ ok: false, error: "Invalid request body" }, 400);
   }
 
   const { type, prompt, name, schedule, delivery, tools, description, howToBuild, monetization, difficulty, route, keyTech, visibility, spaceType } = body;
 
   if (!type) {
-    return c.json({ error: "Missing type" }, 400);
+    return c.json({ ok: false, error: "Missing type" }, 400);
   }
 
   let zoPrompt: string;
 
   if (type === "prompt") {
-    if (!prompt) return c.json({ error: "Missing prompt" }, 400);
+    if (!prompt) return c.json({ ok: false, error: "Missing prompt" }, 400);
     zoPrompt = prompt as string;
 
   } else if (type === "automation") {
-    if (!prompt) return c.json({ error: "Missing prompt" }, 400);
+    if (!prompt) return c.json({ ok: false, error: "Missing prompt" }, 400);
     zoPrompt = [
       `Create a scheduled automation on my Zo Computer with the following configuration:`,
       ``,
@@ -104,7 +104,7 @@ app.post("/api/run", async (c) => {
       .join("\n");
 
   } else {
-    return c.json({ error: `Unknown type: ${type}` }, 400);
+    return c.json({ ok: false, error: `Unknown type: ${type}` }, 400);
   }
 
   try {
@@ -137,11 +137,11 @@ app.post("/api/run", async (c) => {
         detail = errText.slice(0, 200);
       }
 
-      const status = res.status === 401 ? 401 : 502;
-      return c.json(
-        { error: status === 401 ? "Invalid API key" : "Zo API error", detail },
-        status,
-      );
+      if (res.status === 401) {
+        return c.json({ ok: false, error: "Invalid API key", detail }, 401);
+      }
+
+      return c.json({ ok: false, error: "Zo API error", detail }, 200);
     }
 
     const responseText = await res.text();
@@ -150,15 +150,17 @@ app.post("/api/run", async (c) => {
       data = JSON.parse(responseText);
     } catch {
       console.error("Zo API returned non-JSON:", responseText.slice(0, 500));
-      return c.json({ error: "Zo API returned an unexpected response", detail: responseText.slice(0, 200) }, 502);
+      return c.json({ ok: false, error: "Zo API returned an unexpected response", detail: responseText.slice(0, 200) }, 200);
     }
-    return c.json({ result: data.output || data });
+
+    return c.json({ ok: true, result: data.output || data });
   } catch (err: unknown) {
     if (err instanceof DOMException && err.name === "AbortError") {
-      return c.json({ error: "Request to Zo API timed out. The task may still be running — check your Zo." }, 504);
+      return c.json({ ok: false, error: "Request to Zo API timed out. The task may still be running — check your Zo." }, 200);
     }
+
     const message = err instanceof Error ? err.message : "Unknown error";
-    return c.json({ error: "Failed to reach Zo API", detail: message }, 502);
+    return c.json({ ok: false, error: "Failed to reach Zo API", detail: message }, 200);
   }
 });
 

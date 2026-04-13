@@ -30,6 +30,21 @@ The cookbook is a gallery of 550+ recipes (apps, spaces, automations, prompts) t
 2. No timeout on the Zo API fetch — long-running AI tasks could hang past the proxy timeout, which would return an HTML error page. Added 120s AbortController timeout with a 504 JSON response.
 3. Error detail from Zo API was double-serialized — JSON error body was embedded as a string inside another JSON response. Now parsed and flattened.
 
+### Bug fix: preview proxy replacing 5xx JSON with HTML (2026-04-13)
+
+**Symptom**: the UI showed `Server returned an unexpected response. Try again.` and the browser logged `/api/run 502`, even though the local app route itself was returning JSON.
+
+**What was actually wrong**:
+- On localhost, `/api/run` behaved correctly.
+- In the Zo preview path, upstream 5xx responses from `/api/run` could be rewritten/replaced by an HTML error page before they reached the browser.
+- That made the client see HTML where it expected JSON, even after the earlier parsing hardening.
+
+**Fix**:
+- `/api/run` now behaves like a JSON RPC endpoint, not a raw upstream pass-through.
+- It still uses `401` for invalid API keys and `400` for bad requests.
+- But upstream Zo API failures, timeouts, and transport errors now return a JSON envelope with `ok: false` instead of a 5xx status, so the browser reliably receives JSON through the preview proxy.
+- `runOnZo()` now checks `data.ok === false` and surfaces the returned error message directly.
+
 ### Design decisions
 
 - **Proxy pattern is intentional**: The app is designed to be published publicly. Visitors bring their own Zo API key. The proxy exists because the Zo API doesn't allow CORS from arbitrary origins.
