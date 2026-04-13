@@ -30,7 +30,26 @@ Replace the broken Connect + Run architecture with a simpler public cookbook mod
 - [x] Typecheck the app
 - [x] Verify in-browser that the cookbook works without connect flow
 - [x] Update `README.md` Project Notes with the new architecture
-- [ ] Commit the changes to git
+- [x] Commit the changes to git
 
 ## Definition of done
 The cookbook has no connect flow, no token entry, no public run proxy, and every expanded card exposes stable handoff actions that make sense for its recipe type. README matches reality and the changes are committed.
+
+---
+
+## Phase 4 — Cleanup pass
+- [x] Add a clearer top-of-page "how it works" strip
+- [x] Reduce repetitive handoff copy inside expanded cards
+- [x] Add the same handoff actions to the spotlight/discover view
+- [x] Re-check hierarchy and spacing after the cleanup
+
+## Critique — cleanup pass
+- [x] Audit whether the cleanup improved clarity or just added chrome
+- [x] Find 3 real problems in the cleanup pass
+- [x] Fix them before shipping
+
+## Verify — cleanup pass
+- [x] Typecheck the app again
+- [x] Verify the cleanup in-browser
+- [x] Update README if the behavior changed
+- [ ] Commit the cleanup pass

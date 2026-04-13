@@ -9,11 +9,12 @@ The cookbook is a gallery of 550+ recipes (apps, spaces, automations, prompts), 
 ### Architecture: Browse → Copy brief → Open Zo
 
 1. **Public cookbook** (`/`): visitors browse recipes by category, search, or discover mode.
-2. **Recipe actions** (`RecipeActions`): every expanded card offers stable handoff actions:
+2. **How it works strip**: a compact three-step explainer at the top makes the handoff model obvious without asking people to guess.
+3. **Recipe actions** (`RecipeActions`): expanded cards and discover/spotlight views use the same handoff action system:
    - **Open Zo**
    - **Build/Deploy in Zo** (action-specific label)
    - **Copy recipe**
-3. **Private execution**: clicking an action copies a structured build brief to the clipboard and opens Zo in a new tab. The actual work happens inside the user’s own Zo Computer, not inside this published site.
+4. **Private execution**: clicking an action copies a structured build brief to the clipboard and opens Zo in a new tab. The actual work happens inside the user’s own Zo Computer, not inside this published site.
 
 ### Why the old model was removed
 

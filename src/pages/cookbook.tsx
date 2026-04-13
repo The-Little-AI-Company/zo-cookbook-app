@@ -475,12 +475,16 @@ function SpotlightCard({ item, tab }: { item: AnyItem; tab: Tab }) {
               <p className="text-sm text-[var(--muted-foreground)]">{(item as App).monetization}</p>
             </div>
           )}
+          <RecipeActions type="app" item={item as App} accentColor="var(--red)" />
         </div>
       )}
       {tab === "spaces" && (
-        <div className="border-t border-[var(--border)] pt-4">
-          <h4 className="text-xs font-mono text-[var(--blue)] mb-1">Key Tech</h4>
-          <p className="text-sm text-[var(--muted-foreground)]">{(item as Space).keyTech}</p>
+        <div className="space-y-3 border-t border-[var(--border)] pt-4">
+          <div>
+            <h4 className="text-xs font-mono text-[var(--blue)] mb-1">Key Tech</h4>
+            <p className="text-sm text-[var(--muted-foreground)]">{(item as Space).keyTech}</p>
+          </div>
+          <RecipeActions type="space" item={item as Space} accentColor="var(--blue)" />
         </div>
       )}
       {tab === "automations" && (
@@ -499,6 +503,7 @@ function SpotlightCard({ item, tab }: { item: AnyItem; tab: Tab }) {
               {(item as Automation).prompt}
             </pre>
           </div>
+          <RecipeActions type="automation" item={item as Automation} accentColor="var(--yellow)" />
         </div>
       )}
       {tab === "prompts" && (
@@ -518,6 +523,7 @@ function SpotlightCard({ item, tab }: { item: AnyItem; tab: Tab }) {
               <p className="text-sm text-[var(--muted-foreground)]">{(item as Prompt).whatYouGet}</p>
             </div>
           )}
+          <RecipeActions type="prompt" item={item as Prompt} accentColor="var(--teal)" />
         </div>
       )}
     </div>
@@ -693,7 +699,7 @@ export default function CookbookApp() {
                   Public cookbook, private execution
                 </p>
                 <p className="mt-1 text-xs text-[var(--muted-foreground)]">
-                  Copy the brief. Open Zo. Build it where it actually belongs.
+                  Pick a recipe and hand it off.
                 </p>
               </div>
               <button
@@ -706,6 +712,23 @@ export default function CookbookApp() {
           </div>
         </div>
       </header>
+
+      <section className="relative z-10 border-b border-[var(--border)] bg-[var(--card)]/65">
+        <div className="max-w-5xl mx-auto px-4 py-3 grid gap-3 md:grid-cols-3">
+          <div className="rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-3">
+            <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--red)]">1 — Pick a recipe</p>
+            <p className="mt-1 text-sm text-[var(--muted-foreground)]">Browse by tab, category, search, or discover mode.</p>
+          </div>
+          <div className="rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-3">
+            <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--yellow)]">2 — Copy the brief</p>
+            <p className="mt-1 text-sm text-[var(--muted-foreground)]">Each action turns the recipe into something Zo can actually act on.</p>
+          </div>
+          <div className="rounded-md border border-[var(--border)] bg-[var(--background)] px-3 py-3">
+            <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--blue)]">3 — Run it in Zo</p>
+            <p className="mt-1 text-sm text-[var(--muted-foreground)]">The cookbook is public. The work happens inside your own Zo.</p>
+          </div>
+        </div>
+      </section>
 
       {/* Tabs + Search bar */}
       <div className="relative z-10 sticky top-0 bg-[var(--background)]/95 backdrop-blur-sm border-b border-[var(--border)]">

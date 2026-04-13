@@ -128,7 +128,7 @@ export function RecipeActions({ type, item, accentColor = "var(--blue)" }: Recip
   }, [brief, flash, type]);
 
   return (
-    <div className="space-y-3">
+    <div className="space-y-2">
       <div className="flex flex-wrap items-center gap-2">
         <button
           onClick={handleOpen}
@@ -170,8 +170,8 @@ export function RecipeActions({ type, item, accentColor = "var(--blue)" }: Recip
             </p>
           )}
         </div>
-        <p className="mt-2 text-sm leading-relaxed text-[var(--muted-foreground)]">
-          Public cookbook. Private execution. Copy the brief, open Zo, and run it on your own machine.
+        <p className="mt-1 text-sm leading-relaxed text-[var(--muted-foreground)]">
+          Copies the brief and opens Zo.
         </p>
       </div>
     </div>
