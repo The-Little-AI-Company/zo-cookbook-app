@@ -44,6 +44,13 @@ The cookbook now behaves like a launchpad, not a public API client.
 - **Action labels match intent**: prompts open, spaces deploy, apps build, automations deploy.
 - **Workspace target, not marketing site**: handoff buttons open the Zo workspace URL, not `zo.computer`.
 
+### Deployment and custom domain notes
+
+- **Published service URL**: the current public publish target is `https://zo-cookbook-app-jeffkazzee.zocomputer.io/`.
+- **Custom domains attach to the published service**: in Zo, add domains from **Sites → Services** on the public service details panel, not from the project files.
+- **Zo custom domains are subdomain-only**: this project can use `www.zo-cookbook.space`, but not the apex `zo-cookbook.space`, because Zo expects a CNAME-based custom domain.
+- **Recommended setup**: point `www.zo-cookbook.space` to `cname.zocomputer.io`, then redirect `zo-cookbook.space` to `https://www.zo-cookbook.space` at the registrar or DNS provider.
+
 ---
 
 # Documentation
