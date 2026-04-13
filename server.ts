@@ -16,13 +16,21 @@ const mode: Mode =
  */
 app.get("/api/hello-zo", (c) => c.json({ msg: "Hello from Zo" }));
 
+const ZO_API_TIMEOUT = 120_000;
+
 app.post("/api/run", async (c) => {
   const apiKey = c.req.header("x-zo-api-key");
   if (!apiKey) {
     return c.json({ error: "No API key provided" }, 401);
   }
 
-  const body = await c.req.json();
+  let body: Record<string, unknown>;
+  try {
+    body = await c.req.json();
+  } catch {
+    return c.json({ error: "Invalid request body" }, 400);
+  }
+
   const { type, prompt, name, schedule, delivery, tools, description, howToBuild, monetization, difficulty, route, keyTech, visibility, spaceType } = body;
 
   if (!type) {
@@ -33,7 +41,7 @@ app.post("/api/run", async (c) => {
 
   if (type === "prompt") {
     if (!prompt) return c.json({ error: "Missing prompt" }, 400);
-    zoPrompt = prompt;
+    zoPrompt = prompt as string;
 
   } else if (type === "automation") {
     if (!prompt) return c.json({ error: "Missing prompt" }, 400);
@@ -101,6 +109,8 @@ app.post("/api/run", async (c) => {
 
   try {
     const authHeader = apiKey.startsWith("eyJ") ? apiKey : `Bearer ${apiKey}`;
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), ZO_API_TIMEOUT);
 
     const res = await fetch("https://api.zo.computer/zo/ask", {
       method: "POST",
@@ -109,17 +119,27 @@ app.post("/api/run", async (c) => {
         "Content-Type": "application/json",
         Accept: "application/json",
       },
-      body: JSON.stringify({
-        input: zoPrompt,
-      }),
+      body: JSON.stringify({ input: zoPrompt }),
+      signal: controller.signal,
     });
+
+    clearTimeout(timeout);
 
     if (!res.ok) {
       const errText = await res.text();
       console.error(`Zo API error [${res.status}]: ${errText}`);
+
+      let detail: string;
+      try {
+        const parsed = JSON.parse(errText);
+        detail = parsed.detail || parsed.error || errText;
+      } catch {
+        detail = errText.slice(0, 200);
+      }
+
       const status = res.status === 401 ? 401 : 502;
       return c.json(
-        { error: status === 401 ? "Invalid API key" : "Zo API error", detail: errText },
+        { error: status === 401 ? "Invalid API key" : "Zo API error", detail },
         status,
       );
     }
@@ -134,6 +154,9 @@ app.post("/api/run", async (c) => {
     }
     return c.json({ result: data.output || data });
   } catch (err: unknown) {
+    if (err instanceof DOMException && err.name === "AbortError") {
+      return c.json({ error: "Request to Zo API timed out. The task may still be running — check your Zo." }, 504);
+    }
     const message = err instanceof Error ? err.message : "Unknown error";
     return c.json({ error: "Failed to reach Zo API", detail: message }, 502);
   }

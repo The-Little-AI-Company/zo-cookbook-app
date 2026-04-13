@@ -2,7 +2,39 @@ This file provides guidance when working with code in this repository. The READM
 
 # Project Notes
 
-<!-- Documentation for this specific project goes here. This will include both an articulation of what this project aims to accomplish as well as technical details about how it works. This means explaining the purpose of the project as a whole along with an overview of the design choices. -->
+## Zo Cookbook — Connect & Run Pipeline
+
+The cookbook is a gallery of 550+ recipes (apps, spaces, automations, prompts) that are individually runnable against a user's Zo Computer via the Zo API.
+
+### Architecture: Connect → Run → Display
+
+1. **Connect flow** (`/connect` page): User pastes a Zo access token (from Settings > Access Tokens). Token is saved to `localStorage` — no server-side validation on connect, fail-fast on actual use.
+2. **Run flow** (`RunButton` → `runOnZo` → `POST /api/run` → Zo API): Client sends the token via `x-zo-api-key` header to the backend proxy. The proxy forwards it to `https://api.zo.computer/zo/ask` with proper auth formatting (Bearer prefix for `zo_sk_*` tokens, raw for JWT identity tokens).
+3. **Display**: Results rendered as markdown via `marked`. Errors shown inline in the card with actionable messages.
+
+### Key files
+
+- `server.ts` — Hono backend with `/api/run` proxy route
+- `src/lib/zo-connection.ts` — Client-side token storage + `runOnZo()` fetch wrapper
+- `src/components/run-button.tsx` — Run/Deploy UI with loading/error/success states
+- `src/pages/connect.tsx` — Token input page
+- `src/components/zo-connect.tsx` — Header connection status indicator
+- `backend-lib/zo-api.ts` — Server-side Zo API helper (used for internal calls with `ZO_CLIENT_IDENTITY_TOKEN`)
+
+### Bug fix: DOCTYPE parse crash (2026-04-13)
+
+**Symptom**: `Unexpected token '<', "<!DOCTYPE "... is not valid JSON` when running recipes.
+
+**Root causes fixed**:
+1. `c.req.json()` in `/api/run` had no try-catch — malformed requests returned Hono's default "Internal Server Error" plain text instead of JSON.
+2. No timeout on the Zo API fetch — long-running AI tasks could hang past the proxy timeout, which would return an HTML error page. Added 120s AbortController timeout with a 504 JSON response.
+3. Error detail from Zo API was double-serialized — JSON error body was embedded as a string inside another JSON response. Now parsed and flattened.
+
+### Design decisions
+
+- **Proxy pattern is intentional**: The app is designed to be published publicly. Visitors bring their own Zo API key. The proxy exists because the Zo API doesn't allow CORS from arbitrary origins.
+- **No validation on connect**: Saves the key immediately, fails on first use. This avoids unnecessary API calls and complexity.
+- **Token format detection**: `eyJ*` = JWT identity token (sent raw), anything else = access token (sent with `Bearer` prefix). Both work with the Zo API.
 
 ---
 
