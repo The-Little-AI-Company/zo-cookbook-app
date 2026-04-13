@@ -18,5 +18,12 @@ export default defineConfig({
   build: {
     outDir: "dist",
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          data: ["./src/data/cookbook-data.ts"],
+        },
+      },
+    },
   },
 });

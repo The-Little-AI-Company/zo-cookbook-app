@@ -16,6 +16,129 @@ const mode: Mode =
  */
 app.get("/api/hello-zo", (c) => c.json({ msg: "Hello from Zo" }));
 
+app.post("/api/run", async (c) => {
+  const apiKey = c.req.header("x-zo-api-key");
+  if (!apiKey) {
+    return c.json({ error: "No API key provided" }, 401);
+  }
+
+  const body = await c.req.json();
+  const { type, prompt, name, schedule, delivery, tools, description, howToBuild, monetization, difficulty, route, keyTech, visibility, spaceType } = body;
+
+  if (!type) {
+    return c.json({ error: "Missing type" }, 400);
+  }
+
+  let zoPrompt: string;
+
+  if (type === "prompt") {
+    if (!prompt) return c.json({ error: "Missing prompt" }, 400);
+    zoPrompt = prompt;
+
+  } else if (type === "automation") {
+    if (!prompt) return c.json({ error: "Missing prompt" }, 400);
+    zoPrompt = [
+      `Create a scheduled automation on my Zo Computer with the following configuration:`,
+      ``,
+      `**Name:** ${name}`,
+      `**Schedule:** ${schedule}`,
+      `**Delivery:** ${delivery}`,
+      tools ? `**Tools needed:** ${tools}` : "",
+      ``,
+      `**Prompt to run on each execution:**`,
+      prompt,
+      ``,
+      `Use the create_agent tool to set this up. Pick the most appropriate rrule for the schedule described. Confirm when the agent is created and tell me when the first run will be.`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+  } else if (type === "space") {
+    zoPrompt = [
+      `Build this zo.space route on my Zo Computer:`,
+      ``,
+      `**Name:** ${name}`,
+      `**Route:** ${route}`,
+      `**Type:** ${spaceType} (${spaceType === "Page" ? "React page route" : spaceType === "API" ? "Hono API route" : "Both page and API routes"})`,
+      `**Visibility:** ${visibility}`,
+      ``,
+      `**What it does:**`,
+      description,
+      ``,
+      `**Key tech / implementation notes:**`,
+      keyTech,
+      ``,
+      `Use update_space_route to create this. For "Page" type, write a React component with Tailwind CSS. For "API" type, write a Hono handler. For "Both", create both routes. Make it production-quality — not a skeleton, not a placeholder. The route should be fully functional when deployed.`,
+      ``,
+      `After creating, confirm the route is live and provide the URL.`,
+    ].join("\n");
+
+  } else if (type === "app") {
+    zoPrompt = [
+      `Build this app/tool on my Zo Computer:`,
+      ``,
+      `**Name:** ${name}`,
+      `**Difficulty:** ${difficulty}`,
+      ``,
+      `**What it does:**`,
+      description,
+      ``,
+      `**How to build it on Zo:**`,
+      howToBuild,
+      ``,
+      monetization ? `**Monetization notes:** ${monetization}` : "",
+      ``,
+      `Build this step by step. Use the appropriate Zo tools — zo.space routes for pages/APIs, scheduled agents for automations, workspace files for data storage, Stripe for payments if needed. Create everything needed for this to actually work, not just a scaffold.`,
+      ``,
+      `When done, summarize what was created and provide links/paths to everything.`,
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+  } else {
+    return c.json({ error: `Unknown type: ${type}` }, 400);
+  }
+
+  try {
+    const authHeader = apiKey.startsWith("eyJ") ? apiKey : `Bearer ${apiKey}`;
+
+    const res = await fetch("https://api.zo.computer/zo/ask", {
+      method: "POST",
+      headers: {
+        authorization: authHeader,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({
+        input: zoPrompt,
+      }),
+    });
+
+    if (!res.ok) {
+      const errText = await res.text();
+      console.error(`Zo API error [${res.status}]: ${errText}`);
+      const status = res.status === 401 ? 401 : 502;
+      return c.json(
+        { error: status === 401 ? "Invalid API key" : "Zo API error", detail: errText },
+        status,
+      );
+    }
+
+    const responseText = await res.text();
+    let data: Record<string, unknown>;
+    try {
+      data = JSON.parse(responseText);
+    } catch {
+      console.error("Zo API returned non-JSON:", responseText.slice(0, 500));
+      return c.json({ error: "Zo API returned an unexpected response", detail: responseText.slice(0, 200) }, 502);
+    }
+    return c.json({ result: data.output || data });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    return c.json({ error: "Failed to reach Zo API", detail: message }, 502);
+  }
+});
+
 if (mode === "production") {
   configureProduction(app);
 } else {
