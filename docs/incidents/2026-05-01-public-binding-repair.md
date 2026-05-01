@@ -23,3 +23,4 @@
 - 2026-05-01T17:45:05Z Proceeding to delete wedged published service svc__3r4CN1GbeY, then republish the Zo Site with publish_site(public=true). This may temporarily detach www.zo-cookbook.space.
 - 2026-05-01T17:48:24Z Site publish recreated service as svc_Z7KyzizcLuA but reused local_port 51283; FRP still reports start error: port already used. Custom domain is currently detached from the new service.
 - 2026-05-01T17:48:24Z Next step: delete broken service and recreate as managed HTTP service on a fresh unused port from canonical workdir.
+- 2026-05-01T17:51:14Z Fresh service svc_aFtD4e2uRxc registered on local_port 51300, but service_doctor showed old process still listening on 51283 and port 51300 not listening. Need in-place restart/update for new service to bind fresh port.
