@@ -21,3 +21,5 @@
 - 2026-05-01T17:43:00Z update_user_service attempt failed validation before changing anything: env_vars empty string is not valid JSON. Retrying with service_id only.
 - 2026-05-01T17:45:05Z Review checkpoint: Recreate is justified. service_doctor says app is healthy but public route broken; workaround is delete_user_service/register_user_service. publish_site and one in-place update_user_service did not clear HTTP 520.
 - 2026-05-01T17:45:05Z Proceeding to delete wedged published service svc__3r4CN1GbeY, then republish the Zo Site with publish_site(public=true). This may temporarily detach www.zo-cookbook.space.
+- 2026-05-01T17:48:24Z Site publish recreated service as svc_Z7KyzizcLuA but reused local_port 51283; FRP still reports start error: port already used. Custom domain is currently detached from the new service.
+- 2026-05-01T17:48:24Z Next step: delete broken service and recreate as managed HTTP service on a fresh unused port from canonical workdir.
