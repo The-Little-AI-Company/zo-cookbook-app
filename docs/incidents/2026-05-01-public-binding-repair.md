@@ -16,3 +16,5 @@
 - 2026-05-01T17:40:43Z Source/data commit complete: 461e74c Track cookbook source data and incident log.
 - 2026-05-01T17:40:43Z Remaining untracked files are handoff/planning scratch files only; not included in app commit.
 - 2026-05-01T17:40:43Z Starting Zo-tooling public binding repair attempt: publish_site(public=true).
+- 2026-05-01T17:42:46Z publish_site returned success, but both public URL and custom domain stayed HTTP 520 for six attempts.
+- 2026-05-01T17:42:46Z Attempting one in-place update_user_service on svc__3r4CN1GbeY; no duplicate service, no domain edit.
