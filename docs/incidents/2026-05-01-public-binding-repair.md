@@ -19,3 +19,5 @@
 - 2026-05-01T17:42:46Z publish_site returned success, but both public URL and custom domain stayed HTTP 520 for six attempts.
 - 2026-05-01T17:42:46Z Attempting one in-place update_user_service on svc__3r4CN1GbeY; no duplicate service, no domain edit.
 - 2026-05-01T17:43:00Z update_user_service attempt failed validation before changing anything: env_vars empty string is not valid JSON. Retrying with service_id only.
+- 2026-05-01T17:45:05Z Review checkpoint: Recreate is justified. service_doctor says app is healthy but public route broken; workaround is delete_user_service/register_user_service. publish_site and one in-place update_user_service did not clear HTTP 520.
+- 2026-05-01T17:45:05Z Proceeding to delete wedged published service svc__3r4CN1GbeY, then republish the Zo Site with publish_site(public=true). This may temporarily detach www.zo-cookbook.space.
