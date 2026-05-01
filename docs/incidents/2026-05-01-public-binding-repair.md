@@ -18,3 +18,4 @@
 - 2026-05-01T17:40:43Z Starting Zo-tooling public binding repair attempt: publish_site(public=true).
 - 2026-05-01T17:42:46Z publish_site returned success, but both public URL and custom domain stayed HTTP 520 for six attempts.
 - 2026-05-01T17:42:46Z Attempting one in-place update_user_service on svc__3r4CN1GbeY; no duplicate service, no domain edit.
+- 2026-05-01T17:43:00Z update_user_service attempt failed validation before changing anything: env_vars empty string is not valid JSON. Retrying with service_id only.
