@@ -13,3 +13,6 @@
 - 2026-05-01T17:39:41Z Review: backup archive kept on disk but not committed to avoid repo bloat. Added backups/ to .gitignore.
 - 2026-05-01T17:39:41Z Staged cookbook source/data files, generated runtime JSON, scripts, pages, README, incident log, lockfile, and content quality notes.
 - 2026-05-01T17:40:21Z Verification before source/data commit: typecheck passed, build passed, dev rootLen=16376 with expected 650-recipe text and nav/social links.
+- 2026-05-01T17:40:43Z Source/data commit complete: 461e74c Track cookbook source data and incident log.
+- 2026-05-01T17:40:43Z Remaining untracked files are handoff/planning scratch files only; not included in app commit.
+- 2026-05-01T17:40:43Z Starting Zo-tooling public binding repair attempt: publish_site(public=true).
