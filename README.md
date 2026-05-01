@@ -74,6 +74,7 @@ This keeps the recipe library out of the main JS bundle and makes the app safer 
 - **Recommended setup**: point `www.zo-cookbook.space` to `cname.zocomputer.io`, then redirect `zo-cookbook.space` to `https://www.zo-cookbook.space` at the registrar or DNS provider.
 - **Preview vs live gotcha**: the Zo preview iframe runs the dev site from `local_port`; the public site runs a separately published production service from `published_port`. If the preview looks newer than the public domain, rebuild/restart the published service in place instead of changing folders or domains.
 - **HEAD support**: `server.ts` has a top-level `HEAD` middleware that internally checks the matching `GET` route and returns the same status/headers with an empty body. This keeps `curl -I`, uptime checks, and link scanners from seeing false 404s.
+- **Dev Vite routing**: dev module requests (`/src/*`, `/@vite/*`, transformed CSS, dependency modules) should be served through `vite.transformRequest()` and returned as JavaScript modules. Avoid hand-rolled Node response shims around `vite.middlewares`; they can make the preview look alive while React never mounts. The HEAD middleware must stay strictly HEAD-only so GET requests flow normally.
 
 ---
 

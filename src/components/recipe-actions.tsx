@@ -1,8 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
-import type { App, Automation, Prompt, Space } from "@/data/cookbook-data";
+import type { App, Automation, Prompt, Space } from "@/data/cookbook-types";
 
 type RecipeType = "app" | "space" | "automation" | "prompt";
-
 type RecipeItem = App | Space | Automation | Prompt;
 
 type RecipeActionsProps = {
@@ -12,6 +11,7 @@ type RecipeActionsProps = {
 };
 
 const ZO_APP_URL = "https://jeffkazzee.zo.computer";
+const MAX_PROMPT_URL_LENGTH = 3500;
 
 type ToastState = { kind: "idle" | "copied" | "opened"; message: string };
 
@@ -94,12 +94,16 @@ function getPrimaryLabel(type: RecipeType) {
   return "Open in Zo";
 }
 
-function getOpenLabel() {
-  return "Open Zo";
+function buildZoUrl(brief: string) {
+  const url = new URL(ZO_APP_URL);
+  url.searchParams.set("prompt", brief);
+  const withPrompt = url.toString();
+  return withPrompt.length <= MAX_PROMPT_URL_LENGTH ? withPrompt : ZO_APP_URL;
 }
 
 export function RecipeActions({ type, item, accentColor = "var(--blue)" }: RecipeActionsProps) {
   const [toast, setToast] = useState<ToastState>({ kind: "idle", message: "" });
+  const [specOpen, setSpecOpen] = useState(false);
   const brief = useMemo(() => buildRecipeBrief(type, item), [type, item]);
 
   const flash = useCallback((kind: ToastState["kind"], message: string) => {
@@ -107,47 +111,57 @@ export function RecipeActions({ type, item, accentColor = "var(--blue)" }: Recip
     window.clearTimeout((flash as unknown as { timeout?: number }).timeout);
     (flash as unknown as { timeout?: number }).timeout = window.setTimeout(() => {
       setToast({ kind: "idle", message: "" });
-    }, 2600);
+    }, 3200);
   }, []);
 
   const handleCopy = useCallback(async () => {
-    await copyText(brief);
-    flash("copied", "Recipe brief copied.");
-  }, [brief, flash]);
-
-  const handleOpen = useCallback(async () => {
-    await copyText(brief);
-    window.open(ZO_APP_URL, "_blank", "noopener,noreferrer");
-    flash("opened", "Recipe copied. Zo workspace opened.");
+    try {
+      await copyText(brief);
+      flash("copied", "Build brief copied.");
+    } catch {
+      flash("copied", "Clipboard blocked. Open the spec and copy manually.");
+    }
   }, [brief, flash]);
 
   const handlePrimary = useCallback(async () => {
-    await copyText(brief);
-    window.open(ZO_APP_URL, "_blank", "noopener,noreferrer");
-    flash("opened", `${getPrimaryLabel(type)} brief copied. Paste it into Zo.`);
-  }, [brief, flash, type]);
+    let copied = false;
+
+    try {
+      await copyText(brief);
+      copied = true;
+    } catch {
+      copied = false;
+    }
+
+    const zoUrl = buildZoUrl(brief);
+    const attemptedPrefill = zoUrl !== ZO_APP_URL;
+    window.open(zoUrl, "_blank", "noopener,noreferrer");
+
+    if (attemptedPrefill && copied) {
+      flash("opened", "Zo opened. Brief copied, and prefill was attempted.");
+      return;
+    }
+
+    if (attemptedPrefill) {
+      flash("opened", "Zo opened with a prefill attempt. If empty, use Read spec here.");
+      return;
+    }
+
+    if (copied) {
+      flash("opened", "Zo opened. Brief copied for manual paste.");
+      return;
+    }
+
+    flash("opened", "Zo opened. Clipboard was blocked, so use Read spec here.");
+  }, [brief, flash]);
 
   return (
     <div className="space-y-2">
       <div className="flex flex-wrap items-center gap-2">
         <button
-          onClick={handleOpen}
-          className="px-3 py-1.5 text-xs font-mono rounded-md border transition-all cursor-pointer hover:-translate-y-px"
-          style={{
-            color: accentColor,
-            borderColor: `color-mix(in srgb, ${accentColor} 35%, transparent)`,
-            background: `color-mix(in srgb, ${accentColor} 10%, transparent)`,
-          }}
-        >
-          ↗ {getOpenLabel()}
-        </button>
-        <button
           onClick={handlePrimary}
           className="px-3 py-1.5 text-xs font-mono rounded-md transition-all cursor-pointer hover:-translate-y-px"
-          style={{
-            color: "#0a0a0a",
-            background: accentColor,
-          }}
+          style={{ color: "#0a0a0a", background: accentColor }}
         >
           ✦ {getPrimaryLabel(type)}
         </button>
@@ -155,7 +169,13 @@ export function RecipeActions({ type, item, accentColor = "var(--blue)" }: Recip
           onClick={handleCopy}
           className="px-3 py-1.5 text-xs font-mono rounded-md border border-[var(--border)] bg-[var(--secondary)] text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)] hover:border-[var(--foreground)] cursor-pointer"
         >
-          Copy recipe
+          Copy brief
+        </button>
+        <button
+          onClick={() => setSpecOpen((value) => !value)}
+          className="px-3 py-1.5 text-xs font-mono rounded-md border border-[var(--border)] bg-transparent text-[var(--muted-foreground)] transition-colors hover:text-[var(--foreground)] hover:border-[var(--foreground)] cursor-pointer"
+        >
+          {specOpen ? "Hide spec" : "Read spec"}
         </button>
       </div>
 
@@ -171,9 +191,23 @@ export function RecipeActions({ type, item, accentColor = "var(--blue)" }: Recip
           )}
         </div>
         <p className="mt-1 text-sm leading-relaxed text-[var(--muted-foreground)]">
-          Copies the brief and opens Zo.
+          Copies the full build brief, opens Zo, and attempts URL prefill when the brief is short enough.
         </p>
       </div>
+
+      {specOpen && (
+        <div className="rounded-md border border-[var(--border)] bg-[var(--background)] p-3">
+          <div className="mb-2 flex items-center justify-between gap-3">
+            <p className="text-[11px] font-mono uppercase tracking-[0.16em] text-[var(--muted-foreground)]">Build spec</p>
+            <button onClick={handleCopy} className="text-[11px] font-mono hover:underline" style={{ color: accentColor }}>
+              Copy spec
+            </button>
+          </div>
+          <pre className="max-h-72 overflow-auto whitespace-pre-wrap rounded border border-[var(--border)] bg-[var(--card)] p-3 text-xs leading-relaxed text-[var(--muted-foreground)]">
+            {brief}
+          </pre>
+        </div>
+      )}
     </div>
   );
 }

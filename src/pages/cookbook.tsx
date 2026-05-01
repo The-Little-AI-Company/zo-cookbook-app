@@ -1,15 +1,9 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from "react";
-import {
-  apps,
-  spaces,
-  automations,
-  prompts,
-  type App,
-  type Space,
-  type Automation,
-  type Prompt,
-} from "@/data/cookbook-data";
+import { Link } from "react-router-dom";
+import type { App, Space, Automation, Prompt } from "@/data/cookbook-types";
+import { loadIdeas, loadManifest, type Counts } from "@/lib/data-loader";
 import { RecipeActions } from "@/components/recipe-actions";
+import { getIdeaPath } from "@/lib/idea-slugs";
 
 // ─── Types ────────────────────────────────────────────
 type Tab = "apps" | "spaces" | "automations" | "prompts";
@@ -224,11 +218,11 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 // ─── Tab config ───────────────────────────────────────
-const tabConfig: Record<Tab, { label: string; count: number; color: string; icon: string }> = {
-  apps: { label: "Apps & Sites", count: apps.length, color: "var(--red)", icon: "◆" },
-  spaces: { label: "Spaces", count: spaces.length, color: "var(--blue)", icon: "●" },
-  automations: { label: "Automations", count: automations.length, color: "var(--yellow)", icon: "▲" },
-  prompts: { label: "Prompts", count: prompts.length, color: "var(--teal)", icon: "■" },
+const tabConfigBase: Record<Tab, { label: string; color: string; icon: string }> = {
+  apps: { label: "Apps & Sites", color: "var(--red)", icon: "◆" },
+  spaces: { label: "Spaces", color: "var(--blue)", icon: "●" },
+  automations: { label: "Automations", color: "var(--yellow)", icon: "▲" },
+  prompts: { label: "Prompts", color: "var(--teal)", icon: "■" },
 };
 
 // ─── Copy button ──────────────────────────────────────
@@ -294,6 +288,9 @@ function AppCard({ item, expanded, onToggle }: { item: App; expanded: boolean; o
             </div>
           )}
           <RecipeActions type="app" item={item} accentColor="var(--red)" />
+          <Link to={getIdeaPath("apps", item)} className="inline-flex text-xs font-mono text-[var(--red)] hover:underline">
+            View full recipe →
+          </Link>
         </div>
       )}
     </div>
@@ -331,6 +328,9 @@ function SpaceCard({ item, expanded, onToggle }: { item: Space; expanded: boolea
             <p className="text-sm text-[var(--muted-foreground)]">{item.keyTech}</p>
           </div>
           <RecipeActions type="space" item={item} accentColor="var(--blue)" />
+          <Link to={getIdeaPath("spaces", item)} className="inline-flex text-xs font-mono text-[var(--blue)] hover:underline">
+            View full recipe →
+          </Link>
         </div>
       )}
     </div>
@@ -387,6 +387,9 @@ function AutomationCard({ item, expanded, onToggle }: { item: Automation; expand
             </div>
           )}
           <RecipeActions type="automation" item={item} accentColor="var(--yellow)" />
+          <Link to={getIdeaPath("automations", item)} className="inline-flex text-xs font-mono text-[var(--yellow)] hover:underline">
+            View full recipe →
+          </Link>
         </div>
       )}
     </div>
@@ -429,6 +432,9 @@ function PromptCard({ item, expanded, onToggle }: { item: Prompt; expanded: bool
             </div>
           )}
           <RecipeActions type="prompt" item={item} accentColor="var(--teal)" />
+          <Link to={getIdeaPath("prompts", item)} className="inline-flex text-xs font-mono text-[var(--teal)] hover:underline">
+            View full recipe →
+          </Link>
         </div>
       )}
     </div>
@@ -476,6 +482,9 @@ function SpotlightCard({ item, tab }: { item: AnyItem; tab: Tab }) {
             </div>
           )}
           <RecipeActions type="app" item={item as App} accentColor="var(--red)" />
+          <Link to={getIdeaPath("apps", item as App)} className="inline-flex text-xs font-mono text-[var(--red)] hover:underline">
+            View full recipe →
+          </Link>
         </div>
       )}
       {tab === "spaces" && (
@@ -485,6 +494,9 @@ function SpotlightCard({ item, tab }: { item: AnyItem; tab: Tab }) {
             <p className="text-sm text-[var(--muted-foreground)]">{(item as Space).keyTech}</p>
           </div>
           <RecipeActions type="space" item={item as Space} accentColor="var(--blue)" />
+          <Link to={getIdeaPath("spaces", item as Space)} className="inline-flex text-xs font-mono text-[var(--blue)] hover:underline">
+            View full recipe →
+          </Link>
         </div>
       )}
       {tab === "automations" && (
@@ -504,6 +516,9 @@ function SpotlightCard({ item, tab }: { item: AnyItem; tab: Tab }) {
             </pre>
           </div>
           <RecipeActions type="automation" item={item as Automation} accentColor="var(--yellow)" />
+          <Link to={getIdeaPath("automations", item as Automation)} className="inline-flex text-xs font-mono text-[var(--yellow)] hover:underline">
+            View full recipe →
+          </Link>
         </div>
       )}
       {tab === "prompts" && (
@@ -524,6 +539,9 @@ function SpotlightCard({ item, tab }: { item: AnyItem; tab: Tab }) {
             </div>
           )}
           <RecipeActions type="prompt" item={item as Prompt} accentColor="var(--teal)" />
+          <Link to={getIdeaPath("prompts", item as Prompt)} className="inline-flex text-xs font-mono text-[var(--teal)] hover:underline">
+            View full recipe →
+          </Link>
         </div>
       )}
     </div>
@@ -557,6 +575,9 @@ function CategoryTile({ name, count, tabColor, onClick }: { name: string; count:
 // ─── Main App ─────────────────────────────────────────
 export default function CookbookApp() {
   const [activeTab, setActiveTab] = useState<Tab>("apps");
+  const [counts, setCounts] = useState<Counts>({ apps: 0, spaces: 0, automations: 0, prompts: 0, total: 0 });
+  const [itemsByTab, setItemsByTab] = useState<Record<Tab, AnyItem[]>>({ apps: [], spaces: [], automations: [], prompts: [] });
+  const [loadingTabs, setLoadingTabs] = useState<Record<Tab, boolean>>({ apps: true, spaces: false, automations: false, prompts: false });
   const [view, setView] = useState<View>("categories");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [search, setSearch] = useState("");
@@ -566,10 +587,38 @@ export default function CookbookApp() {
   const [discoverItems, setDiscoverItems] = useState<AnyItem[]>([]);
   const searchRef = useRef<HTMLInputElement>(null);
 
-  const allItemsForTab = useMemo(() => {
-    const map: Record<Tab, AnyItem[]> = { apps, spaces, automations, prompts };
-    return map[activeTab];
-  }, [activeTab]);
+  const tabConfig = useMemo(() => ({
+    apps: { ...tabConfigBase.apps, count: counts.apps },
+    spaces: { ...tabConfigBase.spaces, count: counts.spaces },
+    automations: { ...tabConfigBase.automations, count: counts.automations },
+    prompts: { ...tabConfigBase.prompts, count: counts.prompts },
+  }), [counts]);
+
+  const allItemsForTab = itemsByTab[activeTab];
+
+  const ensureTabLoaded = useCallback((tab: Tab) => {
+    if (itemsByTab[tab].length || loadingTabs[tab]) return;
+    setLoadingTabs((current) => ({ ...current, [tab]: true }));
+    loadIdeas(tab)
+      .then((items) => {
+        setItemsByTab((current) => ({ ...current, [tab]: items as AnyItem[] }));
+      })
+      .finally(() => {
+        setLoadingTabs((current) => ({ ...current, [tab]: false }));
+      });
+  }, [itemsByTab, loadingTabs]);
+
+  useEffect(() => {
+    loadManifest().then((manifest) => setCounts(manifest.counts));
+    loadIdeas("apps").then((items) => {
+      setItemsByTab((current) => ({ ...current, apps: items as AnyItem[] }));
+      setLoadingTabs((current) => ({ ...current, apps: false }));
+    });
+  }, []);
+
+  useEffect(() => {
+    ensureTabLoaded(activeTab);
+  }, [activeTab, ensureTabLoaded]);
 
   // Reset on tab change
   useEffect(() => {
@@ -672,7 +721,7 @@ export default function CookbookApp() {
     }
   }, []);
 
-  const totalItems = apps.length + spaces.length + automations.length + prompts.length;
+  const totalItems = counts.total;
 
   return (
     <div className="min-h-screen bg-[var(--background)] relative overflow-hidden">
@@ -727,6 +776,20 @@ export default function CookbookApp() {
             <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--blue)]">3 — Run it in Zo</p>
             <p className="mt-1 text-sm text-[var(--muted-foreground)]">The cookbook is public. The work happens inside your own Zo.</p>
           </div>
+        </div>
+      </section>
+
+      <section className="relative z-10 border-b border-[var(--border)] bg-[var(--background)]">
+        <div className="max-w-5xl mx-auto px-4 py-2 flex flex-wrap items-center gap-2 text-xs font-mono text-[var(--muted-foreground)]">
+          <span className="mr-1 uppercase tracking-[0.16em] text-[10px]">More Zo</span>
+          <a href="/go/zo" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Get Zo</a>
+          <Link to="/faq" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">FAQ</Link>
+          <Link to="/changelog" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Changelog</Link>
+          <Link to="/blog" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Blog</Link>
+          <a href="/go/substack" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Substack</a>
+          <a href="/go/reddit" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Reddit</a>
+          <a href="/go/facebook" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Facebook</a>
+          <a href="/go/discord" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Discord</a>
         </div>
       </section>
 
@@ -806,6 +869,14 @@ export default function CookbookApp() {
       )}
 
       <main className="relative z-10 max-w-5xl mx-auto px-4 py-5">
+        {loadingTabs[activeTab] && (
+          <div className="rounded-lg border border-[var(--border)] bg-[var(--card)] p-6 text-sm text-[var(--muted-foreground)]">
+            Loading {tabConfig[activeTab].label.toLowerCase()}…
+          </div>
+        )}
+
+        {!loadingTabs[activeTab] && (
+        <>
         {/* ─── CATEGORY VIEW ─── */}
         {view === "categories" && (
           <>
@@ -971,17 +1042,23 @@ export default function CookbookApp() {
             </p>
           </div>
         )}
+        </>
+        )}
       </main>
 
       {/* Footer */}
       <footer className="relative z-10 border-t border-[var(--border)] mt-8">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="max-w-5xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
           <span className="text-[10px] font-mono text-[var(--muted-foreground)]">
             Built on Zo Computer · 2026
           </span>
-          <span className="text-[10px] font-mono text-[var(--muted-foreground)]">
-            {totalItems} recipes
-          </span>
+          <nav className="flex flex-wrap items-center gap-3 text-[10px] font-mono text-[var(--muted-foreground)]">
+            <Link to="/faq" className="hover:text-[var(--foreground)]">FAQ</Link>
+            <Link to="/changelog" className="hover:text-[var(--foreground)]">Changelog</Link>
+            <Link to="/blog" className="hover:text-[var(--foreground)]">Blog</Link>
+            <a href="/go/zo" className="hover:text-[var(--foreground)]">Get Zo</a>
+            <span>{totalItems} recipes</span>
+          </nav>
         </div>
       </footer>
     </div>

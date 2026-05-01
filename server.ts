@@ -167,21 +167,8 @@ async function configureDevelopment(app: Hono): Promise<ViteDevServer> {
         }
       }
 
-      let result;
-      try {
-        result = await vite.transformRequest(url);
-      } catch {
-        result = null;
-      }
-
-      if (result) {
-        return new Response(result.code, {
-          headers: {
-            "Content-Type": "application/javascript",
-            "Cache-Control": "no-store, must-revalidate",
-          },
-        });
-      }
+      const transformed = await transformViaVite(url, vite);
+      if (transformed) return transformed;
 
       let template = await Bun.file("./index.html").text();
       template = await vite.transformIndexHtml("/", template);
@@ -196,4 +183,22 @@ async function configureDevelopment(app: Hono): Promise<ViteDevServer> {
   });
 
   return vite;
+}
+
+async function transformViaVite(url: string, vite: ViteDevServer) {
+  let result;
+  try {
+    result = await vite.transformRequest(url);
+  } catch {
+    result = null;
+  }
+
+  if (!result) return null;
+
+  return new Response(result.code, {
+    headers: {
+      "Content-Type": "text/javascript; charset=utf-8",
+      "Cache-Control": "no-store, must-revalidate",
+    },
+  });
 }
