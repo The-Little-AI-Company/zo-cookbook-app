@@ -1,0 +1,16 @@
+{
+  "counts": {
+    "apps": 200,
+    "spaces": 100,
+    "automations": 100,
+    "prompts": 250,
+    "total": 650
+  },
+  "files": {
+    "apps": "/data/apps.json",
+    "spaces": "/data/spaces.json",
+    "automations": "/data/automations.json",
+    "prompts": "/data/prompts.json"
+  },
+  "generatedAt": "2026-04-30T22:07:53.711Z"
+}

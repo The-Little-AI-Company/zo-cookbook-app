@@ -1,0 +1,1002 @@
+[
+  {
+    "name": "Personal Pattern Observatory",
+    "category": "Personal tools",
+    "description": "Watches your own work logs, commits, calendar, journals, and project notes to find patterns you keep missing: when you make good decisions, when projects stall, what kind of tasks drain you, and which ideas keep coming back. Produces a weekly private “operating manual update” instead of a generic productivity report.",
+    "howToBuild": "Scheduled agent scans selected workspace folders, Git history, journal markdown, Google Calendar, and task files → extracts events into DuckDB → tags patterns with `/zo/ask` → writes a weekly markdown report → sends a short SMS with one useful behavior change.",
+    "monetization": "Personal use. Could become a paid “operator manual” template for solo builders.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10001
+  },
+  {
+    "name": "Tiny Museum of Your Life",
+    "category": "Personal tools",
+    "description": "Turns scattered photos, notes, receipts, saved links, and voice memos into a private browsable museum. Not a social feed. More like a personal archive with rooms: places, people, projects, seasons, meals, objects, and weird little eras you forgot mattered.",
+    "howToBuild": "Workspace folders for artifacts → `read_file` for images/audio/text → metadata extraction → generated captions → zo.space private gallery with room filters → optional monthly “new exhibit” page.",
+    "monetization": "Personal use. Sell as a memory-archive setup service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10002
+  },
+  {
+    "name": "Civic Receipt Tracker",
+    "category": "Civic/public interest",
+    "description": "Tracks public promises from officials, agencies, companies, or local boards and turns them into receipts: who said what, when they said it, where the source lives, and whether anything actually happened later.",
+    "howToBuild": "Save articles/transcripts/PDFs into workspace → extraction script pulls claims → DuckDB stores promise records → scheduled agent checks for follow-up evidence → public or private zo.space tracker with citations.",
+    "monetization": "Public-interest project, newsroom tool, or paid tracker for advocacy groups.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10003
+  },
+  {
+    "name": "Dream-to-Project Distiller",
+    "category": "Creative tools",
+    "description": "Takes messy midnight ideas, voice notes, sketches, or half-written rants and turns them into a ranked project shelf: tiny experiment, weekend build, serious product, essay, or trash-but-funny archive.",
+    "howToBuild": "SMS/Telegram capture route → workspace inbox folder → scheduled clustering agent → scoring rubric → markdown project briefs → zo.space private idea shelf.",
+    "monetization": "Personal use. Could be a creator tool for writers and indie hackers.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10004
+  },
+  {
+    "name": "Local Memory Map",
+    "category": "Local/community tools",
+    "description": "Creates a living map of local knowledge that never makes it into official websites: which offices actually answer the phone, which trails wash out, which local services are reliable, and what changed recently.",
+    "howToBuild": "Markdown submissions → moderation queue → maps/search data file → optional Google Maps research → public zo.space directory → scheduled stale-entry checks.",
+    "monetization": "Sponsored local directory, donation-supported public resource, or civic data project.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10005
+  },
+  {
+    "name": "Friction Diary for Products",
+    "category": "Data/research tools",
+    "description": "Lets you log tiny moments of frustration while using software, then turns them into product research. Over time it shows the patterns: confusing labels, broken trust, pointless steps, and tools people tolerate only because they have to.",
+    "howToBuild": "Quick capture form → screenshot upload → browser URL capture → DuckDB issue log → weekly synthesis → zo.space dashboard grouped by product and friction type.",
+    "monetization": "Research tool for UX consultants, product teams, or review writers.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10006
+  },
+  {
+    "name": "Household Black Box",
+    "category": "Personal tools",
+    "description": "A private event recorder for the boring stuff that becomes important later: appliance repairs, landlord messages, insurance calls, medical paperwork, warranties, odd smells, power outages, and “when did that start?” moments.",
+    "howToBuild": "SMS/email capture → file attachments → structured event log → reminders → private timeline page → export bundle for disputes or claims.",
+    "monetization": "Personal use. Could become a paid template for renters, homeowners, or caregivers.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10007
+  },
+  {
+    "name": "Taste Fingerprint Builder",
+    "category": "Creative tools",
+    "description": "Builds a living profile of your taste from things you save: websites, outfits, rooms, songs, fonts, products, art, articles. Instead of “mood board,” it finds the rules behind what you keep liking.",
+    "howToBuild": "Bookmark/image/audio collection → metadata extraction → embedding/tagging → generated taste principles → zo.space private library with “why I like this” notes.",
+    "monetization": "Creative consulting tool, brand strategy lead magnet, or personal design system.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10008
+  },
+  {
+    "name": "Quiet Crisis Dashboard",
+    "category": "Health/wellness",
+    "description": "Tracks subtle warning signs before a personal crash: sleep notes, missed meals, skipped medication logs, calendar overload, stressful messages, and project churn. It does not diagnose. It simply catches “you are entering the danger zone” earlier.",
+    "howToBuild": "Private daily check-ins → calendar/task load analysis → optional Gmail metadata only → risk scoring → SMS nudges → private trend page.",
+    "monetization": "Personal use. Could be adapted as a self-management template.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10009
+  },
+  {
+    "name": "Project Archaeologist",
+    "category": "Developer tools",
+    "description": "Digs through an old project and reconstructs what happened: why files exist, which ideas were abandoned, where the architecture changed, what still works, and what should be deleted before anyone builds on it.",
+    "howToBuild": "Git log parser → README/notes scan → dependency audit → code map → generated archaeology report → cleanup checklist.",
+    "monetization": "Dev tool, repo audit service, or paid cleanup package.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10010
+  },
+  {
+    "name": "Public Comment Companion",
+    "category": "Civic/public interest",
+    "description": "Helps people respond to public comment periods without sounding like a template. It reads the proposal, explains the stakes, asks for the person’s actual position, then drafts a clear comment with citations.",
+    "howToBuild": "PDF/URL ingestion → summary and issue extraction → guided questionnaire → draft generator → export/email instructions → source archive.",
+    "monetization": "Public-interest tool, nonprofit service, or civic education project.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10011
+  },
+  {
+    "name": "Skill Gap Simulator",
+    "category": "Personal tools",
+    "description": "Turns a real goal into a practice world. Instead of saying “learn TypeScript,” it builds tiny drills based on the exact project you want to ship and adapts as you fail or improve.",
+    "howToBuild": "Goal intake → repo/context scan → drill generator → answer checker → progress log → weekly curriculum update.",
+    "monetization": "Personalized learning product or coaching companion.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10012
+  },
+  {
+    "name": "Receipts-to-Story Engine",
+    "category": "Content/media",
+    "description": "Turns mundane artifacts — receipts, photos, screenshots, tickets, notes — into writing prompts and essay seeds. It finds the story hiding in the paper trail.",
+    "howToBuild": "Upload/capture folder → OCR/text extraction → timeline builder → prompt generator → draft shelf → optional Substack outline.",
+    "monetization": "Writer tool, memoir workshop asset, or paid creative archive service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10013
+  },
+  {
+    "name": "Weird Little Business Finder",
+    "category": "Micro-SaaS",
+    "description": "Looks at local directories, forums, complaints, job posts, and service gaps to find tiny boring businesses someone could actually run: document pickup, permit reminder service, niche repair directories, local sponsorship pages.",
+    "howToBuild": "Web research scripts → local source list → opportunity extraction → scoring rubric → idea cards → revenue test plan.",
+    "monetization": "Direct business ideation, consulting, or paid opportunity reports.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10014
+  },
+  {
+    "name": "Inbox Anthropology",
+    "category": "Personal tools",
+    "description": "Studies your email like an anthropologist. It shows who drains attention, which relationships are under-maintained, what kind of requests keep arriving, and what obligations are silently piling up.",
+    "howToBuild": "Gmail metadata/search → thread classification → relationship map → obligation extraction → private dashboard → weekly summary.",
+    "monetization": "Personal productivity, executive assistant template, or coaching tool.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10015
+  },
+  {
+    "name": "Tiny Grant Radar",
+    "category": "Data/research tools",
+    "description": "Watches for small grants, local funds, creator programs, civic microgrants, and niche fellowships that match your work. It filters out the giant irrelevant grants nobody has time for.",
+    "howToBuild": "Source list + web search → eligibility extraction → deadline tracking → fit score → calendar reminders → application packet folder.",
+    "monetization": "Personal funding tool, newsletter, or grant research service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10016
+  },
+  {
+    "name": "Ghost Manual Generator",
+    "category": "Content/media",
+    "description": "Creates the manual that should have existed for a messy workflow: how you actually do client onboarding, content publishing, medication refill tracking, dataset updates, or project shipping.",
+    "howToBuild": "File/process scan → interview prompts → workflow reconstruction → SOP markdown → checklist templates → update reminders.",
+    "monetization": "Internal ops tool or documentation service.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10017
+  },
+  {
+    "name": "Ambient Portfolio",
+    "category": "Developer tools",
+    "description": "Builds a portfolio that updates from actual work instead of manual bragging. It watches shipped projects, posts, commits, screenshots, and notes, then suggests new portfolio entries when something becomes worth showing.",
+    "howToBuild": "Project folder watcher → GitHub/profile scan → screenshot capture → draft generator → approval queue → zo.space portfolio section.",
+    "monetization": "Personal brand system, freelancer portfolio product, or template.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10018
+  },
+  {
+    "name": "Apology Drafting Room",
+    "category": "Personal tools",
+    "description": "Helps draft hard messages where tone matters: apologies, boundary-setting, clarifications, “I can’t do that,” and “that hurt” messages. It forces the message to be specific instead of polished avoidance.",
+    "howToBuild": "Guided form → context capture → intent check → draft variants → risk review → saved message history.",
+    "monetization": "Personal use, coaching tool, or communication template library.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10019
+  },
+  {
+    "name": "Toolchain Weather Report",
+    "category": "Developer tools",
+    "description": "Gives a daily weather report for your software stack: dependency updates, API outages, failing services, expiring tokens, unpaid invoices, changed docs, and anything likely to break your day.",
+    "howToBuild": "Package scans → status page checks → Stripe/billing reminders → API docs watchlist → service health pings → morning digest.",
+    "monetization": "Dev ops template, agency maintenance product, or paid monitoring service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10020
+  },
+  {
+    "name": "Personal FOIA Workbench",
+    "category": "Civic/public interest",
+    "description": "Helps prepare, track, and organize public records requests. It keeps deadlines, agency contacts, response letters, exemptions, appeals, and received documents in one place.",
+    "howToBuild": "Request template builder → agency contact database → deadline automation → document archive → status dashboard → appeal draft helper.",
+    "monetization": "Journalist tool, civic research product, or advocacy support service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10021
+  },
+  {
+    "name": "Recipe Reality Checker",
+    "category": "Personal tools",
+    "description": "Checks recipes against real life: pantry, equipment, time, energy, dietary constraints, local store availability, and whether the instructions are lying about prep time.",
+    "howToBuild": "Recipe import → pantry JSON → substitution engine → time/complexity estimate → grocery list → “cook tonight?” verdict.",
+    "monetization": "Personal tool, food blog companion, or meal-planning product.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10022
+  },
+  {
+    "name": "Disappearing Web Watch",
+    "category": "Data/research tools",
+    "description": "Watches important public pages for deletion, edits, or quiet rewrites. When something changes, it stores the old copy and explains what changed.",
+    "howToBuild": "URL watchlist → scheduled fetches → content hashing → diff generation → markdown snapshots → alert system → public/private archive.",
+    "monetization": "Research tool, accountability project, or paid monitoring product.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10023
+  },
+  {
+    "name": "Life Admin Courtroom",
+    "category": "Personal tools",
+    "description": "Turns a messy dispute with a company, landlord, insurer, or agency into a clean case file: timeline, evidence, claim, requested remedy, and next letter.",
+    "howToBuild": "Document upload → timeline extraction → evidence tagging → argument builder → letter generator → export packet.",
+    "monetization": "Consumer advocacy tool or legal-aid support workflow.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10024
+  },
+  {
+    "name": "Micro-Archive for a Movement",
+    "category": "Civic/public interest",
+    "description": "Gives a small group a durable archive: meeting notes, flyers, photos, public statements, timelines, links, decisions, and “why we did this” context that usually gets lost in chats.",
+    "howToBuild": "Shared submission form → moderation → markdown archive → tag system → public timeline → private admin notes.",
+    "monetization": "Public-good project, nonprofit setup service, or community documentation package.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10025
+  },
+  {
+    "name": "Attention Lease Manager",
+    "category": "Personal tools",
+    "description": "Treats recurring obligations like leases on your attention. It tracks newsletters, subscriptions, meetings, social platforms, groups, and “temporary” commitments that became permanent by accident.",
+    "howToBuild": "Gmail/calendar/subscription scan → commitment inventory → renewal dates → cost/benefit notes → cancellation scripts → monthly review.",
+    "monetization": "Personal productivity tool, subscription audit product, or coaching asset.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10026
+  },
+  {
+    "name": "Experimental Town Website Kit",
+    "category": "Local/community tools",
+    "description": "Generates a modern unofficial town website from scattered public sources: events, emergency links, services, notices, local guides, and “what people actually need this week.”",
+    "howToBuild": "Source list → scraper/importers → moderation queue → public zo.space site → weekly digest → sponsor slots.",
+    "monetization": "Local sponsorships, chamber of commerce pitch, or civic public-good project.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10027
+  },
+  {
+    "name": "Meeting Consequence Tracker",
+    "category": "Niche professional tools (freelancers)",
+    "description": "Stops meetings from evaporating. It records decisions, owners, deadlines, promised follow-ups, and later checks whether the meeting changed anything.",
+    "howToBuild": "Calendar integration → notes/transcript upload → action extraction → reminders → outcome check → team digest.",
+    "monetization": "Team productivity tool or consultant workflow.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10028
+  },
+  {
+    "name": "Personal Search Engine for “Where Did I Put That?”",
+    "category": "Data/research tools",
+    "description": "Searches your actual life, not just files. It can answer questions like “where is the PDF from the dentist,” “what was that tool I saved,” or “when did I last mention the domain idea?”",
+    "howToBuild": "Workspace indexing → Gmail/search connectors → markdown snapshots → semantic tags → private search page → answer-with-sources output.",
+    "monetization": "Personal use, template for knowledge workers, or setup service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10029
+  },
+  {
+    "name": "Alternative Future Planner",
+    "category": "Personal tools",
+    "description": "Lets you model weird futures instead of pretending there is one plan. “If I move,” “if I stay,” “if I ship this,” “if I quit this channel,” “if I need two low-energy weeks.” Each path gets assumptions, triggers, costs, and first moves.",
+    "howToBuild": "Scenario builder → assumptions table → trigger tracking → calendar/task mapping → monthly review note.",
+    "monetization": "Personal planning tool, coaching template, or founder decision aid.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10030
+  },
+  {
+    "name": "The “Before You Buy” Bot",
+    "category": "Commerce",
+    "description": "Slows down purchases in a useful way. It checks reviews, repairability, used prices, warranty terms, better alternatives, and whether you already own something that solves the same problem.",
+    "howToBuild": "Product URL intake → web research → price history/manual checks → personal inventory search → recommendation report → delayed reminder.",
+    "monetization": "Personal finance tool, affiliate-free review site, or consumer research service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10031
+  },
+  {
+    "name": "Small Claims Prep Desk",
+    "category": "Personal tools",
+    "description": "Helps prepare for small claims court without pretending to be a lawyer. It organizes facts, dates, evidence, damages, jurisdiction notes, and a plain-language statement.",
+    "howToBuild": "Intake form → evidence upload → timeline builder → damages calculator → filing checklist → export packet.",
+    "monetization": "Legal-aid support workflow or personal case organization tool.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10032
+  },
+  {
+    "name": "The Anti-Guru Business Coach",
+    "category": "Micro-SaaS",
+    "description": "Reviews business ideas for operational reality instead of hype. It asks: who pays, how do they find it, what breaks, what is boring, what must be true, and what can be tested this week.",
+    "howToBuild": "Idea intake → critique rubric → market research → pricing test → landing page brief → decision log.",
+    "monetization": "Founder tool, consulting lead magnet, or paid idea review product.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10033
+  },
+  {
+    "name": "Browser Session Field Notes",
+    "category": "Data/research tools",
+    "description": "Turns chaotic web research into field notes. It records what you looked at, what changed your mind, what sources were weak, and what questions remain.",
+    "howToBuild": "Browser page saving → session notes → source scoring → claim extraction → research memo generator.",
+    "monetization": "Research workflow for writers, analysts, students, or journalists.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10034
+  },
+  {
+    "name": "Maintenance Oracle for Old Stuff",
+    "category": "Personal tools",
+    "description": "Tracks old vehicles, appliances, computers, tools, and gear by symptoms and service history. It predicts what to check next and when repair stops making sense.",
+    "howToBuild": "Asset inventory → repair logs → manual/PDF archive → symptom search → maintenance reminders → cost history.",
+    "monetization": "Personal tool, mechanic/customer portal, or niche maintenance app.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10035
+  },
+  {
+    "name": "Local Rumor Verifier",
+    "category": "Civic/public interest",
+    "description": "Gives communities a calmer way to check rumors: road closures, school notices, local emergencies, price changes, agency decisions. It separates confirmed, likely, unknown, and false with sources.",
+    "howToBuild": "Submission form → source checking → status labels → moderation queue → public page → SMS/email alerts for verified updates.",
+    "monetization": "Public-good site, local sponsorship, or emergency info project.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10036
+  },
+  {
+    "name": "Personal Dataset Maker",
+    "category": "Data/research tools",
+    "description": "Turns a messy folder of PDFs, CSVs, screenshots, notes, and web pages into a clean Zo Dataset with schema, README, source files, and example questions.",
+    "howToBuild": "File inventory → extraction scripts → DuckDB ingest → schema.yaml generation → README docs → query examples.",
+    "monetization": "Data cleanup service, research workflow, or internal tool.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10037
+  },
+  {
+    "name": "Ghost Town Detector for Websites",
+    "category": "Developer tools",
+    "description": "Finds abandoned pages, dead CTAs, stale pricing, outdated docs, broken links, and claims that no longer match the product. It is website maintenance with teeth.",
+    "howToBuild": "Crawler → link checker → screenshot diff → copy freshness scan → issue dashboard → fix briefs.",
+    "monetization": "Freelancer audit product, agency maintenance package, or SaaS hygiene tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10038
+  },
+  {
+    "name": "Personal Values Diff",
+    "category": "Personal tools",
+    "description": "Compares what you say matters against where your time, money, attention, and projects actually go. Not for shame. For alignment.",
+    "howToBuild": "Values intake → calendar/task/spending/project review → mismatch detection → private report → monthly check-in.",
+    "monetization": "Personal development tool or coaching workflow.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10039
+  },
+  {
+    "name": "Source-to-Slide Forge",
+    "category": "Content/media",
+    "description": "Turns a folder of sources into a sharp slide deck: claims, evidence, visuals, narrative arc, speaker notes, and source list. Useful for talks, pitches, public explainers, or internal briefings.",
+    "howToBuild": "Source folder ingestion → claim extraction → outline → slide markdown → visual prompts → export to HTML/PDF.",
+    "monetization": "Research presentation service, creator tool, or internal reporting workflow.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10040
+  },
+  {
+    "name": "The Forgotten Follow-Up Machine",
+    "category": "Personal tools",
+    "description": "Finds people and threads you meant to follow up on but didn’t: old collaborators, kind messages, client leads, introductions, project promises, and “let’s talk soon” ghosts.",
+    "howToBuild": "Gmail/calendar/messages scan → follow-up detection → priority scoring → draft queue → weekly reminder.",
+    "monetization": "Freelancer CRM, personal assistant workflow, or relationship maintenance tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10041
+  },
+  {
+    "name": "Workshop-in-a-Box Generator",
+    "category": "Personal tools",
+    "description": "Turns any practical topic into a complete workshop: audience, outcomes, exercises, slides, handouts, timing, facilitation notes, and follow-up tasks.",
+    "howToBuild": "Topic intake → audience model → curriculum generator → slide/page builder → downloadable materials → feedback form.",
+    "monetization": "Course creation tool, consulting product, or internal training workflow.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10042
+  },
+  {
+    "name": "Misinformation Preflight Checker",
+    "category": "Data/research tools",
+    "description": "Checks a draft before you publish it for weak claims, missing sources, misleading framing, outdated facts, and places where you sound more certain than the evidence allows.",
+    "howToBuild": "Draft input → claim extraction → web/source checks → confidence labels → rewrite suggestions → source appendix.",
+    "monetization": "Writer tool, newsroom workflow, or Substack quality checker.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10043
+  },
+  {
+    "name": "Personal API for Your Future Self",
+    "category": "Personal tools",
+    "description": "Creates a small private API over your own notes, projects, preferences, and rules so future tools can ask structured questions like “what are Jeff’s current projects?” or “what style rules matter here?”",
+    "howToBuild": "Workspace index → curated JSON endpoints → bearer-auth API routes → update scripts → documentation page.",
+    "monetization": "Personal infrastructure, agent context product, or developer template.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10044
+  },
+  {
+    "name": "Deadline Autopsy",
+    "category": "Personal tools",
+    "description": "When a deadline slips, it reconstructs why: bad estimate, hidden dependency, energy mismatch, unclear scope, tool failure, avoidance, or someone else blocking it. Then it updates future planning rules.",
+    "howToBuild": "Task/deadline log → calendar/project notes scan → cause taxonomy → autopsy report → planning-rule updates.",
+    "monetization": "Personal ops tool, team retrospective workflow, or coaching asset.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10045
+  },
+  {
+    "name": "Mutual Aid Logistics Board",
+    "category": "Civic/public interest",
+    "description": "Coordinates real-world help without turning everything into a messy group chat: rides, groceries, supplies, check-ins, volunteers, requests, status, and privacy boundaries.",
+    "howToBuild": "Public request form → private moderation → volunteer matching → SMS/email updates → status board → export logs.",
+    "monetization": "Public-good project, nonprofit tool, or local support service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10046
+  },
+  {
+    "name": "The “Explain My Own Codebase” Tutor",
+    "category": "Developer tools",
+    "description": "Teaches you your own project. It reads the repo, builds a map, then creates lessons based on the actual files: routing, data flow, state, styling, deployment, and weird decisions.",
+    "howToBuild": "Repo scan → code map → lesson generator → quizzes → clickable file references → progress notes.",
+    "monetization": "Developer education tool, onboarding product, or agency handoff asset.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10047
+  },
+  {
+    "name": "Substack-to-Product Bridge",
+    "category": "Content/media",
+    "description": "Reads your essays and finds product seeds hiding in them: repeat problems, named workflows, strong opinions, tools mentioned, and readers who would pay for the next useful artifact.",
+    "howToBuild": "Substack archive import → theme extraction → idea scoring → product brief generator → landing page drafts → content links.",
+    "monetization": "Creator product strategy, personal revenue pipeline, or consulting workflow.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10048
+  },
+  {
+    "name": "Domain Story Tester",
+    "category": "Content/media",
+    "description": "Tests whether a project name/domain actually tells the right story. It checks memorability, pronunciation, search clutter, emotional signal, audience fit, and what people might wrongly assume.",
+    "howToBuild": "Name intake → web/search checks → rubric scoring → landing headline variants → risk notes → shortlist.",
+    "monetization": "Naming tool, branding service, or indie project validation asset.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10049
+  },
+  {
+    "name": "The Slow-Burn Revenue Lab",
+    "category": "Commerce",
+    "description": "Builds tiny revenue experiments that do not require becoming a full-time marketer: paid templates, audits, sponsorship slots, micro-products, local pages, research packets, and subscription digests.",
+    "howToBuild": "Offer idea intake → Stripe product setup checklist → landing page generator → traffic plan → fulfillment workflow → weekly experiment log.",
+    "monetization": "Direct use. This is the monetization engine.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10050
+  },
+  {
+    "name": "Vacation Price Scout",
+    "category": "Personal tools",
+    "description": "Plans a trip like a patient research assistant instead of a booking site with a commission problem. It compares hotels, motels, cabins, fees, location tradeoffs, cancellation windows, parking, pet rules, and weird gotchas from reviews, then builds a short ranked brief.",
+    "howToBuild": "Trip intake form → browser/web research across booking sites and maps → price snapshot JSON → review summarizer → comparison table in a private zo.space page → daily price-check automation until booking.",
+    "monetization": "Personal use. Could become a paid travel-planning packet for families, road-trippers, or remote workers.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10051
+  },
+  {
+    "name": "Warranty Escape Hatch",
+    "category": "Personal tools",
+    "description": "Figures out what to do when a product breaks: warranty status, return window, manufacturer contact, required proof, repair options, and the exact message to send. Less “where did I put that receipt,” more “here is the packet.”",
+    "howToBuild": "Receipt/photo upload → OCR and email search → warranty database → manufacturer support lookup → claim packet generator → reminder automation for follow-up dates.",
+    "monetization": "Personal use, consumer advocacy tool, or local repair-shop add-on.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10052
+  },
+  {
+    "name": "The Almost-Free Weekend Planner",
+    "category": "Local/community tools",
+    "description": "Finds low-cost things to do within a chosen radius: library events, trail conditions, small-town calendars, museum free days, school fundraisers, markets, and oddball local listings. Then it builds a realistic itinerary with drive time and weather notes.",
+    "howToBuild": "Location/date intake → web and maps research → event dedupe table → weather check → itinerary generator → SMS/email weekend brief every Thursday.",
+    "monetization": "Local newsletter, tourism micro-site, or community sponsor slots.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10053
+  },
+  {
+    "name": "Bureaucracy Deadline Net",
+    "category": "Personal tools",
+    "description": "Tracks the paperwork deadlines people miss because they are scattered across letters, portals, PDFs, and emails: renewals, appeals, benefits, licenses, insurance forms, school forms, and city notices.",
+    "howToBuild": "Gmail/file watcher for official-looking documents → date and requirement extraction → DuckDB deadline table → SMS reminders → private dashboard with status and source links.",
+    "monetization": "Personal admin template, caregiver tool, or nonprofit support service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10054
+  },
+  {
+    "name": "Review Contradiction Finder",
+    "category": "Data/research tools",
+    "description": "Reads reviews for a hotel, product, restaurant, tool, or service and finds the contradictions: “quiet” vs “walls are paper,” “great support” vs “support disappeared,” “clean” vs “bugs.” It shows what kind of buyer had which experience.",
+    "howToBuild": "URL/product intake → browser scraping or pasted review import → sentiment/topic clustering → contradiction report → confidence notes → shareable comparison page.",
+    "monetization": "Affiliate research tool, consumer report product, or purchase-decision assistant.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10055
+  },
+  {
+    "name": "Small Claims Packet Builder",
+    "category": "Civic/public interest",
+    "description": "Turns a messy consumer dispute into a clear packet: timeline, evidence list, amount requested, contact attempts, supporting documents, and a plain-language summary. It does not give legal advice. It organizes the mess.",
+    "howToBuild": "File upload workspace → timeline extractor → evidence tagger → letter and packet templates → private review page → PDF/markdown export.",
+    "monetization": "Consumer advocacy service, legal-aid intake helper, or personal tool.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10056
+  },
+  {
+    "name": "Tool Regret Ledger",
+    "category": "Business & strategy",
+    "description": "Tracks software subscriptions and asks the question nobody asks at renewal time: did this thing actually earn its keep? It connects cost, usage notes, project outcomes, and replacement options.",
+    "howToBuild": "Bank/receipt CSV import → subscription detector → manual value scoring → project link notes → renewal reminder automation → cancellation packet generator.",
+    "monetization": "Subscription audit service or personal finance tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10057
+  },
+  {
+    "name": "Local Sponsor Matchmaker",
+    "category": "Commerce",
+    "description": "Helps a small event, newsletter, sports team, or community project find plausible sponsors by matching audience, geography, budget, and business type. Generates outreach packets that do not sound like a desperate template.",
+    "howToBuild": "Project profile intake → local business research → fit scoring → sponsorship tier generator → Gmail draft creation → follow-up tracker.",
+    "monetization": "Direct sponsorship sales, local media tool, or freelance service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10058
+  },
+  {
+    "name": "The Boring Asset Index",
+    "category": "Personal tools",
+    "description": "Makes an inventory of important-but-boring assets: appliances, electronics, tools, bikes, documents, accounts, keys, warranties, serial numbers, and who knows what. It becomes useful the day something breaks, disappears, or needs proving.",
+    "howToBuild": "Mobile-friendly private form → photo upload → OCR/serial extraction → DuckDB inventory → warranty/maintenance reminders → export bundle by category.",
+    "monetization": "Personal use, insurance prep service, or homeowner/renter template.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10059
+  },
+  {
+    "name": "FOIA Request Workshop",
+    "category": "Civic/public interest",
+    "description": "Helps a person draft a public records request that is specific enough to work. It studies the agency, suggests record types, narrows date ranges, removes vague language, and tracks responses.",
+    "howToBuild": "Agency/topic intake → web research on records rules → request draft generator → tracker database → calendar reminders → response archive.",
+    "monetization": "Civic tool, newsroom support product, or advocacy workflow.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10060
+  },
+  {
+    "name": "Porchlight Page",
+    "category": "Local/community tools",
+    "description": "Creates a simple public page for “is this happening?” local questions: road closure, boil notice, school delay, clinic hours, wildfire smoke, missing pet, event moved. It favors verified links and timestamps over rumor screenshots.",
+    "howToBuild": "Public zo.space page → source list → manual or scheduled verification checks → status cards → SMS/email digest option → admin approval queue.",
+    "monetization": "Community sponsor slots, donation page, or local information service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10061
+  },
+  {
+    "name": "Secondhand Value Scout",
+    "category": "Commerce",
+    "description": "Helps thrift sellers, collectors, and normal people decide whether an item is worth listing. It checks sold prices, condition notes, shipping pain, likely keywords, and whether the market is fake-hyped or actually moving.",
+    "howToBuild": "Photo/text intake → web research across resale sites → sold-price table → listing draft generator → margin calculator → saved item database.",
+    "monetization": "Reseller tool, paid listing prep service, or niche product research.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10062
+  },
+  {
+    "name": "Meeting Shadow Notes",
+    "category": "Personal tools",
+    "description": "Turns rough meeting notes into an accountability layer: decisions, promises, owners, open questions, risks, and “things people carefully avoided saying.” It is less meeting minutes, more memory with teeth.",
+    "howToBuild": "Notes/transcript upload → extraction prompt → action item database → follow-up email drafts → calendar reminders → private project timeline.",
+    "monetization": "Team ops tool, freelancer client-management workflow, or personal executive assistant.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10063
+  },
+  {
+    "name": "Policy Change Watchtower",
+    "category": "Civic/public interest",
+    "description": "Watches specific agency pages, city council agendas, school board packets, or company policy pages and alerts when language changes. It stores before/after diffs so changes cannot quietly vanish.",
+    "howToBuild": "URL watchlist → scheduled page fetch → text extraction and diffing → DuckDB change log → email/SMS alerts → public archive route if approved.",
+    "monetization": "Advocacy monitoring product, newsroom tool, or internal compliance tracker.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10064
+  },
+  {
+    "name": "The Kind Resignation Builder",
+    "category": "Career & professional",
+    "description": "Helps someone leave a role without lighting unnecessary fires. It builds a resignation plan, transition checklist, asset handoff, message drafts, and a boundary script for the weird conversations.",
+    "howToBuild": "Situation intake → timeline builder → task checklist → document handoff folder → email drafts → calendar reminders for transition steps.",
+    "monetization": "Career coaching asset, HR template, or personal tool.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10065
+  },
+  {
+    "name": "Repair or Replace Judge",
+    "category": "Personal tools",
+    "description": "Decides whether to repair, replace, sell, or live with a broken item. It pulls purchase date, warranty, local repair options, parts cost, used replacement cost, and environmental notes into one decision brief.",
+    "howToBuild": "Item intake → receipt/warranty lookup → local maps/web research → parts/replacement price search → decision rubric → saved repair log.",
+    "monetization": "Consumer tool, repair-shop lead magnet, or household ops template.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10066
+  },
+  {
+    "name": "Creator Back Catalog Miner",
+    "category": "Content/media",
+    "description": "Finds reusable assets hiding in old posts, notes, videos, newsletters, and drafts: ideas that can become guides, paid templates, short posts, lead magnets, or product docs.",
+    "howToBuild": "Folder/Substack/RSS import → topic clustering → evergreen score → asset recommendation cards → draft generator → approval queue.",
+    "monetization": "Creator revenue workflow, content audit service, or Substack companion.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10067
+  },
+  {
+    "name": "Family Tech Translator",
+    "category": "Personal tools",
+    "description": "Explains confusing tech tasks for non-technical relatives in plain steps: setting up 2FA, checking scams, exporting photos, canceling a subscription, reading a medical portal message, or backing up files.",
+    "howToBuild": "Task intake → safe instruction generator → screenshot-friendly checklist → optional SMS/email send → saved family playbook with repeated tasks.",
+    "monetization": "Personal use, senior tech support service, or local workshop material.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10068
+  },
+  {
+    "name": "Silent Churn Detector",
+    "category": "Commerce",
+    "description": "Watches for signs that a customer, sponsor, reader, or client is fading before they fully disappear: slower replies, fewer opens, fewer visits, unpaid invoices, reduced usage, or weaker signals.",
+    "howToBuild": "CRM/customer CSV import → Gmail/newsletter/payment signal checks → risk scoring → follow-up suggestions → weekly retention brief.",
+    "monetization": "Small business retention tool or consultant service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10069
+  },
+  {
+    "name": "The Donation Page Doctor",
+    "category": "Civic/public interest",
+    "description": "Audits a nonprofit, mutual aid, or community donation page for trust, clarity, urgency, proof, payment friction, and follow-up. Then it drafts a cleaner page and thank-you flow.",
+    "howToBuild": "URL intake → page analysis → trust checklist → copy rewrite → Stripe/payment flow notes → email thank-you sequence draft.",
+    "monetization": "Nonprofit consulting product, local civic service, or free public-good tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10070
+  },
+  {
+    "name": "“Where Did This Come From?” File Detective",
+    "category": "Data/research tools",
+    "description": "Looks at a mysterious file and reconstructs likely origin, purpose, creation context, related files, and whether it can be safely deleted or archived.",
+    "howToBuild": "File picker → metadata inspection → nearby folder scan → content summary → duplicate search → decision report with keep/archive/delete recommendation.",
+    "monetization": "Personal file cleanup tool or digital decluttering service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10071
+  },
+  {
+    "name": "Community Skill Exchange Board",
+    "category": "Local/community tools",
+    "description": "Creates a local board where people trade practical help: rides, tutoring, yard work, computer help, cooking, repair, childcare swaps, and tool lending. It includes moderation and clear boundaries instead of chaos.",
+    "howToBuild": "Public zo.space board → submission form → private moderation queue → tag filters → email/SMS notifications → simple trust/safety rules page.",
+    "monetization": "Community project, sponsor-supported board, or local membership product.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10072
+  },
+  {
+    "name": "Software Migration Sherpa",
+    "category": "Developer tools",
+    "description": "Helps move from one tool to another without losing the plot: Notion to markdown, Google Drive to local folders, Substack to archive, Airtable to DuckDB, old site to new site.",
+    "howToBuild": "Source/destination intake → export checklist → file converter scripts → validation report → migration log → rollback notes.",
+    "monetization": "Migration service, paid template, or technical consulting workflow.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10073
+  },
+  {
+    "name": "The “Should I Say Yes?” Filter",
+    "category": "Personal tools",
+    "description": "Turns vague opportunities into a decision brief: actual cost, time load, upside, values fit, deadline pressure, hidden obligations, and what saying yes blocks.",
+    "howToBuild": "Opportunity intake form → calendar/task load check → rubric scoring → counterfactual notes → decision archive → follow-up reminder.",
+    "monetization": "Coaching tool, freelancer boundary system, or personal operating workflow.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10074
+  },
+  {
+    "name": "Local Disaster Prep Binder",
+    "category": "Local/community tools",
+    "description": "Builds a practical emergency binder for a specific place: evacuation routes, shelters, alerts, medication lists, pet plans, documents, local hazards, phone numbers, and offline printables.",
+    "howToBuild": "Location intake → local emergency source research → checklist generator → private document vault → printable PDF/markdown binder → seasonal review reminders.",
+    "monetization": "Public safety project, local workshop product, or family preparedness service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10075
+  },
+  {
+    "name": "Contract Red Flag Reader",
+    "category": "Business & strategy",
+    "description": "Reads a contract, proposal, lease, or service agreement and explains the weird parts: auto-renewal, liability, payment timing, IP ownership, termination, vague deliverables, and missing protections. Not legal advice. Better questions.",
+    "howToBuild": "PDF/doc upload → clause extraction → red-flag checklist → plain-English summary → question list → negotiation email draft.",
+    "monetization": "Freelance admin tool, consultant service, or small business intake product.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10076
+  },
+  {
+    "name": "The Local Price Memory",
+    "category": "Data/research tools",
+    "description": "Tracks the prices of local basics over time: motel rooms, gas, groceries, firewood, storage units, event tickets, repair services. Useful when “that seems high” needs proof.",
+    "howToBuild": "Manual capture form + scheduled web checks → price table in DuckDB → charts on private/public page → change alerts → monthly summary.",
+    "monetization": "Local data newsletter, household budget tool, or community research project.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10077
+  },
+  {
+    "name": "Tiny Apprenticeship Builder",
+    "category": "Learning & skill-building",
+    "description": "Turns someone’s real goal into a tiny apprenticeship: observe examples, copy one, modify one, build one, explain one. It uses their actual files and projects instead of fake exercises.",
+    "howToBuild": "Goal intake → example finder → exercise generator → file-based practice tasks → answer review → progress log.",
+    "monetization": "Personalized learning product, tutoring add-on, or internal training tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10078
+  },
+  {
+    "name": "Source-of-Truth Cleaner",
+    "category": "Data/research tools",
+    "description": "Finds where reality is split across too many files: three pricing docs, two bios, old policies, duplicate specs, conflicting notes. It builds a merge plan and marks stale copies.",
+    "howToBuild": "Folder scan → similarity/duplicate detection → conflict extraction → source-of-truth recommendation → update checklist → archive script after approval.",
+    "monetization": "Ops cleanup service, documentation audit, or personal knowledge-base tool.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10079
+  },
+  {
+    "name": "Good Enough Launch Judge",
+    "category": "Developer tools",
+    "description": "Looks at a project and decides whether it is launchable, embarrassing-but-useful, or still fake. It checks broken links, missing docs, core flows, copy clarity, performance, setup instructions, and obvious trust gaps.",
+    "howToBuild": "Repo/site intake → build/test commands → link audit → screenshot pass → README check → launch-readiness scorecard → fix list.",
+    "monetization": "Indie launch audit, agency QA service, or internal release gate.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10080
+  },
+  {
+    "name": "Food Waste Archaeologist",
+    "category": "Personal tools",
+    "description": "Studies what you actually throw away or forget in the fridge, then changes your grocery list and meal plan. It treats food waste like a data problem, not a morality lecture.",
+    "howToBuild": "Quick waste log → receipt/grocery import → meal plan notes → pattern detection → shopping list adjustment → weekly SMS with one change.",
+    "monetization": "Household tool, sustainability workshop, or grocery planning product.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10081
+  },
+  {
+    "name": "Neighborhood Noise Log",
+    "category": "Local/community tools",
+    "description": "Keeps a timestamped record of recurring noise, nuisance, construction, traffic, or event issues. It turns scattered complaints into a clear timeline with evidence and calm language.",
+    "howToBuild": "Mobile form → optional audio/photo attachment → event database → pattern summary → letter draft → export packet.",
+    "monetization": "Personal admin tool, tenant support workflow, or civic data project.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10082
+  },
+  {
+    "name": "“Explain My Benefits Letter” Reader",
+    "category": "Personal tools",
+    "description": "Reads a confusing benefits, insurance, school, tax, or government letter and extracts the actual decision, deadline, requested action, appeal path, and documents needed.",
+    "howToBuild": "PDF/photo upload → OCR/text extraction → decision parser → deadline reminders → checklist page → appeal/request draft.",
+    "monetization": "Personal admin helper, nonprofit intake tool, or caseworker support product.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10083
+  },
+  {
+    "name": "Productized Service Foundry",
+    "category": "Commerce",
+    "description": "Turns a messy skill into a productized service with a scope, price, intake form, delivery packet, payment link, and fulfillment checklist. Good for people who can do useful work but hate packaging it.",
+    "howToBuild": "Skill/service intake → offer design rubric → Stripe product draft → landing page copy → intake form → delivery checklist → follow-up automation.",
+    "monetization": "Direct use. This creates sellable services.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10084
+  },
+  {
+    "name": "Personal Search Engine for Past Decisions",
+    "category": "Personal tools",
+    "description": "Lets you search your old decisions by situation: why you picked one tool, why a project was paused, why you said no, what evidence mattered, and whether the decision aged well.",
+    "howToBuild": "Decision note template → workspace folder index → semantic/tag search → outcome review reminders → private zo.space search page.",
+    "monetization": "Personal operating system feature, founder tool, or writing/research assistant.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10085
+  },
+  {
+    "name": "Tiny Terms of Service Watcher",
+    "category": "Data/research tools",
+    "description": "Watches terms, privacy policies, creator program rules, API limits, and pricing pages for changes that affect your work. It produces a plain-English “what changed and why it matters” note.",
+    "howToBuild": "URL watchlist → scheduled fetch/diff → change classifier → impact summary → email alert → archive of previous versions.",
+    "monetization": "Creator/business monitoring product or compliance-lite service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10086
+  },
+  {
+    "name": "The Polite Pestering Machine",
+    "category": "Personal tools",
+    "description": "Follows up on things that should not require heroic memory: refunds, invoices, applications, support tickets, medical records, contractor estimates, collaboration promises. It drafts calm follow-ups on schedule.",
+    "howToBuild": "Follow-up item form → due date tracker → Gmail draft generator → SMS review reminder → status dashboard → escalation template.",
+    "monetization": "Freelancer admin tool, personal assistant template, or small business workflow.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10087
+  },
+  {
+    "name": "Pop-Up Research Desk",
+    "category": "Content/media",
+    "description": "Creates a temporary research headquarters for one topic: source list, reading queue, claim tracker, interview questions, open tabs, citations, and a final brief. Useful when curiosity turns into a project and the browser starts breeding tabs.",
+    "howToBuild": "Topic intake → web research → source database → citation notes → claim tracker → markdown research brief → optional public reading list page.",
+    "monetization": "Research service, journalist workflow, creator research product, or paid briefing packet.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10088
+  },
+  {
+    "name": "Decision Receipts for Teams",
+    "category": "Business & strategy",
+    "description": "Creates a record of why a team made a decision before everyone rewrites history. It captures options, evidence, objections, owner, date, and what would make the team revisit it.",
+    "howToBuild": "Decision form → meeting notes import → ADR-style markdown generator → searchable private page → revisit reminders → weekly digest.",
+    "monetization": "Team ops template, consulting tool, or internal knowledge product.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10089
+  },
+  {
+    "name": "Personal API Catalog",
+    "category": "Developer tools",
+    "description": "Keeps track of every API key, webhook, endpoint, integration, and service you rely on without storing secrets in the wrong place. It documents what exists and what would break if it changed.",
+    "howToBuild": "Manual service registry → environment variable name references → endpoint checker → webhook test notes → private docs page → rotation reminders.",
+    "monetization": "Dev ops template, freelancer handoff product, or internal reliability tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10090
+  },
+  {
+    "name": "The “Is This Scammy?” Lens",
+    "category": "Personal tools",
+    "description": "Reviews an email, website, DM, invoice, job offer, product page, or fundraising request and explains the risk signals in plain language. It does not panic. It points to evidence.",
+    "howToBuild": "Paste/upload intake → sender/domain checks → claim extraction → web corroboration → risk score → safe next steps.",
+    "monetization": "Family tech support product, consumer safety tool, or public education site.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10091
+  },
+  {
+    "name": "Hyperlocal FAQ Builder",
+    "category": "Local/community tools",
+    "description": "Builds a public FAQ for questions people ask over and over in a town, organization, school, church, club, or neighborhood: hours, forms, rules, contacts, recurring events, and “who do I call?” answers.",
+    "howToBuild": "Source document import → question extraction → answer drafting with citations → public zo.space FAQ → correction submission form → review queue.",
+    "monetization": "Local web service, civic project, or maintenance retainer.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10092
+  },
+  {
+    "name": "Personal Knowledge Decay Monitor",
+    "category": "Personal tools",
+    "description": "Finds notes, docs, and assumptions that are likely stale: old setup instructions, outdated prices, links that moved, plans that no longer match reality, and advice from a previous version of your life.",
+    "howToBuild": "Workspace scan → last-modified analysis → link checking → stale-risk scoring → review queue → archive/update suggestions.",
+    "monetization": "Knowledge-base cleanup service or personal ops tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10093
+  },
+  {
+    "name": "Micro-SaaS Fulfillment Desk",
+    "category": "Micro-SaaS",
+    "description": "Gives a tiny paid product the boring backend it needs: order intake, fulfillment status, customer messages, delivery files, refund notes, and weekly revenue summary.",
+    "howToBuild": "Stripe orders → workspace customer folders → fulfillment checklist → Gmail draft templates → private dashboard → weekly sales email.",
+    "monetization": "Direct use for paid templates, audits, reports, or small services.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10094
+  },
+  {
+    "name": "Local Contractor Memory",
+    "category": "Local/community tools",
+    "description": "Tracks contractor quotes, timelines, reliability, photos, warranties, and follow-up promises. Over time it becomes a private or shared memory of who actually showed up and what work cost.",
+    "howToBuild": "Quote/photo upload → contact records → project timeline → cost table → review notes → warranty/reminder automation.",
+    "monetization": "Personal household tool, neighborhood resource, or local homeowner service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10095
+  },
+  {
+    "name": "Open Source Maintainer Radar",
+    "category": "Developer tools",
+    "description": "Watches the projects you depend on for releases, breaking changes, maintainer burnout signals, security notices, and issue patterns before they surprise you.",
+    "howToBuild": "GitHub repo watchlist → release/feed checks → issue/PR summary → dependency impact notes → weekly maintainer health brief.",
+    "monetization": "Dev team monitoring service, consultant tool, or personal dependency dashboard.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10096
+  },
+  {
+    "name": "The Humane Rejection Writer",
+    "category": "Personal tools",
+    "description": "Helps say no without sounding cold, fake, or over-explaining: invitations, collaborations, unpaid work, client scope creep, awkward requests, and opportunities that are not right.",
+    "howToBuild": "Situation intake → relationship/context questions → boundary tone selector → draft generator → saved phrase bank.",
+    "monetization": "Freelancer tool, coaching resource, or personal communication assistant.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10097
+  },
+  {
+    "name": "Dataset Storyboarder",
+    "category": "Data/research tools",
+    "description": "Turns a raw dataset into a set of story angles: what changed, what is weird, what is missing, which rows deserve inspection, and which chart would actually explain something.",
+    "howToBuild": "CSV/DuckDB import → schema scan → anomaly checks → question generator → chart suggestions → markdown research memo.",
+    "monetization": "Data journalism helper, analyst tool, or research service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10098
+  },
+  {
+    "name": "Private Job Search War Room",
+    "category": "Career & professional",
+    "description": "Runs a job search like a campaign: target companies, contact history, tailored resumes, application status, interview prep, follow-up drafts, and red-flag notes.",
+    "howToBuild": "Job URL intake → company research → application tracker → resume/cover letter draft folder → calendar reminders → private dashboard.",
+    "monetization": "Career coaching tool, personal use, or paid setup package.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10099
+  },
+  {
+    "name": "The Small Town Web Reviver",
+    "category": "Local/community tools",
+    "description": "Finds local organizations with broken, outdated, or missing web presence and turns that into a practical service pipeline: what is broken, who to contact, what a simple fix would cost, and a ready-to-send pitch.",
+    "howToBuild": "Local organization source list → website scan → screenshot capture → issue scoring → offer page generator → outreach draft queue.",
+    "monetization": "Freelance pipeline, local web service, or civic improvement project.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10100
+  }
+]

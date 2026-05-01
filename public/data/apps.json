@@ -1,0 +1,1902 @@
+[
+  {
+    "id": 1,
+    "name": "Invoice Autopilot",
+    "category": "Personal tools",
+    "description": "Watches your Gmail for invoices and bills (using subject line patterns and sender filters), extracts amounts and due dates, writes them to a DuckDB dataset, and sends you a weekly SMS digest of upcoming payments with totals. Flags anything over a threshold you set.",
+    "howToBuild": "Scheduled agent (daily) polling Gmail integration for invoices → Python script to parse amounts/dates → DuckDB dataset for history → SMS via `send_sms_to_user` for weekly summary → zo.space dashboard page for full history view.",
+    "monetization": "Personal use. Could package as a Zo Skill others install.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 2,
+    "name": "Bookmark Brain",
+    "category": "Personal tools",
+    "description": "A personal link archive with full-text search. Send a URL to your Zo email or Telegram, and it fetches the page, saves a clean markdown version, generates a one-paragraph summary, and tags it with auto-detected topics. Browse and search everything from a zo.space page.",
+    "howToBuild": "Scheduled agent checking Telegram/email for URLs → `read_webpage` to fetch and convert → markdown files in workspace → API route for full-text search via `grep_search` → React page with search UI and tag filtering.",
+    "monetization": "Free / personal. Publishable as a Zo Skill.",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 3,
+    "name": "Client Portal Generator",
+    "category": "Micro-SaaS",
+    "description": "Freelancers create a private, password-protected page per client at `handle.zo.space/clients/clientname`. Each portal shows project status, shared files (via zo.pub links), invoice history, and a simple message form that emails the freelancer. Clients get a clean, branded experience instead of scattered emails.",
+    "howToBuild": "zo.space pages (one per client, private with bearer auth) → JSON config files per client in workspace → API routes for message submission (triggers `send_email_to_user`) → zo.pub collections for file sharing → Stripe payment links for invoices.",
+    "monetization": "Use free, sell as a template/skill ($29-49 one-time).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 4,
+    "name": "RSS Digest Machine",
+    "category": "Personal tools",
+    "description": "Aggregates 10-20 RSS feeds you care about, runs each new post through a summarization prompt, scores relevance against your stated interests, and delivers a ranked morning briefing via email or Telegram. Includes \"deep read\" links and one-line summaries.",
+    "howToBuild": "Scheduled agent (6am daily) → Bun script fetching RSS feeds → `/zo/ask` API for parallel summarization of new posts → scoring logic in TypeScript → `send_email_to_user` or `send_telegram_message` for delivery → workspace JSON for feed config and read-state tracking.",
+    "monetization": "Personal use. Could sell curated topic-specific digests via Stripe ($3/mo).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 5,
+    "name": "Meeting Prep Bot",
+    "category": "Personal tools",
+    "description": "Runs 30 minutes before each Google Calendar event. Pulls the attendee list, searches your Gmail for recent threads with those people, checks LinkedIn profiles via web research, and sends you a Telegram message with context: what you last discussed, their role, and any open threads.",
+    "howToBuild": "Scheduled agent (every 15 min) → Google Calendar integration to check upcoming events → Gmail search for attendee email threads → `web_research` for attendee background → `send_telegram_message` with formatted briefing.",
+    "monetization": "Personal productivity. Skill template for $19.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 6,
+    "name": "Micro-Course Platform",
+    "category": "Commerce",
+    "description": "Host and sell short courses (5-10 lessons each) as a series of zo.space pages. Lessons are markdown with embedded images and video links. Students buy access via Stripe payment link, receive a bearer token, and access gated content. Progress tracked per-token in a JSON file.",
+    "howToBuild": "zo.space pages per lesson (private, bearer-auth gated) → API routes for progress tracking → Stripe Connect for payments → webhook route to generate and email access tokens on purchase → workspace markdown files for course content → `generate_image` for lesson illustrations.",
+    "monetization": "Direct sales. $19-99 per course.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 7,
+    "name": "Competitive Price Tracker",
+    "category": "Data/research tools",
+    "description": "Monitors competitor pricing pages on a schedule. Uses browser automation to visit up to 20 URLs daily, extracts pricing info, diffs against previous snapshots, and alerts you via SMS when a competitor changes their pricing. Stores full history in DuckDB for trend analysis.",
+    "howToBuild": "Scheduled agent (daily) → `open_webpage`/`view_webpage` to scrape pricing pages → Python diff logic → DuckDB dataset for price history → `send_sms_to_user` on changes → zo.space dashboard showing price timeline charts.",
+    "monetization": "Personal/business use. Could sell as a service for e-commerce shops ($9/mo per 20 URLs).",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 8,
+    "name": "Daily Standup Collector",
+    "category": "Local/community tools",
+    "description": "For small remote teams without Slack. Each team member texts or emails their standup to a shared Zo address. A scheduled agent compiles all responses into a formatted daily digest and emails it to the whole team. Standups are archived and searchable.",
+    "howToBuild": "API route as email/SMS webhook receiver → workspace markdown files per day → scheduled agent (10am) to compile and send digest via Gmail integration → zo.space page for standup archive with date browsing → DuckDB for search/analytics on standup themes.",
+    "monetization": "Free for small teams. $5/user/mo for archival and analytics features.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 9,
+    "name": "Font Pairing Tester",
+    "category": "Creative tools",
+    "description": "A zo.space page where you type in any two Google Fonts names and instantly preview them together across common UI patterns: hero section, article body, card component, pricing table. Saves favorite pairings to your workspace and exports CSS variables.",
+    "howToBuild": "Single zo.space page with React → Google Fonts API for dynamic font loading → localStorage for favorites → API route to save pairings to workspace JSON → export button generating CSS/Tailwind config snippets.",
+    "monetization": "Free tool, drive traffic to a design service or portfolio.",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 10,
+    "name": "Warranty Vault",
+    "category": "Personal tools",
+    "description": "Photograph or forward receipts to your Zo email. An agent extracts the product name, purchase date, and warranty period (using vision for images, text parsing for emails). Stores everything in DuckDB. Sends you a reminder 30 days before each warranty expires.",
+    "howToBuild": "Scheduled agent checking Gmail for receipts → `read_file` with image support for photos → `/zo/ask` for extraction → DuckDB dataset → scheduled agent (daily) checking upcoming expirations → `send_sms_to_user` for reminders → zo.space page for browsing all warranties.",
+    "monetization": "Personal use. Skill template.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 11,
+    "name": "Local Event Aggregator",
+    "category": "Local/community tools",
+    "description": "Scrapes event listings from 5-10 local sources (library calendar, city website, Facebook pages, Eventbrite) for a specific town or region. Deduplicates, categorizes, and publishes a clean weekly events page at your zo.space. Sends a Friday SMS/email digest to subscribers.",
+    "howToBuild": "Scheduled agent (daily) → browser automation for Facebook/local sites → `read_webpage` for simpler sources → DuckDB for event storage and dedup → zo.space public page with filterable event list → API route for email subscription → scheduled agent (Fridays) sending digest via Gmail.",
+    "monetization": "Free, sponsored by local businesses ($25-50/mo per sponsor listing). Or $2/mo subscriber newsletter.",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 12,
+    "name": "Screenshot-to-Code Converter",
+    "category": "Creative tools",
+    "description": "Upload a screenshot of any UI to a zo.space page. An API route sends the image to your LLM via `/zo/ask` with a detailed prompt to generate React + Tailwind code that replicates the design. Returns editable code you can copy or save to your workspace.",
+    "howToBuild": "zo.space page with file upload → API route receiving the image → `update_space_asset` for temp storage → `/zo/ask` with the image path and code-generation prompt → returns JSX/Tailwind code → React page displays with syntax highlighting and copy button.",
+    "monetization": "Free tool for portfolio traffic. Or gated behind Stripe ($5/mo for unlimited conversions).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 13,
+    "name": "Podcast Show Notes Generator",
+    "category": "Content/media",
+    "description": "Upload an audio file. Zo transcribes it, identifies key topics and timestamps, generates a structured summary with chapter markers, pulls out quotable moments, and creates a shareable zo.space page with an embedded audio player. One command, full show notes.",
+    "howToBuild": "`transcribe_audio` for transcript → `/zo/ask` for structured summary extraction (chapters, quotes, key points) → `create_or_rewrite_file` for markdown → zo.space public page with HTML5 audio player + show notes → `update_space_asset` for the audio file.",
+    "monetization": "Offer as a service to podcasters. $5 per episode or $29/mo unlimited.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 14,
+    "name": "Stripe Revenue Dashboard",
+    "category": "Commerce",
+    "description": "A private zo.space page that displays your Stripe Connect revenue in real-time: daily/weekly/monthly totals, top products, recent orders, and a simple line chart of revenue over time. Auto-refreshes. No third-party analytics tool needed.",
+    "howToBuild": "zo.space private page → API route querying Stripe via `list_stripe_orders` → JavaScript charting (inline SVG or canvas) → auto-refresh with `setInterval` → bearer-auth protected API endpoints → DuckDB for historical aggregation beyond what Stripe API returns.",
+    "monetization": "Personal use. Template for other Zo sellers ($19).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 15,
+    "name": "Cold Email Research Assistant",
+    "category": "Micro-SaaS",
+    "description": "Give it a company name. It researches the company (website, recent news, funding, team), finds likely decision-maker contacts via LinkedIn/web research, drafts a personalized cold email referencing specific company details, and saves everything to a workspace folder. Batch-process a CSV of targets.",
+    "howToBuild": "Python script → `web_research` (category: company) for company intel → `web_research` (category: linkedin_profile) for contacts → `/zo/ask` for email drafting with company context → CSV input/output → workspace folder per company → optional Gmail draft creation via integration.",
+    "monetization": "Use personally. Sell as a Zo Skill ($49 one-time). Or charge per batch via Stripe ($0.50/company).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 16,
+    "name": "Neighborhood Watch Board",
+    "category": "Local/community tools",
+    "description": "A public zo.space page where neighbors can report and view local incidents, lost pets, and community alerts. Simple form submission, no login required (honeypot spam protection). Posts display on a reverse-chronological feed. Admin (you) moderates via a private page.",
+    "howToBuild": "Public zo.space page for the feed → API route for form submissions (writes to workspace JSON) → private admin page for moderation (approve/delete) → `send_sms_to_user` when new posts arrive for moderation → optional `generate_image` for a community-branded header.",
+    "monetization": "Free community tool. Accept donations or local business sponsorships.",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 17,
+    "name": "Writing Voice Analyzer",
+    "category": "Creative tools",
+    "description": "Paste in 3-5 samples of your writing. The tool analyzes sentence length distribution, vocabulary complexity, tone markers, recurring phrases, and structural patterns. Outputs a \"voice profile\" you can save and reference — or use as a system prompt for AI writing tools to match your style.",
+    "howToBuild": "zo.space page with textarea input → API route sending samples to `/zo/ask` with detailed analysis prompt → Python script for quantitative metrics (sentence length histogram, vocabulary stats, readability scores) → returns both the LLM qualitative profile and hard metrics → save to workspace as a reusable voice profile markdown file.",
+    "monetization": "Free tool for writers. Premium: compare your voice against published authors ($3/analysis).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 18,
+    "name": "Substack Backup & Mirror",
+    "category": "Content/media",
+    "description": "Automatically backs up all your Substack posts to your Zo workspace as markdown files. Optionally mirrors them as a searchable archive on zo.space — your content, your server, independent of any platform. Runs weekly to catch new posts.",
+    "howToBuild": "Scheduled agent (weekly) → browser automation logged into Substack → scrape post list and content → `read_webpage` for each post → save as markdown to workspace → zo.space public page rendering the archive with search → DuckDB index for full-text search API route.",
+    "monetization": "Personal backup. Skill template for other Substack writers ($15).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 19,
+    "name": "API Health Monitor",
+    "category": "Micro-SaaS",
+    "description": "Pings a list of API endpoints every 5 minutes, checks response codes and latency. If anything goes down or gets slow, sends an immediate SMS alert. Logs all checks to DuckDB. Displays a public or private status page on zo.space showing uptime percentages and response time charts.",
+    "howToBuild": "Scheduled agent (every 5 min) → Bun script hitting endpoints with `fetch` → DuckDB dataset for check history → `send_sms_to_user` on failures → zo.space status page with uptime bars and latency sparklines → API route serving JSON for external consumption.",
+    "monetization": "Free for 3 endpoints. $5/mo for 25 endpoints via Stripe.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 20,
+    "name": "Recipe Scaler & Meal Planner",
+    "category": "Personal tools",
+    "description": "Paste a recipe URL. Zo fetches it, strips the SEO garbage, extracts the actual recipe, and saves a clean version to your workspace. Scale servings up or down with auto-adjusted quantities. Plan a week of meals and generate a consolidated grocery list as a checkable zo.space page.",
+    "howToBuild": "zo.space page with URL input → `read_webpage` to fetch recipe → `/zo/ask` to extract structured recipe data (ingredients with quantities, steps) → workspace JSON per recipe → meal planner page with drag-and-drop weekly view → API route that aggregates and deduplicates ingredient lists → printable grocery list page.",
+    "monetization": "Free personal tool. Share recipes via zo.pub links.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 21,
+    "name": "Client Testimonial Collector",
+    "category": "Commerce",
+    "description": "Generate a unique link per client. They visit a clean zo.space form, type their testimonial, optionally upload a headshot. You get an SMS notification, approve it from a private admin page, and approved testimonials auto-appear on a public testimonial wall you can embed or link from your portfolio.",
+    "howToBuild": "zo.space public form page (dynamic route `/testimonial/:token`) → API route for submission → workspace JSON storage → `send_sms_to_user` on new submission → private admin page for approve/reject → public wall page rendering approved testimonials → `update_space_asset` for headshot uploads.",
+    "monetization": "Free for personal use. Sell as a white-label service for agencies ($9/mo).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 22,
+    "name": "Domain Name Generator & Checker",
+    "category": "Creative tools",
+    "description": "Describe your project in a sentence. Zo generates 50 domain name ideas using multiple strategies (portmanteau, metaphor, prefix/suffix, foreign words), then checks availability via WHOIS lookups. Returns a ranked list with availability status, estimated price, and registration links.",
+    "howToBuild": "zo.space page with text input → API route calling `/zo/ask` for name generation → Bun script running `whois` CLI checks in parallel → results sorted by availability and quality score → links to Namecheap/Porkbun for registration → save searches to workspace for reference.",
+    "monetization": "Free tool that drives affiliate registrar links. Or $1 per search via Stripe.",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 23,
+    "name": "Personal CRM",
+    "category": "Personal tools",
+    "description": "Track every person who matters to your work or life. Add contacts with context (how you met, what you discussed, follow-up dates). A scheduled agent reminds you when it's time to reach out to someone you haven't contacted in a while. Pulls in recent Gmail threads with each contact automatically.",
+    "howToBuild": "DuckDB dataset for contacts and interaction log → zo.space private pages (contact list, individual contact detail) → Gmail integration to pull recent threads by email address → scheduled agent (weekly) checking for stale contacts → `send_telegram_message` for follow-up reminders → API routes for CRUD operations.",
+    "monetization": "Personal use. Package as a Zo Skill.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 24,
+    "name": "Changelog Publisher",
+    "category": "Content/media",
+    "description": "Keep a `changelog.md` in your project folder. A zo.space page automatically renders it as a beautiful, public-facing changelog with dates, version numbers, and categorized entries (Added, Fixed, Changed). Optional RSS feed API route so users can subscribe. Update the markdown, the page updates instantly.",
+    "howToBuild": "zo.space public page reading `/home/workspace/Projects/myproject/changelog.md` at request time → markdown parser in the page component → API route serving RSS/Atom XML → styled with custom typography (Instrument Serif headers, JetBrains Mono for code) → optional `send_email_to_user` notification when the file changes.",
+    "monetization": "Free. Drives credibility for your product.",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 25,
+    "name": "AI Art Prompt Library",
+    "category": "Creative tools",
+    "description": "A searchable, tagged collection of image generation prompts you've tested and liked. Save prompts with their output images, rate them, add notes on what worked. Browse by style, subject, or mood. One-click regenerate with variations. Your personal prompt engineering notebook.",
+    "howToBuild": "zo.space pages (gallery view + detail view) → workspace JSON for prompt metadata and ratings → `generate_image` for regeneration and variations → `update_space_asset` for storing output images → API routes for search and CRUD → DuckDB for advanced filtering and tag queries.",
+    "monetization": "Free personal tool. Sell curated prompt packs via Stripe ($9 for 100 tested prompts).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 26,
+    "name": "Open Source Alternatives Finder",
+    "category": "Data/research tools",
+    "description": "Enter a paid SaaS tool name. Zo searches GitHub, web, and comparison sites to find open-source alternatives, ranks them by stars/activity/features, and presents a comparison table. Saves results as a workspace markdown file. Updated monthly by a scheduled agent for tools you're tracking.",
+    "howToBuild": "zo.space page with search input → API route calling `web_research` (category: github) + `web_search` → `/zo/ask` for comparison analysis → zo.space results page with comparison table → workspace markdown archive → scheduled agent (monthly) re-checking tracked tools for new alternatives.",
+    "monetization": "Free tool for developer traffic. Affiliate links to hosting/services.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 27,
+    "name": "Markdown Resume Builder",
+    "category": "Personal tools",
+    "description": "Write your resume in markdown in your Zo workspace. A zo.space page renders it with professional typography, proper spacing, and print-friendly CSS. An API route generates a PDF version via Pandoc. Switch between 3-4 distinct visual themes. Always current — edit the markdown, the page updates.",
+    "howToBuild": "Workspace markdown file for resume content → zo.space page rendering it with custom CSS (Newsreader for body, Syne for headings) → API route running `pandoc` to generate PDF → `update_space_asset` for the PDF → theme switcher via URL param → print stylesheet for direct browser printing.",
+    "monetization": "Free. Offer custom theme design for $49.",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 28,
+    "name": "Weekly Expense Report Generator",
+    "category": "Personal tools",
+    "description": "Forward receipts to your Zo email all week. Every Friday, a scheduled agent compiles them into a formatted expense report with categories, totals, and attached receipt images. Emails you the report as a PDF and saves it to Google Drive.",
+    "howToBuild": "Scheduled agent (daily) polling Gmail for receipts → extract data via `/zo/ask` with image reading → workspace JSON accumulating the week's expenses → Friday scheduled agent compiling report → Pandoc for PDF generation → Google Drive integration to upload → `send_email_to_user` with summary.",
+    "monetization": "Personal use. Template for freelancers ($19).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 29,
+    "name": "Link-in-Bio Builder",
+    "category": "Content/media",
+    "description": "A single zo.space page at your root (`/`) that serves as your link-in-bio. Edit a workspace JSON file to update links, and the page reflects changes instantly. Tracks click counts via an API route. Custom design — not another Linktree clone with rounded rectangles.",
+    "howToBuild": "zo.space public page at `/` → workspace JSON for link config → API route logging clicks before redirecting → click analytics stored in DuckDB → private analytics dashboard page → custom design with asymmetric layout, distinctive typography (Syne), and intentional color palette.",
+    "monetization": "Free personal use. Sell custom designs for others ($39 setup + $5/mo hosting on their Zo).",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 30,
+    "name": "Competitor Blog Monitor",
+    "category": "Data/research tools",
+    "description": "Track RSS feeds or sitemaps of competitor blogs. When they publish something new, Zo summarizes it, identifies the target keywords, estimates the content strategy angle, and sends you a Telegram briefing. Weekly digest compares publishing frequency and topic trends across all competitors.",
+    "howToBuild": "Scheduled agent (every 6 hours) → Bun script fetching RSS/sitemaps → `read_webpage` for new post content → `/zo/ask` for summary and keyword analysis → `send_telegram_message` for immediate alerts → DuckDB for historical tracking → weekly scheduled agent for trend analysis digest.",
+    "monetization": "Personal/business use. Sell as a service to marketing teams ($19/mo per 10 competitors).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 31,
+    "name": "Micro-Consulting Booking Page",
+    "category": "Commerce",
+    "description": "A public zo.space page advertising 30-minute consulting calls. Visitors select a time slot (pulled from your Google Calendar availability), pay via Stripe, and the event is auto-created on both calendars. You get an SMS confirmation with the buyer's details and any pre-call notes they submitted.",
+    "howToBuild": "zo.space public page with time picker → Google Calendar integration for availability → Stripe payment link for booking → webhook API route handling `checkout.session.completed` → Google Calendar integration to create event → `send_sms_to_user` with booking details → confirmation email to buyer via Gmail.",
+    "monetization": "Direct revenue. $50-200 per session.",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 32,
+    "name": "GitHub Stars Tracker",
+    "category": "Data/research tools",
+    "description": "Track star counts for a list of GitHub repos over time. Scheduled agent logs daily counts to DuckDB. A zo.space page displays growth charts, highlights repos gaining momentum, and alerts you when a repo crosses a threshold (useful for spotting emerging tools before they blow up).",
+    "howToBuild": "Scheduled agent (daily) → `web_research` (category: github) or direct GitHub API via Bun fetch → DuckDB dataset for time series → zo.space page with SVG sparkline charts → SMS alerts when repos cross configurable thresholds → workspace JSON for repo watchlist config.",
+    "monetization": "Free tool. Curated \"rising repos\" newsletter via Stripe subscription ($3/mo).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 33,
+    "name": "Invoice Generator",
+    "category": "Commerce",
+    "description": "Fill in a zo.space form: client name, line items, rates, tax. It generates a professional PDF invoice via Pandoc, saves it to your workspace, optionally emails it to the client via Gmail, and tracks payment status. A dashboard shows outstanding, paid, and overdue invoices.",
+    "howToBuild": "zo.space private page with invoice form → API route generating invoice markdown → Pandoc for PDF → `update_space_asset` to serve the PDF → Gmail integration to send → DuckDB for invoice tracking (status, dates, amounts) → dashboard page with aging report → scheduled agent reminding you about overdue invoices via SMS.",
+    "monetization": "Personal use. Sell template ($29). Or charge per invoice ($0.50) via Stripe.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 34,
+    "name": "Spotify Listening Journal",
+    "category": "Personal tools",
+    "description": "A scheduled agent logs your recently played Spotify tracks daily. Over time, builds a personal music history with listening patterns, top genres by month, and discovery timeline. A zo.space page shows your music journey — what you were listening to on any given date.",
+    "howToBuild": "Scheduled agent (daily, evening) → Spotify integration for recently played → DuckDB dataset for listening history → zo.space private page with calendar view and genre breakdowns → monthly digest comparing listening habits → `generate_d2_diagram` for genre flow visualization.",
+    "monetization": "Personal nostalgia tool. Publish yearly listening reports via zo.pub.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 35,
+    "name": "Freelancer Rate Calculator",
+    "category": "Creative tools",
+    "description": "A public zo.space calculator where freelancers input their desired salary, working hours, vacation days, expenses, and tax bracket. It calculates the hourly/project rate they should charge, with breakdowns and comparisons to industry averages pulled from BLS data. Shareable results URL.",
+    "howToBuild": "zo.space public page with input form → client-side calculation logic in React → `market-research` skill for BLS wage data by occupation → shareable results via URL params → styled with distinctive design (not a generic calculator) → optional PDF export via API route + Pandoc.",
+    "monetization": "Free tool driving traffic to a freelancing blog or community. Affiliate links to freelance platforms.",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 36,
+    "name": "Notion Backup System",
+    "category": "Personal tools",
+    "description": "Weekly scheduled agent exports your entire Notion workspace (or specific databases) to markdown files in your Zo workspace. Maintains folder structure, downloads images. You own your data independent of Notion. Diff reports show what changed week over week.",
+    "howToBuild": "Scheduled agent (weekly) → Notion integration to list and fetch all pages → convert blocks to markdown → save to workspace maintaining Notion's hierarchy → Git-style diff against previous backup → `send_telegram_message` with change summary → zo.pub for shareable backups if desired.",
+    "monetization": "Personal data sovereignty. Zo Skill template ($19).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 37,
+    "name": "Local Business Directory",
+    "category": "Local/community tools",
+    "description": "A curated directory of businesses in your town or region. Not Yelp — a handpicked, opinionated guide by someone who actually lives there. Categories, short reviews, operating hours, map links. Businesses can pay for featured listings. Submit form for new businesses.",
+    "howToBuild": "zo.space public pages (directory home, category pages, individual listings) → workspace JSON/DuckDB for business data → `maps_search` to verify details → submission form with API route → `send_sms_to_user` for new submissions → Stripe payment links for featured listings → scheduled agent verifying business hours monthly.",
+    "monetization": "Featured listings $10-25/mo per business. Affiliate links to booking/ordering platforms.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 38,
+    "name": "Color Palette Generator from Photos",
+    "category": "Creative tools",
+    "description": "Upload a photo. A Python script using PIL extracts the dominant colors via k-means clustering. Displays the palette with hex codes, Tailwind class names, WCAG contrast ratios for text combinations, and a preview of the palette applied to a sample UI component. Export as CSS variables.",
+    "howToBuild": "zo.space page with image upload → API route saving image and calling Python script → `pip install pillow scikit-learn` for color extraction → return palette JSON → React page displaying swatches, contrast matrix, and live UI preview → copy buttons for hex/Tailwind/CSS → save favorites to workspace.",
+    "monetization": "Free tool for designers. Premium: batch process multiple images ($2/batch via Stripe).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 39,
+    "name": "Newsletter Landing Page Kit",
+    "category": "Content/media",
+    "description": "A conversion-optimized newsletter signup page on zo.space. Includes headline, value prop, social proof counter, and email capture form. Submissions are saved to a DuckDB subscriber list and forwarded to your Gmail. When you publish, a scheduled agent sends the latest post to all subscribers.",
+    "howToBuild": "zo.space public page (custom design, not template) → API route for email capture → DuckDB subscriber table → double opt-in flow via Gmail integration → workspace markdown for newsletter drafts → scheduled agent for sending (Gmail batch, respecting rate limits) → unsubscribe API route → zo.space analytics page showing subscriber growth.",
+    "monetization": "Build your audience. Sell premium tiers via Stripe ($5/mo).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 40,
+    "name": "Git Commit Analyzer",
+    "category": "Data/research tools",
+    "description": "Point it at a public GitHub repo. It clones the repo, analyzes commit patterns (frequency, time of day, message quality, file churn), and generates a health report. Identifies bus factor, most active areas, stale files, and commit message consistency. Useful for evaluating open source projects before depending on them.",
+    "howToBuild": "zo.space page with repo URL input → API route cloning repo to temp dir → Python/Bun script analyzing `git log` output → DuckDB for commit data aggregation → `/zo/ask` for qualitative analysis of commit messages → zo.space results page with charts and scores → clean up temp clone after analysis.",
+    "monetization": "Free for public repos. $3/analysis for private repos (authenticated via GitHub).",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 41,
+    "name": "Digital Product Delivery System",
+    "category": "Commerce",
+    "description": "Sell digital files (ebooks, templates, presets, datasets) through Stripe. On purchase, a webhook generates a unique, time-limited download link and emails it to the buyer. Tracks downloads per purchase. Product pages live on zo.space with previews and purchase buttons.",
+    "howToBuild": "zo.space public product pages → Stripe payment links → webhook API route on `checkout.session.completed` → generate unique token, store in DuckDB with expiry → download API route validating token → workspace file storage for products → Gmail integration to email download link → admin dashboard showing sales and download counts.",
+    "monetization": "Direct product sales. Keep 97%+ (only Stripe fees).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 42,
+    "name": "Daily Writing Prompt Generator",
+    "category": "Creative tools",
+    "description": "Every morning, a scheduled agent generates a unique writing prompt based on your configured genres/themes, drawing from a curated seed bank plus creative recombination. Sends it via SMS or Telegram. A zo.space page shows the full archive with a \"write now\" textarea that saves entries to your journal.",
+    "howToBuild": "Scheduled agent (7am daily) → workspace JSON seed bank of themes, settings, constraints → `/zo/ask` with creative generation prompt → `send_sms_to_user` or `send_telegram_message` → zo.space page showing today's prompt and archive → API route saving writing entries to `Persona/Journal/` files.",
+    "monetization": "Free personal use. Sell premium genre-specific prompt packs ($5/mo).",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 43,
+    "name": "Tax Document Organizer",
+    "category": "Personal tools",
+    "description": "Forward tax-related documents (W-2s, 1099s, receipts, statements) to your Zo email year-round. A scheduled agent categorizes them, extracts key numbers, and files them in a structured workspace folder. Come tax time, you have a zo.space summary page with all documents organized by type and totals pre-calculated.",
+    "howToBuild": "Scheduled agent (daily) → Gmail integration filtering tax-related emails → `/zo/ask` with document images/text for data extraction → workspace folder structure (`Taxes/2026/W2/`, `Taxes/2026/1099/`, etc.) → DuckDB for extracted financial data → zo.space private summary page with document links and running totals → zo.pub for sharing with your accountant.",
+    "monetization": "Personal use. Skill template for freelancers ($25).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 44,
+    "name": "Idea Capture → Linear Pipeline",
+    "category": "Personal tools",
+    "description": "Text an idea to your Zo number. A scheduled agent parses it, categorizes it (feature, bug, content, research), and creates a properly formatted Linear issue in the right project with appropriate labels. Reply \"priority\" to the confirmation SMS and it gets marked urgent. No more lost ideas.",
+    "howToBuild": "Telegram/SMS → scheduled agent (every 15 min) checking for new messages → `/zo/ask` to categorize and structure the idea → Linear integration to create issue → `send_sms_to_user` with confirmation and issue link → workspace log for idea history.",
+    "monetization": "Personal productivity. Package as a Zo Skill.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 45,
+    "name": "Public Bookshelf",
+    "category": "Content/media",
+    "description": "A curated, opinionated page of books you've read. Each entry has your rating, a short review (not a summary — your actual take), and genre tags. Searchable, filterable, sorted by \"changed how I think\" rather than star ratings. Add books by editing a workspace YAML file.",
+    "howToBuild": "Workspace YAML/JSON file for book data → zo.space public page with custom design (Instrument Serif for titles, Newsreader for reviews) → filter by genre/rating/year → API route for search → `web_research` to auto-fill book metadata (cover image, author, year) when you add just a title → `update_space_asset` for cover images.",
+    "monetization": "Affiliate links to Bookshop.org. Drives personal brand.",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 46,
+    "name": "Contract Template Library",
+    "category": "Commerce",
+    "description": "A collection of freelancer contract templates (NDA, SOW, service agreement, licensing) stored as markdown in your workspace. A zo.space form lets you fill in client-specific details, and an API route merges the template into a formatted PDF via Pandoc. Track which contracts are out and their signing status.",
+    "howToBuild": "Workspace markdown templates with `{{placeholder}}` variables → zo.space private page with template selector and variable form → API route for merge + Pandoc PDF generation → `update_space_asset` for the PDF → Gmail integration to send → DuckDB tracking contract status → scheduled agent reminding about unsigned contracts.",
+    "monetization": "Sell template packs via Stripe ($19-49). Or free templates driving consulting leads.",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 47,
+    "name": "Donation/Tip Page",
+    "category": "Commerce",
+    "description": "A clean, personal page for accepting tips or donations for your open source work, writing, or community projects. Custom amounts, a thank-you message, and a public supporter wall (opt-in). Not Ko-fi — yours, with zero platform fees beyond Stripe's cut.",
+    "howToBuild": "zo.space public page with amount selector → Stripe payment link integration → webhook API route logging donations to DuckDB → optional public supporter wall (names of those who opt in) → `send_sms_to_user` on each donation → thank-you email via Gmail → monthly revenue summary on a private dashboard page.",
+    "monetization": "Direct donations/tips. 97%+ goes to you.",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 48,
+    "name": "Research Paper Summarizer",
+    "category": "Data/research tools",
+    "description": "Paste an arXiv URL or upload a PDF. Zo extracts the full text, generates a structured summary (problem, approach, key findings, limitations, relevance to your field), and saves it to a searchable research library in your workspace. Batch-process a reading list overnight.",
+    "howToBuild": "zo.space page with URL/upload input → `read_webpage` for arXiv or `read_file` for PDF → `/zo/ask` with academic summarization prompt → workspace markdown per paper → DuckDB index for search → zo.space library page with search and tag filtering → scheduled agent for batch processing a URL list overnight.",
+    "monetization": "Personal research tool. Sell access to curated summaries by field ($5/mo).",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 49,
+    "name": "Emergency Contact Card",
+    "category": "Local/community tools",
+    "description": "A mobile-optimized zo.space page with your critical emergency information: blood type, allergies, medications, emergency contacts, doctor info, insurance. Password-protected but accessible from your phone's home screen. Updated by editing a workspace file. Potentially life-saving.",
+    "howToBuild": "zo.space private page (bearer-auth) → workspace JSON for medical data → mobile-optimized responsive design → large, high-contrast typography for readability in emergencies → QR code generation (via `generate-custom-qr-code` skill) linking to the page → printable card version via API route.",
+    "monetization": "Free. One of those tools that justifies the entire platform.",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 50,
+    "name": "Weekly Wins Journal",
+    "category": "Personal tools",
+    "description": "Every Friday at 4pm, Zo texts you: \"What were your wins this week?\" You reply with a few bullet points. The agent saves them to a dated workspace file, appends them to a running DuckDB log, and once a month generates a \"month in review\" summary. Tracks patterns in what you accomplish. An antidote to feeling like you're not making progress.",
+    "howToBuild": "Scheduled agent (Friday 4pm) → `send_sms_to_user` with prompt → monitor for reply (second agent or check within window) → save to `Persona/Journal/wins/YYYY-MM-DD.md` → DuckDB for searchable win history → monthly scheduled agent synthesizing wins via `/zo/ask` → `send_email_to_user` with monthly review → zo.space private page showing win timeline.",
+    "monetization": "Personal tool. Soul-level ROI.",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 51,
+    "name": "Permit Pulse",
+    "category": "Civic/public interest",
+    "description": "Scrapes your county's building permit feed daily and alerts you when new permits are filed within a radius of your address. See who's building what next door before the bulldozers show up. Displays a map view with permit details, contractor info, and project scope.",
+    "howToBuild": "Scheduled agent fetches county permit RSS/API daily, geocodes addresses with a free geocoding API, filters by radius, stores in DuckDB dataset. zo.space page renders the map using Leaflet. SMS alert for permits within 500ft.",
+    "monetization": "Freemium — free for your own address, paid tier for real estate investors monitoring multiple zones ($5/mo)",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 52,
+    "name": "Therapy Session Prep",
+    "category": "Niche professional tools (therapists)",
+    "description": "A private intake form that clients fill out before each session. Collects mood rating, what happened since last session, what they want to focus on today. Therapist gets a formatted summary emailed 30 minutes before the appointment, with flags for crisis language.",
+    "howToBuild": "zo.space page route for the client-facing form (public, no auth needed — uses a unique per-client token in the URL). API route stores submissions as markdown files. Scheduled agent checks Google Calendar for upcoming therapy appointments, matches client tokens, emails the therapist a summary via Gmail integration. Crisis keyword detection runs in the API route handler.",
+    "monetization": "$10/mo per therapist — saves 15 minutes per session",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 53,
+    "name": "Tide Table + Bite Forecast",
+    "category": "Hobby/passion tools (fishing)",
+    "description": "Combines NOAA tide data, lunar phase, barometric pressure trends, and water temperature for your specific fishing spots. Outputs a daily \"bite score\" from 1-10 with reasoning. Texts you at 5am if tomorrow scores 8+.",
+    "howToBuild": "Scheduled agent pulls NOAA CO-OPS tide API, Open-Meteo weather API, and moon phase calculations (Python ephem library). Stores historical scores in DuckDB. zo.space page shows the week ahead with tide charts rendered via a canvas component. SMS integration for high-score alerts.",
+    "monetization": "Free for one location, $3/mo for unlimited spots + historical bite correlation data",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 54,
+    "name": "Garage Sale Autopilot",
+    "category": "Niche professional tools (resellers/flippers)",
+    "description": "You photograph items, it generates titles, descriptions, and suggested prices based on eBay sold listings. Produces a printable price tag sheet, a Craigslist-ready post, and a shareable catalog page for texting to neighbors.",
+    "howToBuild": "zo.space API route accepts image uploads, uses AI to identify items and generate copy. Web research agent checks eBay sold prices for comps. zo.space page route renders the catalog with grid layout. Generate printable PDF price tags via a Bun script using pdf-lib. Share link via SMS.",
+    "monetization": "Free tier (10 items), $5 one-time for unlimited items per sale event",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 55,
+    "name": "The Dead Internet Detector",
+    "category": "Weird/experimental",
+    "description": "Paste any URL and it scores how \"alive\" the content feels — checking for AI-generated text patterns, stock photo fingerprints, engagement-to-follower ratios, and comment authenticity signals. Returns a \"Dead Internet Score\" from 0-100 with a breakdown of what triggered each flag.",
+    "howToBuild": "zo.space page with URL input. API route fetches the page via read_webpage, runs heuristic analysis (sentence structure entropy, cliché density, image reverse-search via web_search, comment sentiment uniformity). Stores results in workspace files for trend tracking. Could add a browser extension endpoint.",
+    "monetization": "Free public tool — monetize through attention/audience building, affiliate to privacy tools",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 56,
+    "name": "Plot Garden Companion",
+    "category": "Hobby/passion tools (gardening)",
+    "description": "You draw your garden bed layout on a grid, drop in plants, and it tells you what's companion-planted wrong, what's too close, what needs more sun based on your bed's orientation, and generates a watering/fertilizing schedule synced to your local weather forecast.",
+    "howToBuild": "zo.space site with interactive grid (React state + canvas or SVG). Plant database stored as a JSON asset. API route calculates spacing, companion conflicts, and sun exposure from bed orientation input. Scheduled agent pulls Open-Meteo forecast weekly, adjusts watering schedule, sends SMS reminders. Google Calendar integration for planting/harvest dates.",
+    "monetization": "Free for one bed, $4/mo for unlimited beds + weather-adjusted schedules",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 57,
+    "name": "Invoice Shame Clock",
+    "category": "Niche professional tools (freelancers)",
+    "description": "Tracks unpaid invoices and displays a live \"time since invoice sent\" counter on a private dashboard. At configurable intervals (7, 14, 30 days), it drafts progressively firmer follow-up emails in your voice and queues them for your approval. The dashboard shows total outstanding, average days-to-pay per client, and a \"worst offenders\" leaderboard.",
+    "howToBuild": "zo.space page for the dashboard. Invoice data stored in DuckDB (manual entry via form or CSV import). Scheduled agent checks daily for overdue invoices, drafts follow-up emails, sends you a Telegram message with the draft for approval. On approval, sends via Gmail. Tracks payment dates to build client reliability scores over time.",
+    "monetization": "Free for 5 clients, $8/mo for unlimited + payment analytics",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 58,
+    "name": "Bird Call Identifier Journal",
+    "category": "Hobby/passion tools (birdwatching)",
+    "description": "Upload audio recordings from your morning walk. It transcribes the audio, isolates bird call segments by frequency analysis, cross-references with regional species databases for your GPS coordinates and time of year, and builds a personal life list with date/location/recording for each species.",
+    "howToBuild": "zo.space upload form → API route saves audio to workspace. Python script using librosa for frequency analysis and segmentation. Web research for species matching against eBird/Xeno-canto regional data. DuckDB dataset for the life list. zo.space page renders the journal with embedded audio players and species cards. Transcribe_audio for any spoken field notes in the recording.",
+    "monetization": "Free personal tool — sell as a template for $15",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 59,
+    "name": "The Landlord Paper Trail",
+    "category": "Civic/public interest",
+    "description": "A structured log for renters to document maintenance requests, landlord responses (or non-responses), and lease violations. Timestamps everything, stores photos, generates a formatted PDF \"evidence packet\" ready for tenant's rights organizations or small claims court. Privately hosted — your landlord never sees it.",
+    "howToBuild": "zo.space private page with forms for logging incidents (text + image upload via space assets). DuckDB for structured data. API route generates a PDF evidence packet using pdf-lib with chronological entries and embedded images. All data stays on the user's personal server. SMS integration to log quick entries (\"Texted landlord about leak, no response\").",
+    "monetization": "Free — civic tool. Monetize through donations or a \"pro\" version that auto-sends certified mail reminders",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 60,
+    "name": "Recipe Scaler + Substitution Engine",
+    "category": "Hobby/passion tools (cooking)",
+    "description": "Paste any recipe URL. It extracts ingredients and steps, lets you scale to any serving size with proper ratio adjustments (not just linear — it knows you don't double the salt when you double a cake), and suggests substitutions for allergens or missing ingredients based on what's actually in your pantry (which you maintain as a simple list).",
+    "howToBuild": "zo.space page with URL input. API route uses read_webpage to fetch recipe, AI extraction for structured ingredient/step parsing. Pantry stored as a workspace markdown file editable via a zo.space form. Scaling logic in TypeScript with non-linear adjustment rules for leaveners, salt, spices. Substitution database as a JSON asset.",
+    "monetization": "Free — audience builder. Add Stripe tip jar or \"buy me ingredients\" payment link",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 61,
+    "name": "Mechanic's Diagnostic Notepad",
+    "category": "Niche professional tools (mechanics)",
+    "description": "A voice-first diagnostic tool. Mechanic describes symptoms into their phone, it transcribes and cross-references against TSB (Technical Service Bulletin) databases and common failure patterns for that year/make/model. Returns ranked probable causes with repair time estimates and parts needed.",
+    "howToBuild": "zo.space page with audio recording via browser MediaRecorder API. API route saves audio, transcribe_audio extracts text. Web research agent searches for TSBs and known issues for the specified vehicle. Results rendered on the same page. DuckDB stores diagnostic history per vehicle VIN for pattern tracking across visits.",
+    "monetization": "$15/mo per shop — saves diagnostic time and catches things mechanics might miss",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 62,
+    "name": "Neighborhood Noise Map",
+    "category": "Civic/public interest",
+    "description": "Residents submit noise complaints with location, time, type (construction, barking, bass, traffic), and severity. Builds a heat map over time showing noise patterns by hour and day. Useful for people apartment-hunting or filing complaints with city council with actual data.",
+    "howToBuild": "zo.space public page with a submission form (no login required). DuckDB dataset for complaint storage. zo.space page renders a Leaflet heat map with time-of-day filtering. Scheduled agent generates weekly summary reports. Could integrate with local government complaint APIs where available.",
+    "monetization": "Free civic tool. Sponsored by real estate agents who want to show \"quiet\" neighborhoods",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 63,
+    "name": "The Fridge Door",
+    "category": "Weird/experimental",
+    "description": "A digital fridge door for your family or friend group. People can pin notes, drawings, photos, and magnets to a shared virtual fridge surface. Items decay and yellow over time like real paper. You can \"magnet\" important things to keep them pinned. No accounts — just a shared link and a name.",
+    "howToBuild": "zo.space page with drag-and-drop positioning (React DnD or pointer events). Items stored via API route in workspace JSON files. CSS filters for aging effects based on timestamp. Image uploads via space assets. Real-time-ish updates via polling (no WebSocket needed — check every 30 seconds). Each fridge gets a unique URL path.",
+    "monetization": "Free — viral sharing tool. Premium fridges with custom backgrounds and more pins for $2/mo",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 64,
+    "name": "Grant Deadline Tracker",
+    "category": "Niche professional tools (nonprofits/artists)",
+    "description": "Aggregates grant deadlines from foundations relevant to your field (arts, social justice, community development, etc.) by scraping foundation websites weekly. Shows upcoming deadlines in a calendar view with eligibility requirements, award amounts, and direct links. Sends reminders 30 and 7 days before deadlines.",
+    "howToBuild": "Scheduled agent uses web_research weekly to find grant deadlines for configured categories. DuckDB stores grant data. zo.space page renders a calendar view with filters by field, amount, and deadline. Google Calendar integration adds deadlines. SMS/email reminders via scheduled agent.",
+    "monetization": "Free for one category, $8/mo for all categories + personalized eligibility matching",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 65,
+    "name": "Dungeon Master's Session Recorder",
+    "category": "Hobby/passion tools (tabletop gaming)",
+    "description": "Record your D&D session audio. It transcribes the whole thing, identifies speakers, extracts key plot points, NPC interactions, loot acquired, and combat outcomes. Generates a \"session recap\" in narrative prose and a structured data update (HP changes, inventory, quest log) that players can reference next session.",
+    "howToBuild": "Upload audio to zo.space. transcribe_audio with speaker diarization. AI processes transcript to extract structured game events. zo.space page shows the narrative recap and structured data side by side. Campaign state stored in workspace markdown files that update incrementally. Players access via a shared public zo.space page.",
+    "monetization": "Free for 3 sessions/mo, $5/mo unlimited. Sell premium \"narrator voice\" recap styles",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 66,
+    "name": "Contractor Quote Comparator",
+    "category": "Niche professional tools (homeowners/property managers)",
+    "description": "Upload photos of contractor quotes (often handwritten or PDF). It extracts line items, normalizes them into comparable categories, and displays a side-by-side comparison showing where each contractor is higher or lower. Flags suspiciously low bids and missing line items that might become change orders.",
+    "howToBuild": "zo.space page with multi-file upload. API route processes images via AI vision extraction for line items and amounts. Stores parsed quotes in DuckDB. Comparison page renders a table with color-coded price differences. Web research checks average costs for each line item in the user's zip code for reality-checking.",
+    "monetization": "Free for 2 quotes, $3 per additional comparison. Or $10/mo for property managers",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 67,
+    "name": "Plant Obituary Garden",
+    "category": "Weird/experimental",
+    "description": "A memorial site for houseplants that didn't make it. Upload a photo of your dead plant, write a short eulogy, and it gets a headstone in a procedurally generated cemetery garden. Visitors can leave flowers (emoji reactions). The cemetery grows over time as more plants are memorialized. Surprisingly cathartic.",
+    "howToBuild": "zo.space public page. Submission form uploads photo (space asset) and eulogy text. API route stores entries and assigns a plot position in the garden grid. Cemetery rendered with CSS grid and subtle animations (wilting flowers, gentle wind). Each headstone links to the full memorial. Reactions stored in DuckDB.",
+    "monetization": "Free — viral/shareable. Premium custom headstone styles for $1 each via Stripe",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 68,
+    "name": "Open Source License Audit",
+    "category": "Developer tools",
+    "description": "Point it at a GitHub repo URL. It clones the repo, parses every dependency tree (package.json, Cargo.toml, requirements.txt, go.mod), resolves transitive dependencies, and generates a license compatibility report. Flags GPL contamination in MIT projects, missing license files, and AGPL landmines.",
+    "howToBuild": "zo.space API route accepts a repo URL. Bash script clones the repo to a temp directory, runs language-specific dependency resolution (npm ls, pip-licenses, cargo-license). Python script aggregates and cross-references license types against a compatibility matrix (stored as JSON asset). zo.space page renders the report with severity levels.",
+    "monetization": "Free for public repos, $10/mo for private repo scanning via GitHub token",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 69,
+    "name": "Real Estate Comp Analyzer",
+    "category": "Niche professional tools (real estate agents)",
+    "description": "Enter an address. It pulls recent sales data from public county records, calculates price-per-sqft for comparable properties within configurable radius and date range, adjusts for bedroom/bathroom count, lot size, and year built. Generates a one-page PDF comp report branded with the agent's logo — the kind of thing that normally costs $50/report from a service.",
+    "howToBuild": "Scheduled agent scrapes county assessor/recorder sites (varies by county — browser automation for the ones without APIs). DuckDB dataset for property records. zo.space page with address input and filter controls. API route runs the comp algorithm and generates a branded PDF via pdf-lib. Agent's logo uploaded as a space asset.",
+    "monetization": "$20/mo per agent — cheaper than per-report services",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 70,
+    "name": "Sourdough Starter Log",
+    "category": "Hobby/passion tools (baking)",
+    "description": "Track your sourdough starter's feeding schedule, hydration ratio, ambient temperature, rise times, and bake outcomes. Over time, it correlates your best loaves with specific feeding patterns and conditions. Sends feeding reminders at your preferred schedule. Generates a \"starter profile\" showing its personality — when it's most active, what flour ratios it prefers, seasonal patterns.",
+    "howToBuild": "zo.space page with quick-entry form (optimized for phone — big buttons, minimal fields). DuckDB for all data points. Scheduled agent sends SMS feeding reminders. Analytics page shows correlation charts (rise time vs temperature, hydration vs crumb quality). Open-Meteo integration for automatic temperature logging.",
+    "monetization": "Free — sell as a template for $8. Or bundle with a sourdough course",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 71,
+    "name": "Meeting Cost Calculator (Live)",
+    "category": "Developer tools / professional",
+    "description": "A live dashboard that shows the running cost of the current meeting based on attendee salaries (or estimates by title). Share the URL in Zoom chat. Displays a ticking dollar counter, cost-per-minute, and \"this meeting has cost more than [relatable comparison]\" milestones. Passive-aggressive productivity theater that actually works.",
+    "howToBuild": "zo.space public page with a form to configure meeting (number of attendees, average salary or individual titles). Salary estimates via BLS data (market-research skill). React component with a ticking counter using requestAnimationFrame. Shareable URL with meeting config encoded in the path or query params. No persistence needed — runs entirely client-side after initial config.",
+    "monetization": "Free viral tool. Premium: integrates with Google Calendar to auto-populate attendee count and estimate costs for all meetings this week",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 72,
+    "name": "Trail Conditions Aggregator",
+    "category": "Hobby/passion tools (hiking/mountain biking)",
+    "description": "Monitors trail condition reports from AllTrails, MTBProject, local ranger district sites, and social media for your saved trails. Aggregates into a single dashboard showing current conditions, recent reports, snow level, and fire/closure alerts. Texts you Saturday morning with a \"best trails this weekend\" pick based on conditions and weather.",
+    "howToBuild": "Scheduled agent runs daily: browser automation for AllTrails/MTBProject condition pages, web_search for ranger district updates, x_search for social media reports. DuckDB stores condition data by trail. zo.space page renders dashboard with trail cards sorted by current quality score. Saturday SMS via scheduled agent combines conditions with Open-Meteo weekend forecast.",
+    "monetization": "Free for 5 trails, $5/mo unlimited + weekend picks",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 73,
+    "name": "Mic Check (Podcast Audio QA)",
+    "category": "Developer tools / creator tools",
+    "description": "Upload a podcast recording before publishing. It analyzes audio levels, detects clipping, flags sections where one speaker is significantly quieter than another, finds long silences, identifies mouth clicks and background noise spikes, and generates a timestamped QA report with severity levels. Catches problems before your audience does.",
+    "howToBuild": "zo.space upload form. Python script using librosa and numpy for audio analysis: RMS levels per speaker segment, peak detection, silence detection, spectral analysis for clicks/noise. Transcribe_audio for speaker identification. Results stored in workspace, rendered on zo.space page as a timeline with flagged segments. Direct links to timestamp positions.",
+    "monetization": "Free for episodes under 30 min, $5/mo unlimited",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 74,
+    "name": "Council Vote Tracker",
+    "category": "Civic/public interest",
+    "description": "Monitors your city council's voting records by scraping meeting minutes and agendas. Shows how each council member voted on every issue, tracks voting patterns, flags when they vote against their stated platform positions, and sends you alerts when topics you care about (housing, parks, zoning) are on the agenda.",
+    "howToBuild": "Scheduled agent scrapes city council website weekly (browser automation — most council sites are badly built). AI extracts vote records and agenda items from PDFs/HTML. DuckDB stores voting data by member and topic. zo.space page with member profiles, voting history, and topic filters. Email alerts via Gmail for agenda items matching user's interests.",
+    "monetization": "Free civic tool. Could be sponsored by local news outlets",
+    "difficulty": "Advanced"
+  },
+  {
+    "id": 75,
+    "name": "Font Pairing Playground",
+    "category": "Developer tools / design",
+    "description": "Enter a mood, brand description, or reference URL. It generates 5 typographic pairings (display + body) with live preview text, size/weight recommendations, and CSS/Tailwind snippets ready to copy. Uses Google Fonts API so everything is free and production-ready. Remembers your favorites and learns your taste over time.",
+    "howToBuild": "zo.space page that loads Google Fonts dynamically. API route takes the mood/description input, AI selects pairings from a curated database (JSON asset of 200+ font combinations with mood tags). Preview renders live with adjustable size, weight, and sample text. Favorites stored in DuckDB. The learning component re-ranks suggestions based on save patterns.",
+    "monetization": "Free — audience builder for a design-focused brand. Premium: export as Figma tokens or design system starter",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 76,
+    "name": "Sleep Debt Ledger",
+    "category": "Health/wellness",
+    "description": "Log your bedtime and wake time daily (via SMS — just text \"slept 11-7\" or \"bed 1am up 8am\"). It calculates your running sleep debt against your target, shows weekly/monthly trends, and correlates your self-reported energy levels with actual sleep data. When debt exceeds a threshold, it blocks your evening calendar and texts you \"go to bed.\"",
+    "howToBuild": "SMS parsing via scheduled agent (or inbound message handling). DuckDB for sleep data. zo.space private dashboard with charts. Google Calendar integration to check/block evening events when sleep debt is high. Scheduled agent for bedtime reminders calibrated to your target. Weekly email summary via Gmail.",
+    "monetization": "Free personal tool, sell as a template for $5",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 77,
+    "name": "Stash Spot (Private Dead Drop)",
+    "category": "Weird/experimental",
+    "description": "Create encrypted dead drops at URLs that self-destruct after being read once (or after a time limit). No accounts, no logs. The content is encrypted client-side before hitting the server — even Zo can't read it. The URL is the only key. Perfect for sharing passwords, sensitive info, or secret messages.",
+    "howToBuild": "zo.space page with client-side AES encryption (Web Crypto API). The encryption key is appended as a URL fragment (never sent to server). API route stores only the encrypted blob with a UUID and read/expiry flag. On first read, returns the blob and deletes it. Cleanup agent removes expired drops hourly.",
+    "monetization": "Free — include a \"powered by Zo\" footer. Premium: file attachments, custom expiry times",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 78,
+    "name": "Teacher's Rubric Generator",
+    "category": "Niche professional tools (teachers)",
+    "description": "Describe an assignment in plain language (\"persuasive essay about climate change, 9th grade, 5 paragraphs\"). It generates a detailed scoring rubric aligned to Common Core standards with criteria, point values, and exemplar descriptions for each performance level. Exports as a printable PDF or Google Docs format.",
+    "howToBuild": "zo.space page with assignment description form (grade level, subject, type, length). API route generates rubric using AI with Common Core standards reference data (stored as JSON assets). PDF generation via pdf-lib. Google Drive integration to export directly to the teacher's Drive. DuckDB stores generated rubrics for reuse and modification.",
+    "monetization": "Free for 5 rubrics/mo, $6/mo unlimited + rubric library",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 79,
+    "name": "Vintage Price Oracle",
+    "category": "Hobby/passion tools (collectors/thrifters)",
+    "description": "Photograph a vintage item at a thrift store. It identifies the item, era, maker marks, and cross-references current market prices from eBay sold listings, Etsy, and collector forums. Returns a \"buy/skip\" verdict with price range and resale potential. Tracks your finds and running profit/loss.",
+    "howToBuild": "zo.space page optimized for mobile camera input. API route processes image via AI for identification, then web_research for current market prices across platforms. Results page shows price comps with links. DuckDB tracks your purchases (cost) and sales (revenue) for P&L. Weekly email digest of your best finds.",
+    "monetization": "Free for 10 lookups/mo, $8/mo unlimited + profit tracking",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 80,
+    "name": "Argument Mapper",
+    "category": "Weird/experimental",
+    "description": "Paste any opinion piece, editorial, or Twitter thread. It diagrams the argument structure — claims, evidence, logical fallacies, unsupported assertions, and rhetorical techniques. Outputs a visual node graph showing how the argument holds together (or doesn't). Not political bias detection — structural analysis.",
+    "howToBuild": "zo.space page with text/URL input. API route fetches content (read_webpage for URLs), AI decomposes the argument into structured nodes (claim, evidence, inference, fallacy) with relationships. D2 diagram generation for the visual graph. zo.space page renders the interactive diagram. Could also show a \"strength score\" for each claim based on evidence backing.",
+    "monetization": "Free — educational tool. Premium: batch analysis, save history, export for academic citation",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 81,
+    "name": "Appliance Lifespan Tracker",
+    "category": "Niche professional tools (homeowners/property managers)",
+    "description": "Register your home appliances with make, model, and purchase/install date. It pulls average lifespan data, maintenance schedules, and common failure patterns. Sends you alerts when an appliance is approaching end-of-life so you can budget for replacement. Tracks maintenance history and warranty expiration.",
+    "howToBuild": "zo.space private page with appliance registry form. Web research for lifespan data and common issues by make/model. DuckDB stores appliance data, maintenance logs, and lifespan estimates. Scheduled agent checks monthly for upcoming expirations and maintenance due dates. SMS/email alerts. Google Calendar integration for maintenance reminders.",
+    "monetization": "Free for 10 appliances, $4/mo for unlimited + replacement cost budgeting",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 82,
+    "name": "Dialect Translator",
+    "category": "Weird/experimental",
+    "description": "Paste text and translate it between English dialects and registers — academic to casual, Southern to Midwestern, corporate to human, legal to plain English, British to American. Not a joke translator — a genuine register-shifting tool that preserves meaning while changing voice. Useful for writers, immigrants navigating code-switching, and anyone who's gotten a legal letter they can't parse.",
+    "howToBuild": "zo.space page with text input and dialect/register dropdowns. API route handles the translation via AI with carefully crafted system prompts for each register (stored as text assets — one per dialect). Side-by-side display of original and translated text with highlighted changes. Saved translations in DuckDB.",
+    "monetization": "Free — viral sharing potential. Premium: API access for apps, bulk translation",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 83,
+    "name": "Mutual Aid Board",
+    "category": "Civic/public interest",
+    "description": "A hyperlocal mutual aid board for your neighborhood. People post what they need (ride to doctor, help moving, meals during illness) and what they can offer (lawn mower, truck, time). No accounts — just name and contact. Posts expire after 14 days. Designed to be printed as a QR code flyer for laundromats and coffee shops.",
+    "howToBuild": "zo.space public page with post/offer forms. API route stores listings in workspace JSON files with expiry timestamps. Cleanup agent removes expired posts daily. QR code generation (generate-custom-qr-code skill) pointing to the board URL. Responsive design optimized for phone. Optional SMS notification when someone responds to your post.",
+    "monetization": "Free — community tool. Could accept donations via Stripe tip jar",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 84,
+    "name": "Screenplay Formatter",
+    "category": "Developer tools / creator tools",
+    "description": "Write your screenplay in plain markdown. It converts to industry-standard screenplay format (Courier 12pt, proper margins, scene headings, action lines, dialogue with character cues). Exports as a properly formatted PDF that won't get your script thrown out for looking amateur. Handles sluglines, parentheticals, transitions, and dual dialogue.",
+    "howToBuild": "zo.space page with a markdown editor (textarea with preview). API route parses the markdown using pattern matching for screenplay elements (INT./EXT. for sluglines, character names in caps before dialogue, etc.). PDF generation via a Python script using reportlab with exact screenplay format specs (1.5\" left margin, 1\" right, Courier). Stored scripts in workspace for versioning.",
+    "monetization": "Free for scripts under 30 pages, $5/mo unlimited + revision tracking",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 85,
+    "name": "Ingredient Conflict Checker",
+    "category": "Health/wellness",
+    "description": "Photograph a supplement bottle or food label. It extracts all ingredients, cross-references them against your medication list and health conditions (which you maintain privately), and flags known interactions, contraindications, and allergen overlaps. Sources its warnings from NIH, Mayo Clinic, and FDA databases.",
+    "howToBuild": "zo.space private page with camera input for label photos. AI vision extracts ingredient lists. User's medication/condition profile stored in encrypted workspace file. Web research cross-references against NIH DailyMed, drug interaction databases. API route returns a traffic-light report (green/yellow/red per ingredient). DuckDB logs checked products for quick re-lookup.",
+    "monetization": "Free for personal use — the liability concerns make commercial monetization tricky. Sell as a self-hosted template with medical disclaimer for $15",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 86,
+    "name": "Band Merch Profit Calculator",
+    "category": "Niche professional tools (musicians)",
+    "description": "Input your merch items (t-shirts, vinyl, stickers), unit costs, and selling prices. It calculates break-even quantities, profit margins, and optimal pricing. Simulates different show sizes and sell-through rates. Tracks actual sales per show and adjusts projections based on your real data. Tells you which merch items to drop and which to reorder.",
+    "howToBuild": "zo.space page with product entry form and show-logging form. DuckDB stores products, costs, and per-show sales data. Dashboard shows margin analysis, break-even charts, and trend lines. Scheduled agent sends a pre-show reminder to restock items running low. Post-show SMS prompt to log sales (\"How many shirts did you sell tonight?\").",
+    "monetization": "Free — audience builder for music industry brand. Premium: multi-band support for managers",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 87,
+    "name": "DNS Propagation Watcher",
+    "category": "Developer tools",
+    "description": "Enter a domain and DNS record type. It checks propagation status across 20+ global DNS resolvers every 5 minutes and sends you a notification when propagation is complete (or if it stalls). Shows a world map with green/red dots for each resolver. Because refreshing whatsmydns.net for an hour is not how you should spend your life.",
+    "howToBuild": "Scheduled agent runs dig queries against a list of global resolvers (stored as JSON asset). DuckDB tracks propagation state over time. zo.space page shows the live status map (SVG world map with colored dots). SMS notification when all resolvers agree. Auto-stops monitoring after 48 hours or full propagation.",
+    "monetization": "Free — dev tool for audience building. Premium: monitoring for multiple domains, historical propagation times",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 88,
+    "name": "Grief Timeline",
+    "category": "Health/wellness",
+    "description": "A private journaling space structured around grief — not generic journaling, but specifically designed for loss. Prompts adapt to where you are in the process. Tracks hard dates (anniversaries, birthdays, holidays) and sends gentle check-ins around them. Never tries to fix anything. Just holds space and keeps a record you can look back on.",
+    "howToBuild": "zo.space private page with a warm, minimal design (deliberate typography and muted palette). DuckDB stores journal entries with date and optional mood tag. Scheduled agent watches for approaching hard dates and sends a simple SMS check-in. Prompts rotate based on time since loss and previous entries (not a chatbot — just a prompt at the top of the page). All data stays on personal server.",
+    "monetization": "Free — this shouldn't be monetized. Open source the template",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 89,
+    "name": "FOIA Request Generator",
+    "category": "Civic/public interest",
+    "description": "Select a government agency (federal, state, or local), describe what records you want in plain language, and it generates a properly formatted FOIA/public records request with the correct legal citations, agency-specific requirements, fee waiver language, and the right mailing/email address. Tracks your requests and follow-up deadlines.",
+    "howToBuild": "zo.space page with agency selector and plain-language description input. API route uses AI with a reference database of FOIA requirements by agency (federal agencies + 50 state laws — stored as JSON assets, seeded via web research). Generates the request letter as downloadable PDF. DuckDB tracks submitted requests with statutory response deadlines. Scheduled agent sends follow-up reminders.",
+    "monetization": "Free civic tool. Could offer a \"journalist pro\" tier with batch requests and response tracking",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 90,
+    "name": "Color Palette From Place",
+    "category": "Weird/experimental / design",
+    "description": "Enter a place name — \"Salmon, Idaho in October\" or \"Tokyo subway at rush hour\" or \"a Norwegian fjord in winter.\" It generates a 5-color palette extracted from the dominant visual character of that place, with hex codes, Tailwind classes, and a mood description. Uses image search and color analysis, not random generation.",
+    "howToBuild": "zo.space page with place input. API route uses image_search to find representative photos, downloads them, runs Python color extraction (colorthief or sklearn KMeans on pixel data) to pull dominant colors. AI writes the mood description. zo.space page renders swatches with copy-to-clipboard hex/tailwind values. DuckDB stores generated palettes for a browsable gallery.",
+    "monetization": "Free — designer audience builder. Premium: export as design tokens, Figma plugin, ASE files",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 91,
+    "name": "Bail Fund Tracker",
+    "category": "Civic/public interest",
+    "description": "A transparent dashboard for community bail funds showing total raised, total disbursed, number of people helped, and fund balance. Accepts donations via Stripe, sends receipts, and publishes a monthly transparency report automatically. Designed so small mutual aid groups don't need to build their own infrastructure.",
+    "howToBuild": "zo.space public page with Stripe integration for donations. DuckDB tracks transactions. API route handles Stripe webhooks for payment confirmation. Scheduled agent generates monthly transparency report (markdown → PDF), emails it to subscribers via Gmail, and publishes to the dashboard. Admin page (private) for logging disbursements.",
+    "monetization": "Free — take no cut. This is infrastructure for mutual aid",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 92,
+    "name": "Commit Message Therapist",
+    "category": "Developer tools",
+    "description": "Paste a git diff and it writes a commit message that actually explains *why* the change was made, not just what changed. Follows conventional commits format, detects the type (feat/fix/refactor/docs), and asks one clarifying question if the intent isn't obvious from the diff. Also roasts bad commit messages you paste in (\"fix stuff\" gets the treatment it deserves).",
+    "howToBuild": "zo.space page with a diff paste area (monospace, syntax highlighted). API route analyzes the diff structure, detects affected systems, and generates a message. The \"roast\" mode runs separately — analyzing message quality against conventional commits standards and returning feedback with dry humor. No persistence needed.",
+    "monetization": "Free — dev tool for brand building. Premium: GitHub integration that suggests messages on push",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 93,
+    "name": "Power Outage Predictor",
+    "category": "Niche professional tools (rural residents)",
+    "description": "Monitors weather forecasts, historical outage data from your utility, and local wind/ice/lightning risk. When conditions match past outage patterns, it alerts you 6-24 hours ahead so you can charge devices, fill water, and prep food. After an outage, it estimates restoration time based on utility crew patterns and severity.",
+    "howToBuild": "Scheduled agent checks Open-Meteo hourly for wind/ice/storm conditions. Historical outage data scraped from utility websites (browser automation) stored in DuckDB. Pattern matching correlates weather conditions with past outages. SMS alert when risk exceeds threshold. zo.space page shows current risk level and prep checklist.",
+    "monetization": "Free for one location, $3/mo for alerts + prep automation",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 94,
+    "name": "TTRPG Character Voice Coach",
+    "category": "Hobby/passion tools (tabletop gaming)",
+    "description": "Describe a character (grizzled dwarf blacksmith, nervous elvish diplomat, cocky teenage pirate). It generates a voice guide: accent notes, speech patterns, vocabulary to use and avoid, sample phrases, and a \"verbal tic\" to make the character memorable. Includes an audio sample generated from the description so you can hear the character before you play them.",
+    "howToBuild": "zo.space page with character description form. API route generates the voice guide via AI. Text-to-speech for the audio sample via a TTS API or edge-tts Python package. Audio saved as space asset. zo.space page renders the guide with embedded audio player. DuckDB stores character voices for a personal library. Exportable as a one-page PDF for the game table.",
+    "monetization": "Free for 3 characters, $4/mo unlimited + voice library",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 95,
+    "name": "Parking Ticket Audit",
+    "category": "Civic/public interest",
+    "description": "Upload a photo of your parking ticket. It extracts the violation details, cross-references against your city's parking code, and identifies common grounds for dismissal — incorrect sign placement, expired meter regulations, missing required ticket fields, or time-zone-between-signs ambiguities. Generates a contest letter if it finds grounds.",
+    "howToBuild": "zo.space page with ticket photo upload. AI vision extracts ticket details. Web research for the specific city's parking code and known dismissal patterns. API route analyzes the violation against applicable regulations. Contest letter generated as downloadable PDF. DuckDB tracks success rates by violation type and city for improving advice over time.",
+    "monetization": "Free analysis, $5 per generated contest letter via Stripe",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 96,
+    "name": "Plant Swap Coordinator",
+    "category": "Hobby/passion tools (gardening) / civic",
+    "description": "Organize neighborhood plant swaps. People list cuttings, seeds, and divisions they have to offer with photos. Others browse and request swaps. The coordinator page auto-generates a swap-day schedule that minimizes everyone standing around waiting. Prints name tags with plant names and care instructions.",
+    "howToBuild": "zo.space public page with listing form (plant name, photo, care notes). DuckDB stores listings and swap requests. Matching algorithm pairs compatible swaps. zo.space page shows the catalog with search/filter. PDF generation for name tags and care cards. Email notifications via Gmail when someone requests your plant. Event scheduling via Google Calendar for swap day.",
+    "monetization": "Free — community tool. Tip jar via Stripe for the organizer",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 97,
+    "name": "One-Sentence Journal",
+    "category": "Health/wellness",
+    "description": "Every day at a time you choose, it texts you: \"One sentence about today.\" You reply. That's it. Over months and years, it builds into something unexpectedly powerful — a single-line-per-day record of your life. The dashboard shows a scrollable timeline, word clouds by month, and a \"this day last year\" feature.",
+    "howToBuild": "Scheduled agent sends daily SMS prompt. Inbound SMS reply is parsed and stored in DuckDB with date. zo.space private page renders the timeline — one line per day, organized by month. Word frequency analysis via Python for word clouds. \"This day in history\" feature queries previous years' entries. Annual export as a printable PDF booklet.",
+    "monetization": "Free personal tool, sell as a template for $5",
+    "difficulty": "Beginner"
+  },
+  {
+    "id": 98,
+    "name": "Code Review Bingo",
+    "category": "Developer tools / weird",
+    "description": "Paste a PR diff. It scans for common code review tropes and checks them off on a bingo card: \"TODO without a ticket,\" \"commented-out code,\" \"magic number,\" \"variable named `data`,\" \"function longer than 50 lines,\" \"catch block that swallows errors.\" Get five in a row and it generates a sharable bingo card image. Technically useful, spiritually unhinged.",
+    "howToBuild": "zo.space page with diff paste input. API route analyzes the diff against a pattern library (25 common code smells, each as a regex or AST heuristic). Generates a 5x5 bingo card image using canvas/imagemagick with detected patterns highlighted. Sharable via a public URL with the card state encoded. DuckDB tracks team-wide \"most common\" patterns for leaderboards.",
+    "monetization": "Free — viral dev tool. Premium: Slack integration that auto-posts bingo cards on PR creation",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 99,
+    "name": "Emergency Contact Card Generator",
+    "category": "Health/wellness",
+    "description": "Enter your emergency contacts, medical conditions, allergies, medications, blood type, and insurance info. It generates a wallet-sized printable card, a phone lock screen image with critical info visible, and a private URL (PIN-protected) with full details that first responders can access. Updates propagate to all formats when you change info.",
+    "howToBuild": "zo.space private page with info form. API route generates: (1) PDF wallet card via pdf-lib, (2) lock screen image via imagemagick with high-contrast design, (3) PIN-protected public page that shows full details. QR code on the wallet card links to the PIN-protected page. All outputs update when source data changes. SMS to emergency contacts when profile is created, so they know they're listed.",
+    "monetization": "Free — genuinely useful public service. Sell premium: family plan, auto-update notifications to contacts",
+    "difficulty": "Intermediate"
+  },
+  {
+    "id": 100,
+    "name": "Time Capsule",
+    "category": "Weird/experimental",
+    "description": "Write a message to your future self. Attach files, photos, links, predictions, goals. Set a delivery date — 1 month, 1 year, 5 years from now. On that date, you receive it via email, SMS, and a private zo.space page that recreates the look and feel of the web from the year you wrote it (complete with era-appropriate fonts and design patterns). A personal internet archaeology experience.",
+    "howToBuild": "zo.space page with capsule creation form (text, file uploads to space assets, date picker). DuckDB stores capsule metadata. Scheduled agent checks daily for capsules ready to deliver. On delivery date: sends email via Gmail with contents, SMS notification, and generates a time-period-styled zo.space page (CSS that mimics web aesthetics from the creation year — geocities for 2024, brutalist for 2025, etc.). Capsule page becomes permanently viewable after delivery.",
+    "monetization": "Free for 1 capsule, $3/mo for unlimited capsules + group capsules (multiple contributors)",
+    "difficulty": "Intermediate"
+  },
+  {
+    "name": "Personal Pattern Observatory",
+    "category": "Personal tools",
+    "description": "Watches your own work logs, commits, calendar, journals, and project notes to find patterns you keep missing: when you make good decisions, when projects stall, what kind of tasks drain you, and which ideas keep coming back. Produces a weekly private “operating manual update” instead of a generic productivity report.",
+    "howToBuild": "Scheduled agent scans selected workspace folders, Git history, journal markdown, Google Calendar, and task files → extracts events into DuckDB → tags patterns with `/zo/ask` → writes a weekly markdown report → sends a short SMS with one useful behavior change.",
+    "monetization": "Personal use. Could become a paid “operator manual” template for solo builders.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10001
+  },
+  {
+    "name": "Tiny Museum of Your Life",
+    "category": "Personal tools",
+    "description": "Turns scattered photos, notes, receipts, saved links, and voice memos into a private browsable museum. Not a social feed. More like a personal archive with rooms: places, people, projects, seasons, meals, objects, and weird little eras you forgot mattered.",
+    "howToBuild": "Workspace folders for artifacts → `read_file` for images/audio/text → metadata extraction → generated captions → zo.space private gallery with room filters → optional monthly “new exhibit” page.",
+    "monetization": "Personal use. Sell as a memory-archive setup service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10002
+  },
+  {
+    "name": "Civic Receipt Tracker",
+    "category": "Civic/public interest",
+    "description": "Tracks public promises from officials, agencies, companies, or local boards and turns them into receipts: who said what, when they said it, where the source lives, and whether anything actually happened later.",
+    "howToBuild": "Save articles/transcripts/PDFs into workspace → extraction script pulls claims → DuckDB stores promise records → scheduled agent checks for follow-up evidence → public or private zo.space tracker with citations.",
+    "monetization": "Public-interest project, newsroom tool, or paid tracker for advocacy groups.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10003
+  },
+  {
+    "name": "Dream-to-Project Distiller",
+    "category": "Creative tools",
+    "description": "Takes messy midnight ideas, voice notes, sketches, or half-written rants and turns them into a ranked project shelf: tiny experiment, weekend build, serious product, essay, or trash-but-funny archive.",
+    "howToBuild": "SMS/Telegram capture route → workspace inbox folder → scheduled clustering agent → scoring rubric → markdown project briefs → zo.space private idea shelf.",
+    "monetization": "Personal use. Could be a creator tool for writers and indie hackers.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10004
+  },
+  {
+    "name": "Local Memory Map",
+    "category": "Local/community tools",
+    "description": "Creates a living map of local knowledge that never makes it into official websites: which offices actually answer the phone, which trails wash out, which local services are reliable, and what changed recently.",
+    "howToBuild": "Markdown submissions → moderation queue → maps/search data file → optional Google Maps research → public zo.space directory → scheduled stale-entry checks.",
+    "monetization": "Sponsored local directory, donation-supported public resource, or civic data project.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10005
+  },
+  {
+    "name": "Friction Diary for Products",
+    "category": "Data/research tools",
+    "description": "Lets you log tiny moments of frustration while using software, then turns them into product research. Over time it shows the patterns: confusing labels, broken trust, pointless steps, and tools people tolerate only because they have to.",
+    "howToBuild": "Quick capture form → screenshot upload → browser URL capture → DuckDB issue log → weekly synthesis → zo.space dashboard grouped by product and friction type.",
+    "monetization": "Research tool for UX consultants, product teams, or review writers.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10006
+  },
+  {
+    "name": "Household Black Box",
+    "category": "Personal tools",
+    "description": "A private event recorder for the boring stuff that becomes important later: appliance repairs, landlord messages, insurance calls, medical paperwork, warranties, odd smells, power outages, and “when did that start?” moments.",
+    "howToBuild": "SMS/email capture → file attachments → structured event log → reminders → private timeline page → export bundle for disputes or claims.",
+    "monetization": "Personal use. Could become a paid template for renters, homeowners, or caregivers.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10007
+  },
+  {
+    "name": "Taste Fingerprint Builder",
+    "category": "Creative tools",
+    "description": "Builds a living profile of your taste from things you save: websites, outfits, rooms, songs, fonts, products, art, articles. Instead of “mood board,” it finds the rules behind what you keep liking.",
+    "howToBuild": "Bookmark/image/audio collection → metadata extraction → embedding/tagging → generated taste principles → zo.space private library with “why I like this” notes.",
+    "monetization": "Creative consulting tool, brand strategy lead magnet, or personal design system.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10008
+  },
+  {
+    "name": "Quiet Crisis Dashboard",
+    "category": "Health/wellness",
+    "description": "Tracks subtle warning signs before a personal crash: sleep notes, missed meals, skipped medication logs, calendar overload, stressful messages, and project churn. It does not diagnose. It simply catches “you are entering the danger zone” earlier.",
+    "howToBuild": "Private daily check-ins → calendar/task load analysis → optional Gmail metadata only → risk scoring → SMS nudges → private trend page.",
+    "monetization": "Personal use. Could be adapted as a self-management template.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10009
+  },
+  {
+    "name": "Project Archaeologist",
+    "category": "Developer tools",
+    "description": "Digs through an old project and reconstructs what happened: why files exist, which ideas were abandoned, where the architecture changed, what still works, and what should be deleted before anyone builds on it.",
+    "howToBuild": "Git log parser → README/notes scan → dependency audit → code map → generated archaeology report → cleanup checklist.",
+    "monetization": "Dev tool, repo audit service, or paid cleanup package.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10010
+  },
+  {
+    "name": "Public Comment Companion",
+    "category": "Civic/public interest",
+    "description": "Helps people respond to public comment periods without sounding like a template. It reads the proposal, explains the stakes, asks for the person’s actual position, then drafts a clear comment with citations.",
+    "howToBuild": "PDF/URL ingestion → summary and issue extraction → guided questionnaire → draft generator → export/email instructions → source archive.",
+    "monetization": "Public-interest tool, nonprofit service, or civic education project.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10011
+  },
+  {
+    "name": "Skill Gap Simulator",
+    "category": "Personal tools",
+    "description": "Turns a real goal into a practice world. Instead of saying “learn TypeScript,” it builds tiny drills based on the exact project you want to ship and adapts as you fail or improve.",
+    "howToBuild": "Goal intake → repo/context scan → drill generator → answer checker → progress log → weekly curriculum update.",
+    "monetization": "Personalized learning product or coaching companion.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10012
+  },
+  {
+    "name": "Receipts-to-Story Engine",
+    "category": "Content/media",
+    "description": "Turns mundane artifacts — receipts, photos, screenshots, tickets, notes — into writing prompts and essay seeds. It finds the story hiding in the paper trail.",
+    "howToBuild": "Upload/capture folder → OCR/text extraction → timeline builder → prompt generator → draft shelf → optional Substack outline.",
+    "monetization": "Writer tool, memoir workshop asset, or paid creative archive service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10013
+  },
+  {
+    "name": "Weird Little Business Finder",
+    "category": "Micro-SaaS",
+    "description": "Looks at local directories, forums, complaints, job posts, and service gaps to find tiny boring businesses someone could actually run: document pickup, permit reminder service, niche repair directories, local sponsorship pages.",
+    "howToBuild": "Web research scripts → local source list → opportunity extraction → scoring rubric → idea cards → revenue test plan.",
+    "monetization": "Direct business ideation, consulting, or paid opportunity reports.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10014
+  },
+  {
+    "name": "Inbox Anthropology",
+    "category": "Personal tools",
+    "description": "Studies your email like an anthropologist. It shows who drains attention, which relationships are under-maintained, what kind of requests keep arriving, and what obligations are silently piling up.",
+    "howToBuild": "Gmail metadata/search → thread classification → relationship map → obligation extraction → private dashboard → weekly summary.",
+    "monetization": "Personal productivity, executive assistant template, or coaching tool.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10015
+  },
+  {
+    "name": "Tiny Grant Radar",
+    "category": "Data/research tools",
+    "description": "Watches for small grants, local funds, creator programs, civic microgrants, and niche fellowships that match your work. It filters out the giant irrelevant grants nobody has time for.",
+    "howToBuild": "Source list + web search → eligibility extraction → deadline tracking → fit score → calendar reminders → application packet folder.",
+    "monetization": "Personal funding tool, newsletter, or grant research service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10016
+  },
+  {
+    "name": "Ghost Manual Generator",
+    "category": "Content/media",
+    "description": "Creates the manual that should have existed for a messy workflow: how you actually do client onboarding, content publishing, medication refill tracking, dataset updates, or project shipping.",
+    "howToBuild": "File/process scan → interview prompts → workflow reconstruction → SOP markdown → checklist templates → update reminders.",
+    "monetization": "Internal ops tool or documentation service.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10017
+  },
+  {
+    "name": "Ambient Portfolio",
+    "category": "Developer tools",
+    "description": "Builds a portfolio that updates from actual work instead of manual bragging. It watches shipped projects, posts, commits, screenshots, and notes, then suggests new portfolio entries when something becomes worth showing.",
+    "howToBuild": "Project folder watcher → GitHub/profile scan → screenshot capture → draft generator → approval queue → zo.space portfolio section.",
+    "monetization": "Personal brand system, freelancer portfolio product, or template.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10018
+  },
+  {
+    "name": "Apology Drafting Room",
+    "category": "Personal tools",
+    "description": "Helps draft hard messages where tone matters: apologies, boundary-setting, clarifications, “I can’t do that,” and “that hurt” messages. It forces the message to be specific instead of polished avoidance.",
+    "howToBuild": "Guided form → context capture → intent check → draft variants → risk review → saved message history.",
+    "monetization": "Personal use, coaching tool, or communication template library.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10019
+  },
+  {
+    "name": "Toolchain Weather Report",
+    "category": "Developer tools",
+    "description": "Gives a daily weather report for your software stack: dependency updates, API outages, failing services, expiring tokens, unpaid invoices, changed docs, and anything likely to break your day.",
+    "howToBuild": "Package scans → status page checks → Stripe/billing reminders → API docs watchlist → service health pings → morning digest.",
+    "monetization": "Dev ops template, agency maintenance product, or paid monitoring service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10020
+  },
+  {
+    "name": "Personal FOIA Workbench",
+    "category": "Civic/public interest",
+    "description": "Helps prepare, track, and organize public records requests. It keeps deadlines, agency contacts, response letters, exemptions, appeals, and received documents in one place.",
+    "howToBuild": "Request template builder → agency contact database → deadline automation → document archive → status dashboard → appeal draft helper.",
+    "monetization": "Journalist tool, civic research product, or advocacy support service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10021
+  },
+  {
+    "name": "Recipe Reality Checker",
+    "category": "Personal tools",
+    "description": "Checks recipes against real life: pantry, equipment, time, energy, dietary constraints, local store availability, and whether the instructions are lying about prep time.",
+    "howToBuild": "Recipe import → pantry JSON → substitution engine → time/complexity estimate → grocery list → “cook tonight?” verdict.",
+    "monetization": "Personal tool, food blog companion, or meal-planning product.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10022
+  },
+  {
+    "name": "Disappearing Web Watch",
+    "category": "Data/research tools",
+    "description": "Watches important public pages for deletion, edits, or quiet rewrites. When something changes, it stores the old copy and explains what changed.",
+    "howToBuild": "URL watchlist → scheduled fetches → content hashing → diff generation → markdown snapshots → alert system → public/private archive.",
+    "monetization": "Research tool, accountability project, or paid monitoring product.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10023
+  },
+  {
+    "name": "Life Admin Courtroom",
+    "category": "Personal tools",
+    "description": "Turns a messy dispute with a company, landlord, insurer, or agency into a clean case file: timeline, evidence, claim, requested remedy, and next letter.",
+    "howToBuild": "Document upload → timeline extraction → evidence tagging → argument builder → letter generator → export packet.",
+    "monetization": "Consumer advocacy tool or legal-aid support workflow.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10024
+  },
+  {
+    "name": "Micro-Archive for a Movement",
+    "category": "Civic/public interest",
+    "description": "Gives a small group a durable archive: meeting notes, flyers, photos, public statements, timelines, links, decisions, and “why we did this” context that usually gets lost in chats.",
+    "howToBuild": "Shared submission form → moderation → markdown archive → tag system → public timeline → private admin notes.",
+    "monetization": "Public-good project, nonprofit setup service, or community documentation package.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10025
+  },
+  {
+    "name": "Attention Lease Manager",
+    "category": "Personal tools",
+    "description": "Treats recurring obligations like leases on your attention. It tracks newsletters, subscriptions, meetings, social platforms, groups, and “temporary” commitments that became permanent by accident.",
+    "howToBuild": "Gmail/calendar/subscription scan → commitment inventory → renewal dates → cost/benefit notes → cancellation scripts → monthly review.",
+    "monetization": "Personal productivity tool, subscription audit product, or coaching asset.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10026
+  },
+  {
+    "name": "Experimental Town Website Kit",
+    "category": "Local/community tools",
+    "description": "Generates a modern unofficial town website from scattered public sources: events, emergency links, services, notices, local guides, and “what people actually need this week.”",
+    "howToBuild": "Source list → scraper/importers → moderation queue → public zo.space site → weekly digest → sponsor slots.",
+    "monetization": "Local sponsorships, chamber of commerce pitch, or civic public-good project.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10027
+  },
+  {
+    "name": "Meeting Consequence Tracker",
+    "category": "Niche professional tools (freelancers)",
+    "description": "Stops meetings from evaporating. It records decisions, owners, deadlines, promised follow-ups, and later checks whether the meeting changed anything.",
+    "howToBuild": "Calendar integration → notes/transcript upload → action extraction → reminders → outcome check → team digest.",
+    "monetization": "Team productivity tool or consultant workflow.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10028
+  },
+  {
+    "name": "Personal Search Engine for “Where Did I Put That?”",
+    "category": "Data/research tools",
+    "description": "Searches your actual life, not just files. It can answer questions like “where is the PDF from the dentist,” “what was that tool I saved,” or “when did I last mention the domain idea?”",
+    "howToBuild": "Workspace indexing → Gmail/search connectors → markdown snapshots → semantic tags → private search page → answer-with-sources output.",
+    "monetization": "Personal use, template for knowledge workers, or setup service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10029
+  },
+  {
+    "name": "Alternative Future Planner",
+    "category": "Personal tools",
+    "description": "Lets you model weird futures instead of pretending there is one plan. “If I move,” “if I stay,” “if I ship this,” “if I quit this channel,” “if I need two low-energy weeks.” Each path gets assumptions, triggers, costs, and first moves.",
+    "howToBuild": "Scenario builder → assumptions table → trigger tracking → calendar/task mapping → monthly review note.",
+    "monetization": "Personal planning tool, coaching template, or founder decision aid.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10030
+  },
+  {
+    "name": "The “Before You Buy” Bot",
+    "category": "Commerce",
+    "description": "Slows down purchases in a useful way. It checks reviews, repairability, used prices, warranty terms, better alternatives, and whether you already own something that solves the same problem.",
+    "howToBuild": "Product URL intake → web research → price history/manual checks → personal inventory search → recommendation report → delayed reminder.",
+    "monetization": "Personal finance tool, affiliate-free review site, or consumer research service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10031
+  },
+  {
+    "name": "Small Claims Prep Desk",
+    "category": "Personal tools",
+    "description": "Helps prepare for small claims court without pretending to be a lawyer. It organizes facts, dates, evidence, damages, jurisdiction notes, and a plain-language statement.",
+    "howToBuild": "Intake form → evidence upload → timeline builder → damages calculator → filing checklist → export packet.",
+    "monetization": "Legal-aid support workflow or personal case organization tool.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10032
+  },
+  {
+    "name": "The Anti-Guru Business Coach",
+    "category": "Micro-SaaS",
+    "description": "Reviews business ideas for operational reality instead of hype. It asks: who pays, how do they find it, what breaks, what is boring, what must be true, and what can be tested this week.",
+    "howToBuild": "Idea intake → critique rubric → market research → pricing test → landing page brief → decision log.",
+    "monetization": "Founder tool, consulting lead magnet, or paid idea review product.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10033
+  },
+  {
+    "name": "Browser Session Field Notes",
+    "category": "Data/research tools",
+    "description": "Turns chaotic web research into field notes. It records what you looked at, what changed your mind, what sources were weak, and what questions remain.",
+    "howToBuild": "Browser page saving → session notes → source scoring → claim extraction → research memo generator.",
+    "monetization": "Research workflow for writers, analysts, students, or journalists.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10034
+  },
+  {
+    "name": "Maintenance Oracle for Old Stuff",
+    "category": "Personal tools",
+    "description": "Tracks old vehicles, appliances, computers, tools, and gear by symptoms and service history. It predicts what to check next and when repair stops making sense.",
+    "howToBuild": "Asset inventory → repair logs → manual/PDF archive → symptom search → maintenance reminders → cost history.",
+    "monetization": "Personal tool, mechanic/customer portal, or niche maintenance app.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10035
+  },
+  {
+    "name": "Local Rumor Verifier",
+    "category": "Civic/public interest",
+    "description": "Gives communities a calmer way to check rumors: road closures, school notices, local emergencies, price changes, agency decisions. It separates confirmed, likely, unknown, and false with sources.",
+    "howToBuild": "Submission form → source checking → status labels → moderation queue → public page → SMS/email alerts for verified updates.",
+    "monetization": "Public-good site, local sponsorship, or emergency info project.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10036
+  },
+  {
+    "name": "Personal Dataset Maker",
+    "category": "Data/research tools",
+    "description": "Turns a messy folder of PDFs, CSVs, screenshots, notes, and web pages into a clean Zo Dataset with schema, README, source files, and example questions.",
+    "howToBuild": "File inventory → extraction scripts → DuckDB ingest → schema.yaml generation → README docs → query examples.",
+    "monetization": "Data cleanup service, research workflow, or internal tool.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10037
+  },
+  {
+    "name": "Ghost Town Detector for Websites",
+    "category": "Developer tools",
+    "description": "Finds abandoned pages, dead CTAs, stale pricing, outdated docs, broken links, and claims that no longer match the product. It is website maintenance with teeth.",
+    "howToBuild": "Crawler → link checker → screenshot diff → copy freshness scan → issue dashboard → fix briefs.",
+    "monetization": "Freelancer audit product, agency maintenance package, or SaaS hygiene tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10038
+  },
+  {
+    "name": "Personal Values Diff",
+    "category": "Personal tools",
+    "description": "Compares what you say matters against where your time, money, attention, and projects actually go. Not for shame. For alignment.",
+    "howToBuild": "Values intake → calendar/task/spending/project review → mismatch detection → private report → monthly check-in.",
+    "monetization": "Personal development tool or coaching workflow.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10039
+  },
+  {
+    "name": "Source-to-Slide Forge",
+    "category": "Content/media",
+    "description": "Turns a folder of sources into a sharp slide deck: claims, evidence, visuals, narrative arc, speaker notes, and source list. Useful for talks, pitches, public explainers, or internal briefings.",
+    "howToBuild": "Source folder ingestion → claim extraction → outline → slide markdown → visual prompts → export to HTML/PDF.",
+    "monetization": "Research presentation service, creator tool, or internal reporting workflow.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10040
+  },
+  {
+    "name": "The Forgotten Follow-Up Machine",
+    "category": "Personal tools",
+    "description": "Finds people and threads you meant to follow up on but didn’t: old collaborators, kind messages, client leads, introductions, project promises, and “let’s talk soon” ghosts.",
+    "howToBuild": "Gmail/calendar/messages scan → follow-up detection → priority scoring → draft queue → weekly reminder.",
+    "monetization": "Freelancer CRM, personal assistant workflow, or relationship maintenance tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10041
+  },
+  {
+    "name": "Workshop-in-a-Box Generator",
+    "category": "Personal tools",
+    "description": "Turns any practical topic into a complete workshop: audience, outcomes, exercises, slides, handouts, timing, facilitation notes, and follow-up tasks.",
+    "howToBuild": "Topic intake → audience model → curriculum generator → slide/page builder → downloadable materials → feedback form.",
+    "monetization": "Course creation tool, consulting product, or internal training workflow.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10042
+  },
+  {
+    "name": "Misinformation Preflight Checker",
+    "category": "Data/research tools",
+    "description": "Checks a draft before you publish it for weak claims, missing sources, misleading framing, outdated facts, and places where you sound more certain than the evidence allows.",
+    "howToBuild": "Draft input → claim extraction → web/source checks → confidence labels → rewrite suggestions → source appendix.",
+    "monetization": "Writer tool, newsroom workflow, or Substack quality checker.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10043
+  },
+  {
+    "name": "Personal API for Your Future Self",
+    "category": "Personal tools",
+    "description": "Creates a small private API over your own notes, projects, preferences, and rules so future tools can ask structured questions like “what are Jeff’s current projects?” or “what style rules matter here?”",
+    "howToBuild": "Workspace index → curated JSON endpoints → bearer-auth API routes → update scripts → documentation page.",
+    "monetization": "Personal infrastructure, agent context product, or developer template.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10044
+  },
+  {
+    "name": "Deadline Autopsy",
+    "category": "Personal tools",
+    "description": "When a deadline slips, it reconstructs why: bad estimate, hidden dependency, energy mismatch, unclear scope, tool failure, avoidance, or someone else blocking it. Then it updates future planning rules.",
+    "howToBuild": "Task/deadline log → calendar/project notes scan → cause taxonomy → autopsy report → planning-rule updates.",
+    "monetization": "Personal ops tool, team retrospective workflow, or coaching asset.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10045
+  },
+  {
+    "name": "Mutual Aid Logistics Board",
+    "category": "Civic/public interest",
+    "description": "Coordinates real-world help without turning everything into a messy group chat: rides, groceries, supplies, check-ins, volunteers, requests, status, and privacy boundaries.",
+    "howToBuild": "Public request form → private moderation → volunteer matching → SMS/email updates → status board → export logs.",
+    "monetization": "Public-good project, nonprofit tool, or local support service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10046
+  },
+  {
+    "name": "The “Explain My Own Codebase” Tutor",
+    "category": "Developer tools",
+    "description": "Teaches you your own project. It reads the repo, builds a map, then creates lessons based on the actual files: routing, data flow, state, styling, deployment, and weird decisions.",
+    "howToBuild": "Repo scan → code map → lesson generator → quizzes → clickable file references → progress notes.",
+    "monetization": "Developer education tool, onboarding product, or agency handoff asset.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10047
+  },
+  {
+    "name": "Substack-to-Product Bridge",
+    "category": "Content/media",
+    "description": "Reads your essays and finds product seeds hiding in them: repeat problems, named workflows, strong opinions, tools mentioned, and readers who would pay for the next useful artifact.",
+    "howToBuild": "Substack archive import → theme extraction → idea scoring → product brief generator → landing page drafts → content links.",
+    "monetization": "Creator product strategy, personal revenue pipeline, or consulting workflow.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10048
+  },
+  {
+    "name": "Domain Story Tester",
+    "category": "Content/media",
+    "description": "Tests whether a project name/domain actually tells the right story. It checks memorability, pronunciation, search clutter, emotional signal, audience fit, and what people might wrongly assume.",
+    "howToBuild": "Name intake → web/search checks → rubric scoring → landing headline variants → risk notes → shortlist.",
+    "monetization": "Naming tool, branding service, or indie project validation asset.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10049
+  },
+  {
+    "name": "The Slow-Burn Revenue Lab",
+    "category": "Commerce",
+    "description": "Builds tiny revenue experiments that do not require becoming a full-time marketer: paid templates, audits, sponsorship slots, micro-products, local pages, research packets, and subscription digests.",
+    "howToBuild": "Offer idea intake → Stripe product setup checklist → landing page generator → traffic plan → fulfillment workflow → weekly experiment log.",
+    "monetization": "Direct use. This is the monetization engine.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-1.md",
+    "id": 10050
+  },
+  {
+    "name": "Vacation Price Scout",
+    "category": "Personal tools",
+    "description": "Plans a trip like a patient research assistant instead of a booking site with a commission problem. It compares hotels, motels, cabins, fees, location tradeoffs, cancellation windows, parking, pet rules, and weird gotchas from reviews, then builds a short ranked brief.",
+    "howToBuild": "Trip intake form → browser/web research across booking sites and maps → price snapshot JSON → review summarizer → comparison table in a private zo.space page → daily price-check automation until booking.",
+    "monetization": "Personal use. Could become a paid travel-planning packet for families, road-trippers, or remote workers.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10051
+  },
+  {
+    "name": "Warranty Escape Hatch",
+    "category": "Personal tools",
+    "description": "Figures out what to do when a product breaks: warranty status, return window, manufacturer contact, required proof, repair options, and the exact message to send. Less “where did I put that receipt,” more “here is the packet.”",
+    "howToBuild": "Receipt/photo upload → OCR and email search → warranty database → manufacturer support lookup → claim packet generator → reminder automation for follow-up dates.",
+    "monetization": "Personal use, consumer advocacy tool, or local repair-shop add-on.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10052
+  },
+  {
+    "name": "The Almost-Free Weekend Planner",
+    "category": "Local/community tools",
+    "description": "Finds low-cost things to do within a chosen radius: library events, trail conditions, small-town calendars, museum free days, school fundraisers, markets, and oddball local listings. Then it builds a realistic itinerary with drive time and weather notes.",
+    "howToBuild": "Location/date intake → web and maps research → event dedupe table → weather check → itinerary generator → SMS/email weekend brief every Thursday.",
+    "monetization": "Local newsletter, tourism micro-site, or community sponsor slots.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10053
+  },
+  {
+    "name": "Bureaucracy Deadline Net",
+    "category": "Personal tools",
+    "description": "Tracks the paperwork deadlines people miss because they are scattered across letters, portals, PDFs, and emails: renewals, appeals, benefits, licenses, insurance forms, school forms, and city notices.",
+    "howToBuild": "Gmail/file watcher for official-looking documents → date and requirement extraction → DuckDB deadline table → SMS reminders → private dashboard with status and source links.",
+    "monetization": "Personal admin template, caregiver tool, or nonprofit support service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10054
+  },
+  {
+    "name": "Review Contradiction Finder",
+    "category": "Data/research tools",
+    "description": "Reads reviews for a hotel, product, restaurant, tool, or service and finds the contradictions: “quiet” vs “walls are paper,” “great support” vs “support disappeared,” “clean” vs “bugs.” It shows what kind of buyer had which experience.",
+    "howToBuild": "URL/product intake → browser scraping or pasted review import → sentiment/topic clustering → contradiction report → confidence notes → shareable comparison page.",
+    "monetization": "Affiliate research tool, consumer report product, or purchase-decision assistant.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10055
+  },
+  {
+    "name": "Small Claims Packet Builder",
+    "category": "Civic/public interest",
+    "description": "Turns a messy consumer dispute into a clear packet: timeline, evidence list, amount requested, contact attempts, supporting documents, and a plain-language summary. It does not give legal advice. It organizes the mess.",
+    "howToBuild": "File upload workspace → timeline extractor → evidence tagger → letter and packet templates → private review page → PDF/markdown export.",
+    "monetization": "Consumer advocacy service, legal-aid intake helper, or personal tool.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10056
+  },
+  {
+    "name": "Tool Regret Ledger",
+    "category": "Business & strategy",
+    "description": "Tracks software subscriptions and asks the question nobody asks at renewal time: did this thing actually earn its keep? It connects cost, usage notes, project outcomes, and replacement options.",
+    "howToBuild": "Bank/receipt CSV import → subscription detector → manual value scoring → project link notes → renewal reminder automation → cancellation packet generator.",
+    "monetization": "Subscription audit service or personal finance tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10057
+  },
+  {
+    "name": "Local Sponsor Matchmaker",
+    "category": "Commerce",
+    "description": "Helps a small event, newsletter, sports team, or community project find plausible sponsors by matching audience, geography, budget, and business type. Generates outreach packets that do not sound like a desperate template.",
+    "howToBuild": "Project profile intake → local business research → fit scoring → sponsorship tier generator → Gmail draft creation → follow-up tracker.",
+    "monetization": "Direct sponsorship sales, local media tool, or freelance service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10058
+  },
+  {
+    "name": "The Boring Asset Index",
+    "category": "Personal tools",
+    "description": "Makes an inventory of important-but-boring assets: appliances, electronics, tools, bikes, documents, accounts, keys, warranties, serial numbers, and who knows what. It becomes useful the day something breaks, disappears, or needs proving.",
+    "howToBuild": "Mobile-friendly private form → photo upload → OCR/serial extraction → DuckDB inventory → warranty/maintenance reminders → export bundle by category.",
+    "monetization": "Personal use, insurance prep service, or homeowner/renter template.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10059
+  },
+  {
+    "name": "FOIA Request Workshop",
+    "category": "Civic/public interest",
+    "description": "Helps a person draft a public records request that is specific enough to work. It studies the agency, suggests record types, narrows date ranges, removes vague language, and tracks responses.",
+    "howToBuild": "Agency/topic intake → web research on records rules → request draft generator → tracker database → calendar reminders → response archive.",
+    "monetization": "Civic tool, newsroom support product, or advocacy workflow.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10060
+  },
+  {
+    "name": "Porchlight Page",
+    "category": "Local/community tools",
+    "description": "Creates a simple public page for “is this happening?” local questions: road closure, boil notice, school delay, clinic hours, wildfire smoke, missing pet, event moved. It favors verified links and timestamps over rumor screenshots.",
+    "howToBuild": "Public zo.space page → source list → manual or scheduled verification checks → status cards → SMS/email digest option → admin approval queue.",
+    "monetization": "Community sponsor slots, donation page, or local information service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10061
+  },
+  {
+    "name": "Secondhand Value Scout",
+    "category": "Commerce",
+    "description": "Helps thrift sellers, collectors, and normal people decide whether an item is worth listing. It checks sold prices, condition notes, shipping pain, likely keywords, and whether the market is fake-hyped or actually moving.",
+    "howToBuild": "Photo/text intake → web research across resale sites → sold-price table → listing draft generator → margin calculator → saved item database.",
+    "monetization": "Reseller tool, paid listing prep service, or niche product research.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10062
+  },
+  {
+    "name": "Meeting Shadow Notes",
+    "category": "Personal tools",
+    "description": "Turns rough meeting notes into an accountability layer: decisions, promises, owners, open questions, risks, and “things people carefully avoided saying.” It is less meeting minutes, more memory with teeth.",
+    "howToBuild": "Notes/transcript upload → extraction prompt → action item database → follow-up email drafts → calendar reminders → private project timeline.",
+    "monetization": "Team ops tool, freelancer client-management workflow, or personal executive assistant.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10063
+  },
+  {
+    "name": "Policy Change Watchtower",
+    "category": "Civic/public interest",
+    "description": "Watches specific agency pages, city council agendas, school board packets, or company policy pages and alerts when language changes. It stores before/after diffs so changes cannot quietly vanish.",
+    "howToBuild": "URL watchlist → scheduled page fetch → text extraction and diffing → DuckDB change log → email/SMS alerts → public archive route if approved.",
+    "monetization": "Advocacy monitoring product, newsroom tool, or internal compliance tracker.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10064
+  },
+  {
+    "name": "The Kind Resignation Builder",
+    "category": "Career & professional",
+    "description": "Helps someone leave a role without lighting unnecessary fires. It builds a resignation plan, transition checklist, asset handoff, message drafts, and a boundary script for the weird conversations.",
+    "howToBuild": "Situation intake → timeline builder → task checklist → document handoff folder → email drafts → calendar reminders for transition steps.",
+    "monetization": "Career coaching asset, HR template, or personal tool.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10065
+  },
+  {
+    "name": "Repair or Replace Judge",
+    "category": "Personal tools",
+    "description": "Decides whether to repair, replace, sell, or live with a broken item. It pulls purchase date, warranty, local repair options, parts cost, used replacement cost, and environmental notes into one decision brief.",
+    "howToBuild": "Item intake → receipt/warranty lookup → local maps/web research → parts/replacement price search → decision rubric → saved repair log.",
+    "monetization": "Consumer tool, repair-shop lead magnet, or household ops template.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10066
+  },
+  {
+    "name": "Creator Back Catalog Miner",
+    "category": "Content/media",
+    "description": "Finds reusable assets hiding in old posts, notes, videos, newsletters, and drafts: ideas that can become guides, paid templates, short posts, lead magnets, or product docs.",
+    "howToBuild": "Folder/Substack/RSS import → topic clustering → evergreen score → asset recommendation cards → draft generator → approval queue.",
+    "monetization": "Creator revenue workflow, content audit service, or Substack companion.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10067
+  },
+  {
+    "name": "Family Tech Translator",
+    "category": "Personal tools",
+    "description": "Explains confusing tech tasks for non-technical relatives in plain steps: setting up 2FA, checking scams, exporting photos, canceling a subscription, reading a medical portal message, or backing up files.",
+    "howToBuild": "Task intake → safe instruction generator → screenshot-friendly checklist → optional SMS/email send → saved family playbook with repeated tasks.",
+    "monetization": "Personal use, senior tech support service, or local workshop material.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10068
+  },
+  {
+    "name": "Silent Churn Detector",
+    "category": "Commerce",
+    "description": "Watches for signs that a customer, sponsor, reader, or client is fading before they fully disappear: slower replies, fewer opens, fewer visits, unpaid invoices, reduced usage, or weaker signals.",
+    "howToBuild": "CRM/customer CSV import → Gmail/newsletter/payment signal checks → risk scoring → follow-up suggestions → weekly retention brief.",
+    "monetization": "Small business retention tool or consultant service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10069
+  },
+  {
+    "name": "The Donation Page Doctor",
+    "category": "Civic/public interest",
+    "description": "Audits a nonprofit, mutual aid, or community donation page for trust, clarity, urgency, proof, payment friction, and follow-up. Then it drafts a cleaner page and thank-you flow.",
+    "howToBuild": "URL intake → page analysis → trust checklist → copy rewrite → Stripe/payment flow notes → email thank-you sequence draft.",
+    "monetization": "Nonprofit consulting product, local civic service, or free public-good tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10070
+  },
+  {
+    "name": "“Where Did This Come From?” File Detective",
+    "category": "Data/research tools",
+    "description": "Looks at a mysterious file and reconstructs likely origin, purpose, creation context, related files, and whether it can be safely deleted or archived.",
+    "howToBuild": "File picker → metadata inspection → nearby folder scan → content summary → duplicate search → decision report with keep/archive/delete recommendation.",
+    "monetization": "Personal file cleanup tool or digital decluttering service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10071
+  },
+  {
+    "name": "Community Skill Exchange Board",
+    "category": "Local/community tools",
+    "description": "Creates a local board where people trade practical help: rides, tutoring, yard work, computer help, cooking, repair, childcare swaps, and tool lending. It includes moderation and clear boundaries instead of chaos.",
+    "howToBuild": "Public zo.space board → submission form → private moderation queue → tag filters → email/SMS notifications → simple trust/safety rules page.",
+    "monetization": "Community project, sponsor-supported board, or local membership product.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10072
+  },
+  {
+    "name": "Software Migration Sherpa",
+    "category": "Developer tools",
+    "description": "Helps move from one tool to another without losing the plot: Notion to markdown, Google Drive to local folders, Substack to archive, Airtable to DuckDB, old site to new site.",
+    "howToBuild": "Source/destination intake → export checklist → file converter scripts → validation report → migration log → rollback notes.",
+    "monetization": "Migration service, paid template, or technical consulting workflow.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10073
+  },
+  {
+    "name": "The “Should I Say Yes?” Filter",
+    "category": "Personal tools",
+    "description": "Turns vague opportunities into a decision brief: actual cost, time load, upside, values fit, deadline pressure, hidden obligations, and what saying yes blocks.",
+    "howToBuild": "Opportunity intake form → calendar/task load check → rubric scoring → counterfactual notes → decision archive → follow-up reminder.",
+    "monetization": "Coaching tool, freelancer boundary system, or personal operating workflow.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10074
+  },
+  {
+    "name": "Local Disaster Prep Binder",
+    "category": "Local/community tools",
+    "description": "Builds a practical emergency binder for a specific place: evacuation routes, shelters, alerts, medication lists, pet plans, documents, local hazards, phone numbers, and offline printables.",
+    "howToBuild": "Location intake → local emergency source research → checklist generator → private document vault → printable PDF/markdown binder → seasonal review reminders.",
+    "monetization": "Public safety project, local workshop product, or family preparedness service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10075
+  },
+  {
+    "name": "Contract Red Flag Reader",
+    "category": "Business & strategy",
+    "description": "Reads a contract, proposal, lease, or service agreement and explains the weird parts: auto-renewal, liability, payment timing, IP ownership, termination, vague deliverables, and missing protections. Not legal advice. Better questions.",
+    "howToBuild": "PDF/doc upload → clause extraction → red-flag checklist → plain-English summary → question list → negotiation email draft.",
+    "monetization": "Freelance admin tool, consultant service, or small business intake product.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10076
+  },
+  {
+    "name": "The Local Price Memory",
+    "category": "Data/research tools",
+    "description": "Tracks the prices of local basics over time: motel rooms, gas, groceries, firewood, storage units, event tickets, repair services. Useful when “that seems high” needs proof.",
+    "howToBuild": "Manual capture form + scheduled web checks → price table in DuckDB → charts on private/public page → change alerts → monthly summary.",
+    "monetization": "Local data newsletter, household budget tool, or community research project.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10077
+  },
+  {
+    "name": "Tiny Apprenticeship Builder",
+    "category": "Learning & skill-building",
+    "description": "Turns someone’s real goal into a tiny apprenticeship: observe examples, copy one, modify one, build one, explain one. It uses their actual files and projects instead of fake exercises.",
+    "howToBuild": "Goal intake → example finder → exercise generator → file-based practice tasks → answer review → progress log.",
+    "monetization": "Personalized learning product, tutoring add-on, or internal training tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10078
+  },
+  {
+    "name": "Source-of-Truth Cleaner",
+    "category": "Data/research tools",
+    "description": "Finds where reality is split across too many files: three pricing docs, two bios, old policies, duplicate specs, conflicting notes. It builds a merge plan and marks stale copies.",
+    "howToBuild": "Folder scan → similarity/duplicate detection → conflict extraction → source-of-truth recommendation → update checklist → archive script after approval.",
+    "monetization": "Ops cleanup service, documentation audit, or personal knowledge-base tool.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10079
+  },
+  {
+    "name": "Good Enough Launch Judge",
+    "category": "Developer tools",
+    "description": "Looks at a project and decides whether it is launchable, embarrassing-but-useful, or still fake. It checks broken links, missing docs, core flows, copy clarity, performance, setup instructions, and obvious trust gaps.",
+    "howToBuild": "Repo/site intake → build/test commands → link audit → screenshot pass → README check → launch-readiness scorecard → fix list.",
+    "monetization": "Indie launch audit, agency QA service, or internal release gate.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10080
+  },
+  {
+    "name": "Food Waste Archaeologist",
+    "category": "Personal tools",
+    "description": "Studies what you actually throw away or forget in the fridge, then changes your grocery list and meal plan. It treats food waste like a data problem, not a morality lecture.",
+    "howToBuild": "Quick waste log → receipt/grocery import → meal plan notes → pattern detection → shopping list adjustment → weekly SMS with one change.",
+    "monetization": "Household tool, sustainability workshop, or grocery planning product.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10081
+  },
+  {
+    "name": "Neighborhood Noise Log",
+    "category": "Local/community tools",
+    "description": "Keeps a timestamped record of recurring noise, nuisance, construction, traffic, or event issues. It turns scattered complaints into a clear timeline with evidence and calm language.",
+    "howToBuild": "Mobile form → optional audio/photo attachment → event database → pattern summary → letter draft → export packet.",
+    "monetization": "Personal admin tool, tenant support workflow, or civic data project.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10082
+  },
+  {
+    "name": "“Explain My Benefits Letter” Reader",
+    "category": "Personal tools",
+    "description": "Reads a confusing benefits, insurance, school, tax, or government letter and extracts the actual decision, deadline, requested action, appeal path, and documents needed.",
+    "howToBuild": "PDF/photo upload → OCR/text extraction → decision parser → deadline reminders → checklist page → appeal/request draft.",
+    "monetization": "Personal admin helper, nonprofit intake tool, or caseworker support product.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10083
+  },
+  {
+    "name": "Productized Service Foundry",
+    "category": "Commerce",
+    "description": "Turns a messy skill into a productized service with a scope, price, intake form, delivery packet, payment link, and fulfillment checklist. Good for people who can do useful work but hate packaging it.",
+    "howToBuild": "Skill/service intake → offer design rubric → Stripe product draft → landing page copy → intake form → delivery checklist → follow-up automation.",
+    "monetization": "Direct use. This creates sellable services.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10084
+  },
+  {
+    "name": "Personal Search Engine for Past Decisions",
+    "category": "Personal tools",
+    "description": "Lets you search your old decisions by situation: why you picked one tool, why a project was paused, why you said no, what evidence mattered, and whether the decision aged well.",
+    "howToBuild": "Decision note template → workspace folder index → semantic/tag search → outcome review reminders → private zo.space search page.",
+    "monetization": "Personal operating system feature, founder tool, or writing/research assistant.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10085
+  },
+  {
+    "name": "Tiny Terms of Service Watcher",
+    "category": "Data/research tools",
+    "description": "Watches terms, privacy policies, creator program rules, API limits, and pricing pages for changes that affect your work. It produces a plain-English “what changed and why it matters” note.",
+    "howToBuild": "URL watchlist → scheduled fetch/diff → change classifier → impact summary → email alert → archive of previous versions.",
+    "monetization": "Creator/business monitoring product or compliance-lite service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10086
+  },
+  {
+    "name": "The Polite Pestering Machine",
+    "category": "Personal tools",
+    "description": "Follows up on things that should not require heroic memory: refunds, invoices, applications, support tickets, medical records, contractor estimates, collaboration promises. It drafts calm follow-ups on schedule.",
+    "howToBuild": "Follow-up item form → due date tracker → Gmail draft generator → SMS review reminder → status dashboard → escalation template.",
+    "monetization": "Freelancer admin tool, personal assistant template, or small business workflow.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10087
+  },
+  {
+    "name": "Pop-Up Research Desk",
+    "category": "Content/media",
+    "description": "Creates a temporary research headquarters for one topic: source list, reading queue, claim tracker, interview questions, open tabs, citations, and a final brief. Useful when curiosity turns into a project and the browser starts breeding tabs.",
+    "howToBuild": "Topic intake → web research → source database → citation notes → claim tracker → markdown research brief → optional public reading list page.",
+    "monetization": "Research service, journalist workflow, creator research product, or paid briefing packet.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10088
+  },
+  {
+    "name": "Decision Receipts for Teams",
+    "category": "Business & strategy",
+    "description": "Creates a record of why a team made a decision before everyone rewrites history. It captures options, evidence, objections, owner, date, and what would make the team revisit it.",
+    "howToBuild": "Decision form → meeting notes import → ADR-style markdown generator → searchable private page → revisit reminders → weekly digest.",
+    "monetization": "Team ops template, consulting tool, or internal knowledge product.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10089
+  },
+  {
+    "name": "Personal API Catalog",
+    "category": "Developer tools",
+    "description": "Keeps track of every API key, webhook, endpoint, integration, and service you rely on without storing secrets in the wrong place. It documents what exists and what would break if it changed.",
+    "howToBuild": "Manual service registry → environment variable name references → endpoint checker → webhook test notes → private docs page → rotation reminders.",
+    "monetization": "Dev ops template, freelancer handoff product, or internal reliability tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10090
+  },
+  {
+    "name": "The “Is This Scammy?” Lens",
+    "category": "Personal tools",
+    "description": "Reviews an email, website, DM, invoice, job offer, product page, or fundraising request and explains the risk signals in plain language. It does not panic. It points to evidence.",
+    "howToBuild": "Paste/upload intake → sender/domain checks → claim extraction → web corroboration → risk score → safe next steps.",
+    "monetization": "Family tech support product, consumer safety tool, or public education site.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10091
+  },
+  {
+    "name": "Hyperlocal FAQ Builder",
+    "category": "Local/community tools",
+    "description": "Builds a public FAQ for questions people ask over and over in a town, organization, school, church, club, or neighborhood: hours, forms, rules, contacts, recurring events, and “who do I call?” answers.",
+    "howToBuild": "Source document import → question extraction → answer drafting with citations → public zo.space FAQ → correction submission form → review queue.",
+    "monetization": "Local web service, civic project, or maintenance retainer.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10092
+  },
+  {
+    "name": "Personal Knowledge Decay Monitor",
+    "category": "Personal tools",
+    "description": "Finds notes, docs, and assumptions that are likely stale: old setup instructions, outdated prices, links that moved, plans that no longer match reality, and advice from a previous version of your life.",
+    "howToBuild": "Workspace scan → last-modified analysis → link checking → stale-risk scoring → review queue → archive/update suggestions.",
+    "monetization": "Knowledge-base cleanup service or personal ops tool.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10093
+  },
+  {
+    "name": "Micro-SaaS Fulfillment Desk",
+    "category": "Micro-SaaS",
+    "description": "Gives a tiny paid product the boring backend it needs: order intake, fulfillment status, customer messages, delivery files, refund notes, and weekly revenue summary.",
+    "howToBuild": "Stripe orders → workspace customer folders → fulfillment checklist → Gmail draft templates → private dashboard → weekly sales email.",
+    "monetization": "Direct use for paid templates, audits, reports, or small services.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10094
+  },
+  {
+    "name": "Local Contractor Memory",
+    "category": "Local/community tools",
+    "description": "Tracks contractor quotes, timelines, reliability, photos, warranties, and follow-up promises. Over time it becomes a private or shared memory of who actually showed up and what work cost.",
+    "howToBuild": "Quote/photo upload → contact records → project timeline → cost table → review notes → warranty/reminder automation.",
+    "monetization": "Personal household tool, neighborhood resource, or local homeowner service.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10095
+  },
+  {
+    "name": "Open Source Maintainer Radar",
+    "category": "Developer tools",
+    "description": "Watches the projects you depend on for releases, breaking changes, maintainer burnout signals, security notices, and issue patterns before they surprise you.",
+    "howToBuild": "GitHub repo watchlist → release/feed checks → issue/PR summary → dependency impact notes → weekly maintainer health brief.",
+    "monetization": "Dev team monitoring service, consultant tool, or personal dependency dashboard.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10096
+  },
+  {
+    "name": "The Humane Rejection Writer",
+    "category": "Personal tools",
+    "description": "Helps say no without sounding cold, fake, or over-explaining: invitations, collaborations, unpaid work, client scope creep, awkward requests, and opportunities that are not right.",
+    "howToBuild": "Situation intake → relationship/context questions → boundary tone selector → draft generator → saved phrase bank.",
+    "monetization": "Freelancer tool, coaching resource, or personal communication assistant.",
+    "difficulty": "Beginner",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10097
+  },
+  {
+    "name": "Dataset Storyboarder",
+    "category": "Data/research tools",
+    "description": "Turns a raw dataset into a set of story angles: what changed, what is weird, what is missing, which rows deserve inspection, and which chart would actually explain something.",
+    "howToBuild": "CSV/DuckDB import → schema scan → anomaly checks → question generator → chart suggestions → markdown research memo.",
+    "monetization": "Data journalism helper, analyst tool, or research service.",
+    "difficulty": "Advanced",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10098
+  },
+  {
+    "name": "Private Job Search War Room",
+    "category": "Career & professional",
+    "description": "Runs a job search like a campaign: target companies, contact history, tailored resumes, application status, interview prep, follow-up drafts, and red-flag notes.",
+    "howToBuild": "Job URL intake → company research → application tracker → resume/cover letter draft folder → calendar reminders → private dashboard.",
+    "monetization": "Career coaching tool, personal use, or paid setup package.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10099
+  },
+  {
+    "name": "The Small Town Web Reviver",
+    "category": "Local/community tools",
+    "description": "Finds local organizations with broken, outdated, or missing web presence and turns that into a practical service pipeline: what is broken, who to contact, what a simple fix would cost, and a ready-to-send pitch.",
+    "howToBuild": "Local organization source list → website scan → screenshot capture → issue scoring → offer page generator → outreach draft queue.",
+    "monetization": "Freelance pipeline, local web service, or civic improvement project.",
+    "difficulty": "Intermediate",
+    "source": "mind-expanding-ideas-batch-2.md",
+    "id": 10100
+  }
+]

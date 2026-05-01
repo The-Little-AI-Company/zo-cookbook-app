@@ -1,0 +1,902 @@
+[
+  {
+    "id": 1,
+    "name": "Mood-Responsive Landing Page",
+    "route": "/",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Your homepage shifts its color palette, typography weight, and greeting text based on the time of day in the visitor's timezone. Dawn gets warm ambers and a soft \"good morning,\" midnight gets deep indigo and \"you're up late.\" Not a gimmick — it makes your personal site feel alive.",
+    "keyTech": "`useEffect` with `new Date().getHours()`, CSS custom properties for theme switching, Tailwind arbitrary values for palette injection."
+  },
+  {
+    "id": 2,
+    "name": "/now Page with Live Workspace Pulse",
+    "route": "/now",
+    "type": "Page + API",
+    "visibility": "public",
+    "description": "A public `/now` page (à la nownownow.com) that pulls its content from a markdown file in your workspace (`/home/workspace/Persona/now.md`). An API route reads the file at request time, so you update the markdown and the page reflects it instantly. Shows what you're working on, reading, listening to, and thinking about.",
+    "keyTech": "API route uses `Bun.file()` to read workspace markdown, page fetches from `/api/now` and renders with a simple markdown-to-JSX parser."
+  },
+  {
+    "id": 3,
+    "name": "Personal API Key Gateway",
+    "route": "/api/v1/:service",
+    "type": "API",
+    "visibility": "public",
+    "description": "A single authenticated API gateway that proxies requests to your own micro-services. Hit `/api/v1/bookmarks` and it reads your bookmarks file; hit `/api/v1/status` and it returns your current availability. One token, one entry point, multiple internal routes. Your own personal API.",
+    "keyTech": "Bearer token auth via `process.env`, dynamic `/:service` param, `switch` dispatch to different workspace file reads or external fetches."
+  },
+  {
+    "id": 4,
+    "name": "Receipt Scanner Results Page",
+    "route": "/receipts",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A private dashboard showing receipts you've photographed and processed through a scheduled agent. The agent OCRs receipt images dropped into a workspace folder, extracts merchant/amount/date, and writes JSON. This page reads that JSON and shows a searchable, sortable table with monthly totals.",
+    "keyTech": "API route reads `/home/workspace/Datasets/receipts/data.json`, `useState` for search/filter, `useMemo` for totals aggregation."
+  },
+  {
+    "id": 5,
+    "name": "Webring Node",
+    "route": "/webring",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Brings back the webring. A page shows the ring members (pulled from a shared JSON file or API), with \"← Previous\" and \"Next →\" navigation. The API route (`/api/webring`) returns the ring data as JSON so other members can consume it. You maintain your segment of the ring in a workspace file.",
+    "keyTech": "API reads a local `webring.json` with member URLs, page uses `useEffect` to fetch and render the ring with navigation links that redirect to adjacent members."
+  },
+  {
+    "id": 6,
+    "name": "Stripe-Powered Tip Jar",
+    "route": "/tip",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A minimal, beautiful tip page with preset amounts ($3, $5, $10) and a custom amount field. Each button creates a Stripe Checkout session via an API route and redirects the visitor to pay. A thank-you page shows after successful payment. No storefront overhead — just a direct way for people to support your work.",
+    "keyTech": "Stripe SDK (`new Stripe(process.env.STRIPE_SECRET_KEY)`), `/api/tip` creates checkout sessions with `mode: 'payment'`, success/cancel URL redirects."
+  },
+  {
+    "id": 7,
+    "name": "DNS Lookup Tool",
+    "route": "/tools/dns",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A public utility page where anyone can type a domain and see its A, AAAA, MX, TXT, NS, and CNAME records. The API route runs `Bun.spawn` to call `dig` under the hood and parses the output. Clean table layout with record type tabs. Useful enough to bookmark.",
+    "keyTech": "API route uses `Bun.spawn([\"dig\", domain, recordType, \"+short\"])`, page uses `useState` for domain input and record type selection, tabbed results display."
+  },
+  {
+    "id": 8,
+    "name": "Color Palette Generator from Image",
+    "route": "/tools/palette",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Upload an image, and the page extracts the dominant 5–8 colors using quantization. Shows the palette as swatches with hex/RGB/HSL values, a CSS variables snippet, and a Tailwind config snippet. The API route handles the image processing server-side.",
+    "keyTech": "API route uses ImageMagick via `Bun.spawn([\"convert\", ...])` to extract dominant colors with `-colors 8 -format '%c' histogram:info:`), page renders swatches and copy-to-clipboard buttons."
+  },
+  {
+    "id": 9,
+    "name": "Markdown Résumé with PDF Export",
+    "route": "/resume",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Your résumé lives as a markdown file in your workspace. The page route renders it with typographic care — proper hierarchy, print-optimized CSS, and a \"Download PDF\" button. The API route uses Pandoc to convert the markdown to PDF on the fly and streams it back.",
+    "keyTech": "API reads `/home/workspace/Documents/resume.md`, uses `Bun.spawn([\"pandoc\", ...])` to generate PDF, page renders the markdown with `@media print` styles and a download link to the API."
+  },
+  {
+    "id": 10,
+    "name": "Webhook Relay for GitHub → Telegram",
+    "route": "/api/github-webhook",
+    "type": "API",
+    "visibility": "public",
+    "description": "Receives GitHub webhook payloads (push, PR, issue events), verifies the `X-Hub-Signature-256` header against your secret, formats a concise message, and posts it to your Telegram via the Zo API. You get a ping on your phone every time something happens in your repos.",
+    "keyTech": "HMAC-SHA256 signature verification with `node:crypto`, payload parsing for event type, fetch to Zo's `/zo/ask` API with a \"send me a Telegram message\" prompt."
+  },
+  {
+    "id": 11,
+    "name": "Personal Link Shortener",
+    "route": "/go/:slug",
+    "type": "API",
+    "visibility": "public",
+    "description": "A URL shortener backed by a JSON file in your workspace. Hit `yourhandle.zo.space/go/gh` and get redirected to your GitHub. An authenticated API route at `/api/links` lets you add/remove/list shortened URLs. The JSON file is your database — no external dependencies.",
+    "keyTech": "Dynamic `/:slug` route reads `links.json`, returns 302 redirect. CRUD API route with bearer auth for management. `Map` lookup for O(1) resolution."
+  },
+  {
+    "id": 12,
+    "name": "Spotify \"Currently Playing\" Widget",
+    "route": "/playing",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A small, embeddable widget showing what you're currently listening to on Spotify. The API route checks your Spotify connection via Zo's app tools and caches the result for 30 seconds. The page shows album art, track name, artist, and a progress bar. Returns \"Nothing playing\" gracefully.",
+    "keyTech": "API calls Zo's Spotify integration to get current playback, in-memory cache with TTL, page uses `useEffect` with 30s polling interval, CSS animation for the progress bar."
+  },
+  {
+    "id": 13,
+    "name": "QR Code Generator",
+    "route": "/tools/qr",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Type any URL or text, get an instant QR code rendered as SVG. Customizable size, error correction level, and foreground/background colors. The API route generates the QR and returns SVG, the page provides the UI with live preview and download button.",
+    "keyTech": "`qrcode` generation via a lightweight algorithm in TypeScript (no npm needed — QR encoding is well-documented), SVG path output, page uses controlled inputs with live `useEffect` regeneration."
+  },
+  {
+    "id": 14,
+    "name": "Expense Tracker Dashboard",
+    "route": "/money",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A private dashboard reading from a DuckDB dataset of your bank transactions (imported via the Zo Datasets feature). Shows monthly spending by category, top merchants, burn rate, and trend lines. Filterable by date range and category. Your financial pulse at a glance.",
+    "keyTech": "API route queries DuckDB via `Bun.spawn([\"duckdb\", ...])` with SQL aggregations, page uses `useState` for filters and renders bar/line charts with pure SVG (no charting library needed)."
+  },
+  {
+    "id": 15,
+    "name": "Digital Garden / Wiki",
+    "route": "/garden/:slug",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A public digital garden where each page is a markdown file in `/home/workspace/Projects/garden/`. The dynamic `:slug` route loads the corresponding `.md` file. Supports `[[wiki-links]]` between notes — the renderer converts them to internal links. An index page at `/garden` lists all notes sorted by last modified.",
+    "keyTech": "API reads workspace files with `Bun.file()`, regex replaces `[[links]]` with anchor tags, `/api/garden/index` uses `readdir` to list files with `stat` for modification times."
+  },
+  {
+    "id": 16,
+    "name": "Open Graph Image Generator",
+    "route": "/api/og",
+    "type": "API",
+    "visibility": "public",
+    "description": "Pass `?title=Hello&subtitle=World&theme=dark` and get back a 1200×630 PNG suitable for social sharing. Uses ImageMagick to compose text onto a template background. Now every blog post, project, or page you share has a branded, dynamic preview image instead of a blank card.",
+    "keyTech": "`Bun.spawn([\"convert\", ...])` with ImageMagick's `-annotate` for text rendering, `-resize` for dimensions, query param parsing for customization, returns image/png response."
+  },
+  {
+    "id": 17,
+    "name": "Pomodoro Timer with Session Log",
+    "route": "/pomodoro",
+    "type": "Both",
+    "visibility": "private",
+    "description": "A private Pomodoro timer with 25/5/15 intervals. Tracks completed sessions and appends them to a workspace log file with timestamps and optional task labels. Over time, you build a dataset of your deep work patterns. Plays a browser notification sound on interval completion.",
+    "keyTech": "`useState` + `useEffect` with `setInterval` for the timer, `useRef` for audio, POST to `/api/pomodoro/log` which appends to a JSONL file in the workspace."
+  },
+  {
+    "id": 18,
+    "name": "Email Signup with Drip Sequence Trigger",
+    "route": "/subscribe",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A clean email signup form for a newsletter or course. On submit, the API route validates the email, appends it to a subscriber list in the workspace, and triggers a Zo scheduled agent to send the first drip email via Gmail. No Mailchimp needed — it's all on your server.",
+    "keyTech": "API appends to `subscribers.jsonl`, calls `/zo/ask` to trigger a welcome email via Gmail tools, page uses `useState` for form state and a success/error message after submission."
+  },
+  {
+    "id": 19,
+    "name": "Habit Streak Tracker",
+    "route": "/habits",
+    "type": "Both",
+    "visibility": "private",
+    "description": "A private page showing your daily habits as a GitHub-style contribution grid. Each habit gets its own row of cells colored by completion. Tap a cell to toggle it. Data persists in a JSON file. A companion API route lets scheduled agents auto-mark habits (e.g., \"exercised\" marked if Apple Health data arrives via webhook).",
+    "keyTech": "CSS Grid for the contribution graph, `useState` for toggle state, API reads/writes `habits.json`, date math with `Temporal` or manual ISO date manipulation."
+  },
+  {
+    "id": 20,
+    "name": "Status Page for Your Services",
+    "route": "/status",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A public status page showing uptime for your Zo services, sites, and external APIs you depend on. A scheduled agent pings each endpoint every 5 minutes and writes results to a JSON log. The page shows current status (green/yellow/red), response times, and a 24-hour incident timeline.",
+    "keyTech": "API reads `status-checks.json` (written by a scheduled agent), page renders status indicators with Tailwind bg-green-500/bg-red-500, timeline uses CSS grid with time-based column positioning."
+  },
+  {
+    "id": 21,
+    "name": "Invoice Generator",
+    "route": "/invoice/:id",
+    "type": "Both",
+    "visibility": "private",
+    "description": "Generate professional invoices from a JSON template in your workspace. Each invoice has a unique ID, client details, line items, tax calculation, and total. The page renders a print-ready invoice. The API route can generate a PDF via Pandoc. A POST endpoint creates new invoices from structured data.",
+    "keyTech": "API reads/writes to `/home/workspace/Documents/invoices/`, Pandoc for PDF generation, `@media print` CSS for the page, dynamic `/:id` routing."
+  },
+  {
+    "id": 22,
+    "name": "Bookmark Dump with Tags",
+    "route": "/bookmarks",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A curated, tagged bookmark collection. You save bookmarks by sending them to a Zo agent (via SMS or Telegram), which extracts the title and stores them in a JSONL file. The page renders them in a filterable grid with tag chips. Think Pinboard but yours, on your domain, with zero subscription fees.",
+    "keyTech": "API reads `bookmarks.jsonl`, supports `?tag=` query filter, page uses `useState` for tag filtering, `useMemo` for tag extraction and counting."
+  },
+  {
+    "id": 23,
+    "name": "Weather Dashboard for Your Location",
+    "route": "/weather",
+    "type": "Both",
+    "visibility": "private",
+    "description": "A private weather dashboard pulling data from a free weather API (Open-Meteo, no key needed). Shows current conditions, 7-day forecast, and sunrise/sunset for Salmon, Idaho (or whatever you configure). Minimal, glanceable design — not a cluttered weather app.",
+    "keyTech": "API fetches from `api.open-meteo.com` with lat/long params, caches for 30 minutes in a workspace temp file, page renders with weather-appropriate icons from lucide-react (Sun, Cloud, CloudRain, etc.)."
+  },
+  {
+    "id": 24,
+    "name": "Freelance Rate Calculator",
+    "route": "/tools/rate",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Input your target annual income, desired vacation weeks, hours per week, and overhead percentage. It calculates your minimum hourly rate, day rate, weekly rate, and project rate (with a profit margin slider). Shows the math transparently. Useful for other freelancers — shareable as a public tool.",
+    "keyTech": "Pure client-side calculation with `useState` for inputs, `useMemo` for derived values, range sliders for hours and margin, formatted currency output."
+  },
+  {
+    "id": 25,
+    "name": "Cron Job Status Dashboard",
+    "route": "/crons",
+    "type": "Both",
+    "visibility": "private",
+    "description": "A private dashboard listing all your Zo scheduled agents with their last run time, next scheduled run, success/failure status, and a snippet of their last output. One place to see if your automations are healthy. The API route queries Zo's agent system for status data.",
+    "keyTech": "API calls Zo's agent listing tools, page renders a table with status badges (green for success, red for failure, gray for pending), relative time formatting (\"3 hours ago\")."
+  },
+  {
+    "id": 26,
+    "name": "WHOIS Lookup Tool",
+    "route": "/tools/whois",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Enter a domain, get back registrar, creation/expiry dates, nameservers, and registrant info (where available). The API route runs `whois` via `Bun.spawn` and parses the output into structured JSON. Cleaner than any ad-riddled WHOIS site.",
+    "keyTech": "`Bun.spawn([\"whois\", domain])`, regex parsing for key fields, page with `useState` for input and tabular results display."
+  },
+  {
+    "id": 27,
+    "name": "Personal Changelog",
+    "route": "/changelog",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A public log of notable things you've shipped, learned, or changed — structured as dated entries with tags (shipped, learned, personal, meta). Reads from a `changelog.jsonl` file in your workspace. Each entry has a date, title, body, and tags. Shows your trajectory over time.",
+    "keyTech": "API reads and filters `changelog.jsonl`, supports `?tag=` query param, page renders entries chronologically with tag chips and a simple date grouping header."
+  },
+  {
+    "id": 28,
+    "name": "Contact Form with Spam Filtering",
+    "route": "/contact",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A public contact form that sends submissions to your email (or Telegram, or SMS). The API route applies basic spam filtering: honeypot field, rate limiting by IP, and a minimum time-to-submit check. Legitimate messages get forwarded; spam gets silently dropped.",
+    "keyTech": "Honeypot hidden field, `Map` for rate-limit tracking by IP from `c.req.header('x-forwarded-for')`, time check via a hidden timestamp field, forwards via `/zo/ask` to send email/SMS."
+  },
+  {
+    "id": 29,
+    "name": "Font Pairing Preview Tool",
+    "route": "/tools/fonts",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Pick two Google Fonts and see them paired together instantly across heading, subheading, body, and caption samples. Includes a dark/light toggle, adjustable sizes, and sample paragraphs. Outputs a CSS snippet and Google Fonts `<link>` tag you can copy. Opinionated defaults showcase non-generic pairings.",
+    "keyTech": "Dynamic Google Fonts loading via injected `<link>` tags in `useEffect`, `useState` for font selections and size/weight controls, CSS custom properties for live preview."
+  },
+  {
+    "id": 30,
+    "name": "RSS Feed from Workspace Files",
+    "route": "/api/feed.xml",
+    "type": "API",
+    "visibility": "public",
+    "description": "An auto-generated RSS/Atom feed from markdown files in a workspace directory (e.g., `/home/workspace/Projects/blog/posts/`). The API reads the directory, extracts frontmatter (title, date, description), and returns valid XML. Now any blog, changelog, or note collection has a subscribable feed with zero config.",
+    "keyTech": "`readdir` + `Bun.file()` for each `.md` file, frontmatter regex parsing, XML string template for Atom feed format, `Content-Type: application/atom+xml` response header."
+  },
+  {
+    "id": 31,
+    "name": "Personal Health Dashboard",
+    "route": "/health",
+    "type": "Both",
+    "visibility": "private",
+    "description": "A private dashboard tracking health metrics you log via SMS or a workspace JSON file. Shows medication adherence, seizure log, sleep quality, energy levels, and notes — all as simple time-series visualizations. Designed for someone who needs to manage energy and health proactively, not reactively.",
+    "keyTech": "API reads `health-log.jsonl`, page renders sparkline SVGs for trends, color-coded calendar cells for adherence, `useMemo` for streak calculations."
+  },
+  {
+    "id": 32,
+    "name": "Open Source Project Directory",
+    "route": "/projects",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A curated showcase of your GitHub repos and side projects. The API fetches your repos from the GitHub API (or reads a curated `projects.json`), enriches them with descriptions and tags you've written, and the page renders them as cards with language badges, star counts, and demo links.",
+    "keyTech": "Optional GitHub API fetch with `fetch('https://api.github.com/users/yourname/repos')`, merged with local `projects.json` for custom descriptions and ordering, page uses CSS grid for card layout."
+  },
+  {
+    "id": 33,
+    "name": "Dead Link Checker",
+    "route": "/tools/deadlinks",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Paste a URL, and the tool crawls the page (one level deep), finds all links, and checks each one for 404s, timeouts, and redirects. Returns a report showing healthy, broken, and redirected links with status codes. Useful for site owners, writers, and anyone maintaining a link collection.",
+    "keyTech": "API uses `fetch` with `HEAD` requests in parallel (`Promise.allSettled`), timeout handling, page renders results as a categorized list with color-coded status indicators."
+  },
+  {
+    "id": 34,
+    "name": "Micro-Journal Timeline",
+    "route": "/journal",
+    "type": "Both",
+    "visibility": "private",
+    "description": "A private, scrollable timeline of short journal entries. Each entry is 1–3 sentences with a timestamp. Reads from your existing journal files at `/home/workspace/Persona/Journal/`. The design feels like a private Twitter — minimal, chronological, focused on the words.",
+    "keyTech": "API reads and parses journal markdown files, extracts entries by time dividers, page renders as a vertical timeline with `border-l` styling and relative date grouping."
+  },
+  {
+    "id": 35,
+    "name": "IBAN/Bank Account Validator",
+    "route": "/tools/iban",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Enter an IBAN and get instant validation: country code detection, check digit verification, bank identification, and formatting. The math is well-documented (mod-97 check) and runs entirely server-side. Useful for anyone doing international transfers.",
+    "keyTech": "IBAN validation algorithm in TypeScript (rearrange, convert letters to digits, mod-97 check), country code to bank format mapping, page with input field and validation result display."
+  },
+  {
+    "id": 36,
+    "name": "Meeting Cost Calculator",
+    "route": "/tools/meeting-cost",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Input the number of attendees, average salary tier, and meeting duration. It calculates the real cost of that meeting in dollars — total, per-minute, and annualized if recurring. A sobering tool for anyone who's ever sat through a meeting that should have been an email.",
+    "keyTech": "`useState` for inputs (attendees, salary band dropdown, duration), `useMemo` for cost derivation, visual comparison (\"this meeting costs as much as...\")."
+  },
+  {
+    "id": 37,
+    "name": "Stripe Payment Dashboard",
+    "route": "/sales",
+    "type": "Both",
+    "visibility": "private",
+    "description": "A private dashboard showing your Stripe revenue: recent transactions, monthly recurring revenue, total lifetime revenue, and a revenue chart. Pulls data through the Stripe SDK using your connected account. One private page instead of navigating the full Stripe dashboard.",
+    "keyTech": "API uses `new Stripe(process.env.STRIPE_SECRET_KEY)` to list charges and subscriptions, aggregation logic for MRR/LTV, page renders summary cards and a bar chart with pure SVG."
+  },
+  {
+    "id": 38,
+    "name": "File Drop Box",
+    "route": "/drop",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A public file upload page where anyone can drop files for you — up to a size limit you set. Files land in a workspace directory. An API route handles `multipart/form-data` uploads and writes to `/home/workspace/Inbox/drops/`. Optional: notify you via Telegram when a file arrives.",
+    "keyTech": "API handles multipart parsing with `c.req.parseBody()`, writes to workspace with `Bun.write()`, size validation, page uses drag-and-drop with `onDragOver`/`onDrop` handlers."
+  },
+  {
+    "id": 39,
+    "name": "Plain Text Paste Bin",
+    "route": "/paste/:id",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Create and share plain text snippets with syntax highlighting. POST to `/api/paste` with text content, get back a unique URL. Each paste is a file in the workspace. Optional expiry (auto-deleted by a scheduled agent). Like a personal Pastebin that you own.",
+    "keyTech": "`crypto.randomUUID()` for paste IDs, API writes to `/home/workspace/Data/pastes/`, dynamic `/:id` route reads and renders with a `<pre>` block, optional language detection for syntax class hints."
+  },
+  {
+    "id": 40,
+    "name": "Location-Aware Landing Page",
+    "route": "/local",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A landing page for your freelance business that adapts based on the visitor's approximate location (derived from their IP via a free GeoIP API). If they're in Idaho, it says \"web design for Idaho businesses.\" If they're in Montana, \"serving the Northern Rockies.\" Generic fallback for everywhere else. Local SEO without separate pages.",
+    "keyTech": "API calls a free GeoIP service with the visitor's IP, returns region/state, page conditionally renders location-specific copy and testimonials from a local `regions.json` config."
+  },
+  {
+    "id": 41,
+    "name": "Substack Archive Mirror",
+    "route": "/writing/:slug",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Mirrors your Substack posts on your own domain. A scheduled agent periodically fetches your Substack RSS feed, downloads new posts as markdown, and stores them in the workspace. The zo.space page renders them with your own typography and design — not Substack's. You own the presentation.",
+    "keyTech": "API reads from `/home/workspace/Projects/writing/posts/`, dynamic `/:slug` routing, markdown rendering, index page at `/writing` with post list sorted by date."
+  },
+  {
+    "id": 42,
+    "name": "WiFi QR Code Generator",
+    "route": "/tools/wifi-qr",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Input your network name, password, and encryption type. Get a QR code that guests can scan to instantly connect to your WiFi. Uses the `WIFI:T:WPA;S:NetworkName;P:Password;;` format that iOS and Android both support. No app needed.",
+    "keyTech": "WiFi QR string format encoding, same QR generation approach as #13, page with three input fields and instant SVG preview."
+  },
+  {
+    "id": 43,
+    "name": "Uptime Ping Endpoint",
+    "route": "/api/ping",
+    "type": "API",
+    "visibility": "public",
+    "description": "Returns `{\"status\":\"ok\",\"timestamp\":\"...\",\"uptime\":12345}` — a health check endpoint for external monitoring services (UptimeRobot, Healthchecks.io, etc.). Also checks that your workspace is readable and returns basic system stats. Two lines of code, permanently useful.",
+    "keyTech": "`process.uptime()`, `Date.now()`, optional `Bun.file()` existence check on a workspace canary file to verify filesystem health."
+  },
+  {
+    "id": 44,
+    "name": "JSON Formatter and Validator",
+    "route": "/tools/json",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Paste messy JSON, get it pretty-printed with syntax highlighting. Shows validation errors with line numbers if the JSON is malformed. Includes a minify toggle, a tree view, and a path copier (click any key to copy its JSONPath). Entirely client-side — nothing leaves the browser.",
+    "keyTech": "`JSON.parse()` with try/catch for validation, `JSON.stringify(data, null, 2)` for formatting, recursive tree component with `useState` for expand/collapse, click-to-copy with `navigator.clipboard`."
+  },
+  {
+    "id": 45,
+    "name": "Daily Standup Logger",
+    "route": "/standup",
+    "type": "Both",
+    "visibility": "private",
+    "description": "A private page with three text fields: \"Yesterday,\" \"Today,\" \"Blockers.\" Submit and it appends to a daily standup log in your workspace. The page also shows your last 5 standups for continuity. If you work solo, this is your accountability partner. If you freelance, it's client-ready documentation.",
+    "keyTech": "API appends to `standups.jsonl` with ISO date, page uses `useEffect` to load recent entries and `useState` for form fields."
+  },
+  {
+    "id": 46,
+    "name": "Timezone Converter",
+    "route": "/tools/tz",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Pick a time in one timezone, see it in up to 6 others simultaneously. Drag a slider to scrub through the day and watch all the clocks move together. Pre-loaded with popular pairs (US timezones, UTC, IST, JST) but fully customizable. Solves the \"what time is it there?\" problem without Googling every time.",
+    "keyTech": "`Intl.DateTimeFormat` with `timeZone` option for all conversions, `useState` for selected time and timezone list, range input for time scrubbing, `useMemo` for formatted outputs."
+  },
+  {
+    "id": 47,
+    "name": "Client Project Portal",
+    "route": "/client/:slug",
+    "type": "Both",
+    "visibility": "private",
+    "description": "A private portal for each freelance client. Shows their project status, deliverables with download links, invoices, and a simple message thread. Each client gets a unique URL and access token. Data lives in workspace folders organized by client. Professional-grade client management with no SaaS subscription.",
+    "keyTech": "Bearer auth per client from a `clients.json` config, dynamic `/:slug` routing, API reads from `/home/workspace/Projects/clients/:slug/`, file listing for deliverables."
+  },
+  {
+    "id": 48,
+    "name": "Markdown Preview Tool",
+    "route": "/tools/markdown",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A split-pane markdown editor and preview. Paste or type markdown on the left, see rendered output on the right in real time. Supports GFM (tables, task lists, strikethrough). Includes a \"Copy HTML\" button for the rendered output. Faster than opening a separate app.",
+    "keyTech": "`useState` for editor content, regex-based markdown-to-HTML conversion (or a lightweight parser), `dangerouslySetInnerHTML` with sanitization for preview pane, `useRef` for synchronized scroll position."
+  },
+  {
+    "id": 49,
+    "name": "Reading List with Progress Tracking",
+    "route": "/reading",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A public reading list showing books you're reading, finished, and want to read. Each entry has title, author, your rating, a one-sentence take, and a progress bar for in-progress books. Data lives in `reading.json` in your workspace. Updated via a Zo agent when you text \"finished [book title].\"",
+    "keyTech": "API reads `reading.json`, supports `?status=reading|finished|queued` filter, page renders three sections with progress bars using Tailwind `w-[percentage]` and star ratings."
+  },
+  {
+    "id": 50,
+    "name": "API Usage Meter",
+    "route": "/api/usage",
+    "type": "API",
+    "visibility": "private",
+    "description": "Tracks how many times your other API routes get hit. Middleware-style: each API route calls a shared `logUsage(routePath)` function that appends to a JSONL file. This endpoint returns aggregated stats — requests per route per day, top callers by IP, and total monthly usage. Your own analytics without third-party scripts.",
+    "keyTech": "Shared `logUsage()` function writing to `api-usage.jsonl`, aggregation with `Map` counters, bearer auth, response includes daily/weekly/monthly breakdowns."
+  },
+  {
+    "id": 51,
+    "name": "Cellular Automata Lab",
+    "route": "/lab/automata",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Interactive Conway's Game of Life variant where visitors can paint initial states, choose rulesets (Life, Highlife, Seeds, Day & Night), and watch them evolve on a canvas. Preloaded with famous patterns — glider guns, puffers, spaceships. Shares patterns via URL hash encoding.",
+    "keyTech": "`useRef` for canvas, `requestAnimationFrame` loop, `useSearchParams` for pattern sharing, typed arrays for grid state"
+  },
+  {
+    "id": 52,
+    "name": "Ephemeral Dead Drop",
+    "route": "/api/drop and /drop/:id",
+    "type": "Both",
+    "visibility": "public",
+    "description": "POST a text message to `/api/drop`, get back a one-time-read URL. First GET to `/drop/:id` renders the message and permanently deletes it from a workspace JSON file. Second visit gets \"This message has been burned.\" Rate-limited to prevent abuse. No accounts, no history.",
+    "keyTech": "Hono `c.req.json()`, `crypto.randomUUID()`, workspace file read/write at `/home/workspace/.drops.json`, bearer token for admin purge endpoint"
+  },
+  {
+    "id": 53,
+    "name": "Git Contribution Heatmap",
+    "route": "/commits",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Reads a workspace JSON file (populated by a scheduled agent running `git log` across all your repos nightly) and renders a GitHub-style contribution grid — but for ALL your projects, not just GitHub. Hover shows commit messages. Click a day to see that day's work summary.",
+    "keyTech": "`useEffect` + `fetch` to an API route reading `/home/workspace/Records/commit-heatmap.json`, CSS grid for the calendar, `useState` for selected day detail panel"
+  },
+  {
+    "id": 54,
+    "name": "Personal Colophon",
+    "route": "/colophon",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A single beautiful page listing every tool, font, color, framework, and service you use to build your stuff — with links, version numbers, and one-sentence opinions on each. The anti-\"uses\" page: opinionated, specific, and updated by editing a workspace markdown file that the page reads via API.",
+    "keyTech": "API route parsing `/home/workspace/Persona/colophon.md` with frontmatter, React rendering with typography-forward layout, Instrument Serif + JetBrains Mono pairing"
+  },
+  {
+    "id": 55,
+    "name": "ASCII Art API",
+    "route": "/api/ascii",
+    "type": "API",
+    "visibility": "public",
+    "description": "Send a query param `?text=hello&font=block` and get back plain text ASCII art. Implements 6 built-in fonts (block, shadow, slant, banner, small, mini) using character matrices defined in the route itself. Returns `Content-Type: text/plain`. Useful for CLI tools, READMEs, and terminal splash screens.",
+    "keyTech": "Hono `c.req.query()`, character map objects for each font, `c.text()` response, no external dependencies"
+  },
+  {
+    "id": 56,
+    "name": "Generative Wallpaper Factory",
+    "route": "/wallpaper",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Generates unique abstract wallpapers using seeded randomness — flow fields, voronoi tessellations, or gradient meshes. Each visit produces a new pattern. Lock a seed you like, pick a resolution (phone, desktop, ultrawide), and download as PNG via canvas `toBlob()`. Visitors can make wallpapers without signing up for anything.",
+    "keyTech": "`<canvas>` with 2D context, seeded PRNG (mulberry32), `useState` for seed/resolution/style controls, `toBlob` + download link generation"
+  },
+  {
+    "id": 57,
+    "name": "Decision Roulette",
+    "route": "/decide",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Paste in a list of options (or load saved lists from workspace). Spin a weighted roulette wheel with satisfying CSS animation. Saves decision history to a workspace file so you can review what you decided and when. For the chronically indecisive — restaurants, task priority, what to work on next.",
+    "keyTech": "CSS `transform: rotate()` with cubic-bezier easing, `useState` for options/weights, API route writing to `/home/workspace/Records/decisions.json`"
+  },
+  {
+    "id": 58,
+    "name": "Invoice Generator",
+    "route": "/tools/invoice",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Fill in client name, line items, rates, and hours. Renders a clean, printable invoice with your business details pulled from a workspace config file. Generates a unique invoice number, saves a copy to workspace, and offers print/PDF via `window.print()` with a print-optimized stylesheet. No SaaS subscription for something this simple.",
+    "keyTech": "`@media print` CSS, `useRef` for form state, API route reading `/home/workspace/Persona/business.json` for your details, workspace file write for archive"
+  },
+  {
+    "id": 59,
+    "name": "Color Contrast Checker",
+    "route": "/tools/contrast",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Page mode: pick two colors with input fields, see real-time WCAG AA/AAA pass/fail for normal and large text, plus a live preview of text on background. API mode: `GET /api/contrast?fg=ffffff&bg=000000` returns JSON with ratio, AA/AAA booleans, and suggestions for the nearest passing color if it fails.",
+    "keyTech": "Relative luminance calculation per WCAG 2.1, `useState` for live updates, hex-to-RGB conversion, API route at `/api/contrast`"
+  },
+  {
+    "id": 60,
+    "name": "Mood Ring Homepage",
+    "route": "/",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Your homepage shifts its entire color palette based on time of day and day of week. Dawn is warm amber. Midday is crisp white. Evening is deep indigo. Weekends get a looser, more playful layout. Content stays the same — but the vibe changes. Visitors at 2am see a different site than visitors at 2pm.",
+    "keyTech": "`new Date()` with timezone offset to `Etc/GMT+7`, CSS custom properties set via `useEffect`, HSL color interpolation between time-of-day keyframes"
+  },
+  {
+    "id": 61,
+    "name": "Haiku Weather",
+    "route": "/haiku",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Displays current weather for Salmon, Idaho as a haiku. A scheduled agent runs every 3 hours, fetches weather data, writes a haiku to a workspace file, and the page renders it with minimal typography on a color field that matches conditions (grey for overcast, pale blue for clear, dark for storms). That's it. Weather as poetry.",
+    "keyTech": "API route reading `/home/workspace/Records/weather-haiku.json`, agent uses `web_search` for weather + writes haiku, single `<p>` element with Instrument Serif at 3rem"
+  },
+  {
+    "id": 62,
+    "name": "QR Code Vcard",
+    "route": "/card",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A digital business card page with your info, styled distinctively — but the real move is the giant QR code that encodes a vCard. Someone scans it at a conference and your contact info drops straight into their phone. No app, no NFC, no \"let me find you on LinkedIn.\" Config lives in a workspace file so you update once, everywhere.",
+    "keyTech": "QR code generation via canvas (qrcode algorithm in-route), vCard 3.0 string encoding, config read from `/home/workspace/Persona/contact.json`"
+  },
+  {
+    "id": 63,
+    "name": "Markdown Slide Deck",
+    "route": "/slides/:deck",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Write slides as a markdown file in your workspace (separated by `---`). This page renders them as a full-screen presentation with keyboard navigation, slide counter, and speaker notes (anything after `???` on a slide). No Keynote, no Google Slides, no RevealJS CDN. Your server, your slides.",
+    "keyTech": "API route parsing markdown from `/home/workspace/Presentations/:deck.md`, `useParams` for deck name, `useEffect` for keyboard listeners (ArrowLeft/Right), CSS `100vh` slides with scroll-snap"
+  },
+  {
+    "id": 64,
+    "name": "Pantone of the Day",
+    "route": "/color",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Each day, a deterministic hash of the date picks a color from a curated 365-color palette stored in the route. The entire page is that color — full bleed — with the hex code, a poetic name, and the date in small type at the bottom. Bookmarkable. Shareable. Strangely satisfying to check daily.",
+    "keyTech": "Date string → simple hash → index into color array, `document.body.style`, `useMemo` for hash computation, Fraunces for the color name"
+  },
+  {
+    "id": 65,
+    "name": "Freelance Rate Calculator",
+    "route": "/tools/rate",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Input your target annual income, desired time off, estimated non-billable hours percentage, and monthly expenses. Outputs your minimum hourly rate, day rate, weekly rate, and project rate (with a margin buffer). Shows the math transparently. Saves your last calculation to workspace so you can revisit it.",
+    "keyTech": "Pure arithmetic in `useState` callbacks, no API needed, `localStorage` for persistence across visits, print-friendly layout"
+  },
+  {
+    "id": 66,
+    "name": "Link Rot Monitor",
+    "route": "/tools/linkrot",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Reads a list of important URLs from a workspace file (your portfolio links, blog post references, documentation links). A scheduled agent checks them weekly, logs status codes, and flags dead links. This page shows the dashboard: green/yellow/red per link, last-checked timestamp, and a diff of what changed.",
+    "keyTech": "Agent runs `curl -sI` on each URL, writes results to `/home/workspace/Records/linkrot.json`, page fetches via API route, color-coded status badges"
+  },
+  {
+    "id": 67,
+    "name": "Standup Log",
+    "route": "/standup",
+    "type": "Both",
+    "visibility": "private",
+    "description": "Private page with three text fields: yesterday, today, blockers. Submit and it appends to a dated markdown file in your workspace. Below the form, it shows your last 7 standups. Simple, fast, no Slack thread, no Jira ticket — just the record. Optional: a scheduled agent reads the latest standup and posts it to a Linear comment or sends it via email.",
+    "keyTech": "`POST /api/standup` writes to `/home/workspace/Records/Standups/YYYY-MM-DD.md`, `GET` reads recent files, React form with `onSubmit`"
+  },
+  {
+    "id": 68,
+    "name": "Timezone Overlap Finder",
+    "route": "/tools/timezones",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Add people by name and timezone. Renders a 24-hour horizontal bar chart showing everyone's working hours (configurable) with overlap zones highlighted. Drag to adjust work windows. Shows \"best meeting time\" as the widest overlap. Useful for freelancers working with international clients.",
+    "keyTech": "`Intl.DateTimeFormat` for timezone math, `useState` for people list, SVG or div-based bar chart, drag handlers for work window adjustment"
+  },
+  {
+    "id": 69,
+    "name": "IFTTT-Style Webhook Relay",
+    "route": "/api/hook/:name",
+    "type": "API",
+    "visibility": "public",
+    "description": "Generic webhook receiver. When a POST hits `/api/hook/github-star` or `/api/hook/stripe-payment`, it logs the payload to a workspace JSON file and triggers a notification (SMS, email, or Telegram) based on a config file. Your own personal webhook-to-notification bridge without Zapier.",
+    "keyTech": "Bearer token auth, `c.req.param(\"name\")` for routing, config at `/home/workspace/Config/webhooks.json` mapping names to notification channels, `fetch` to Zo API for notifications"
+  },
+  {
+    "id": 70,
+    "name": "Plant Watering Tracker",
+    "route": "/plants",
+    "type": "Both",
+    "visibility": "private",
+    "description": "List your plants with watering schedules. Tap \"watered\" to log it. The page shows days since last watering with color indicators (green = fine, yellow = due soon, red = overdue). A scheduled agent sends you an SMS each morning listing which plants need water today. For the attentive plant parent who forgets anyway.",
+    "keyTech": "API route CRUD on `/home/workspace/Records/plants.json`, `Date.now()` diff for overdue calculation, agent reads same file and calls `send_sms_to_user`"
+  },
+  {
+    "id": 71,
+    "name": "Personal API Documentation",
+    "route": "/api-docs",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Auto-generates documentation for all your public zo.space API routes. A scheduled agent runs `list_space_routes`, filters API routes, and writes a structured JSON file. This page renders it as clean, browsable API docs with method, path, description, and example curl commands. Your APIs, documented automatically.",
+    "keyTech": "Agent calls `list_space_routes` + `get_space_route`, extracts JSDoc-style comments, writes `/home/workspace/Records/api-docs.json`, page renders with code blocks and copy buttons"
+  },
+  {
+    "id": 72,
+    "name": "Emergency Info Page",
+    "route": "/ice",
+    "type": "Page",
+    "visibility": "public",
+    "description": "\"In Case of Emergency\" — a minimal page with your name, blood type, allergies, medications, emergency contacts, and medical conditions. Designed to be accessed quickly on a phone. No login required (public), high-contrast, large type, works offline once loaded. Link it from your phone's lock screen.",
+    "keyTech": "Static data from workspace config, semantic HTML for accessibility, `<meta name=\"theme-color\">` for status bar, minimal CSS for fast load, no JavaScript required for core content"
+  },
+  {
+    "id": 73,
+    "name": "Git Changelog Generator",
+    "route": "/api/changelog",
+    "type": "API",
+    "visibility": "public",
+    "description": "`POST` with a repo path and date range. Runs `git log` with conventional commit parsing, groups by type (feat/fix/chore/docs), and returns formatted markdown. Call it from CI, a scheduled agent, or curl. Outputs a ready-to-paste changelog section.",
+    "keyTech": "`child_process.exec` running `git log --format` on workspace repos, regex parsing for conventional commits, markdown template rendering"
+  },
+  {
+    "id": 74,
+    "name": "Pomodoro Focus Page",
+    "route": "/focus",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Full-screen timer with 25/5 pomodoro cycles. No settings bloat — just start. The background color slowly shifts from cool (focus) to warm (break approaching). Plays a gentle tone via Web Audio API when the interval ends. Logs completed pomodoros to a workspace file. Shows your weekly count in the corner.",
+    "keyTech": "`useEffect` interval, Web Audio API oscillator for notification tone, CSS transition on background HSL, API route logging to `/home/workspace/Records/pomodoros.json`"
+  },
+  {
+    "id": 75,
+    "name": "Reading Speed Tester",
+    "route": "/tools/reading-speed",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Presents a ~300-word passage (randomly selected from 10 built-in passages across genres). Hit start, read, hit done. Calculates WPM, shows percentile ranking, and asks 3 comprehension questions to verify you actually read it. Honest, no-gamification reading speed measurement.",
+    "keyTech": "`Date.now()` delta for timing, `useState` for passage selection and quiz state, word count via `.split(/\\s+/).length`"
+  },
+  {
+    "id": 76,
+    "name": "Open Graph Preview Tool",
+    "route": "/tools/og-preview",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Paste a URL. The page calls an API route that fetches the URL's HTML, parses `<meta property=\"og:*\">` tags, and renders a preview of how the link will appear on Twitter, Facebook, LinkedIn, Slack, and iMessage. Shows missing tags in red. Instant feedback when you're setting up meta tags for a new page.",
+    "keyTech": "API route using `fetch` + regex/DOM parsing for OG tags, React preview cards mimicking each platform's layout, `useDebounce` on URL input"
+  },
+  {
+    "id": 77,
+    "name": "Spotify Listening Dashboard",
+    "route": "/music",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A scheduled agent queries your Spotify recently played and top tracks weekly, writes results to workspace. This page renders a visual dashboard: top artists this month, genre breakdown as a radial chart, listening hours per day, and your current \"sound.\" More personal than Spotify Wrapped, and it runs year-round.",
+    "keyTech": "Agent uses `use_app_spotify` for `spotify-get-recently-played` + `spotify-get-top-items`, writes to `/home/workspace/Records/spotify-stats.json`, SVG charts in React"
+  },
+  {
+    "id": 78,
+    "name": "Micro-Journal Timeline",
+    "route": "/timeline",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Reads all your journal files from `/home/workspace/Persona/Journal/` and renders them as a vertical timeline. Each entry is a card with date, time, and content. Search across entries. Filter by month. A private, visual way to browse your journal without opening files. Your diary as a single-page app.",
+    "keyTech": "API route using `fs.readdir` + `fs.readFile` on journal directory, markdown parsing, `useState` for search/filter, infinite scroll with `IntersectionObserver`"
+  },
+  {
+    "id": 79,
+    "name": "HTTP Status Code Reference",
+    "route": "/tools/http-codes",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Page shows all HTTP status codes with plain-English explanations, common causes, and how to fix them. API mode: `GET /api/http-code/418` returns JSON with code, name, description, and a dry one-liner. Searchable, bookmarkable, and actually useful when you're staring at a 422 at 1am.",
+    "keyTech": "Status code data as a typed object in the route, `useParams` for direct code linking, `c.req.param(\"code\")` for API, search via `Array.filter`"
+  },
+  {
+    "id": 80,
+    "name": "Personal RSS Feed",
+    "route": "/api/feed.xml",
+    "type": "API",
+    "visibility": "public",
+    "description": "Generates a valid RSS 2.0 XML feed from markdown files in a workspace directory (e.g., `/home/workspace/Writing/`). Anyone can subscribe to your writing in their RSS reader — no Medium, no Substack, no platform. You write markdown files, the feed updates automatically.",
+    "keyTech": "`fs.readdir` + frontmatter parsing, RFC 822 date formatting, XML string construction, `c.header(\"Content-Type\", \"application/rss+xml\")`"
+  },
+  {
+    "id": 81,
+    "name": "Expense Splitter",
+    "route": "/tools/split",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Add people and expenses. Handles uneven splits, tax, tip, and who-paid-what. Outputs a minimal \"who owes whom\" settlement with the fewest possible transactions (graph-based debt simplification). Copy result as text to paste into a group chat. No app download, no Venmo account linking.",
+    "keyTech": "Debt simplification algorithm (net balances + greedy matching), `useReducer` for complex state, clipboard API for copy-to-text"
+  },
+  {
+    "id": 82,
+    "name": "DNS Lookup Tool",
+    "route": "/tools/dns",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Page: enter a domain, see A, AAAA, CNAME, MX, TXT, NS records rendered cleanly. API: `GET /api/dns?domain=example.com&type=MX` returns JSON. Useful for debugging email delivery, verifying DNS propagation, or checking if someone's domain is actually configured.",
+    "keyTech": "`Bun.dns.resolve()` or `dns.promises.resolve` from Node compat, `c.req.query()` for API params, tabbed UI for record types"
+  },
+  {
+    "id": 83,
+    "name": "Conference Badge Page",
+    "route": "/badge",
+    "type": "Page",
+    "visibility": "public",
+    "description": "When you're at a conference, set this as your \"digital badge\" — your name, title, one-sentence bio, photo, QR code to your vCard, and links to your projects. Designed to be shown on a phone screen. Update it per event by editing a workspace file. Better than a paper badge with \"JEFF\" in Sharpie.",
+    "keyTech": "Config from workspace file, full-viewport mobile-first layout, large type, QR canvas generation, `<meta name=\"apple-mobile-web-app-capable\">`"
+  },
+  {
+    "id": 84,
+    "name": "Cron Expression Explainer",
+    "route": "/tools/cron",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Page: type a cron expression, see a plain-English explanation and the next 10 run times in your timezone. API: `GET /api/cron?expr=0 9 * * 1-5` returns JSON with description and next runs. Because nobody actually remembers if the fifth field is day-of-week or day-of-month.",
+    "keyTech": "Cron parsing logic built in-route (minute/hour/dom/month/dow), `Intl.DateTimeFormat` for timezone display, iteration algorithm for next-N runs"
+  },
+  {
+    "id": 85,
+    "name": "Generative Poem Machine",
+    "route": "/poem",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A scheduled agent writes one short poem per day — pulled from a theme list or inspired by the current weather/season — and saves it to workspace. The page renders today's poem in beautiful typography on a solid color background. Archive accessible via `/poem/archive`. An automated poetry installation.",
+    "keyTech": "Agent uses Zo API for generation + `web_search` for weather context, writes to `/home/workspace/Records/poems/YYYY-MM-DD.md`, Newsreader at 2.5rem, single-poem-per-page layout"
+  },
+  {
+    "id": 86,
+    "name": "WHOIS Lookup",
+    "route": "/tools/whois",
+    "type": "Both",
+    "visibility": "public",
+    "description": "Enter a domain, see registration date, expiry, registrar, nameservers, and status codes — parsed into readable format instead of raw WHOIS dump. API returns structured JSON. Handy for checking if a domain you want is squatted, when your own domains expire, or vetting a sketchy link.",
+    "keyTech": "`child_process.exec(\"whois domain\")` in API route, regex parsing of WHOIS output into structured fields, React table display"
+  },
+  {
+    "id": 87,
+    "name": "WiFi QR Generator",
+    "route": "/tools/wifi",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Enter your WiFi network name and password. Generates a QR code that, when scanned by a phone, auto-connects to the network. Print it, tape it to your router, or show it to guests. No more spelling out passwords. Supports WPA/WPA2/WEP/none.",
+    "keyTech": "`WIFI:T:WPA;S:networkname;P:password;;` encoding format, canvas QR generation, print-optimized CSS, all client-side (password never leaves the browser)"
+  },
+  {
+    "id": 88,
+    "name": "Idea Graveyard",
+    "route": "/graveyard",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A public page listing project ideas you had but killed — with a one-paragraph obituary for each explaining what it was, why you killed it, and what you learned. Reverse-portfolio energy. Shows you think critically about what to build, not just what you ship. Reads from a workspace markdown file.",
+    "keyTech": "API route parsing `/home/workspace/Persona/graveyard.md`, each entry as a `## heading` with metadata in frontmatter-style block, tombstone-inspired card design"
+  },
+  {
+    "id": 89,
+    "name": "Uptime Monitor Dashboard",
+    "route": "/status",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Public status page for your projects. A scheduled agent pings your sites every 5 minutes, logs response times and status codes. This page shows 90-day uptime percentage, response time sparklines, and current status per service. Your own Statuspage.io without the $29/month.",
+    "keyTech": "Agent runs `curl -w \"%{http_code} %{time_total}\"` per URL, appends to `/home/workspace/Records/uptime/`, page renders sparklines via SVG polyline, green/red status dots"
+  },
+  {
+    "id": 90,
+    "name": "Regex Tester",
+    "route": "/tools/regex",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Enter a regex pattern and test string. See matches highlighted in real-time, capture groups listed, and a plain-English explanation of what the regex does (generated by parsing the regex AST). Shows common patterns as quick-insert buttons. No ads, no account, no cookie banners.",
+    "keyTech": "`new RegExp()` with `matchAll`, regex-to-English parser built from token types, `contentEditable` div for highlight overlay, `useState` with debounce"
+  },
+  {
+    "id": 91,
+    "name": "Seasonal Landing Page Switcher",
+    "route": "/",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Your homepage auto-switches its visual theme based on season — not just colors, but layout emphasis and featured content. Spring highlights new projects. Summer shows your availability. Fall features your writing. Winter goes minimal and reflective. Reads season from date + a config file mapping season to featured content.",
+    "keyTech": "`Date` month → season mapping, config from workspace, CSS custom properties per season, `useEffect` for theme application, content blocks conditionally rendered"
+  },
+  {
+    "id": 92,
+    "name": "Markdown to PDF API",
+    "route": "/api/md2pdf",
+    "type": "API",
+    "visibility": "public",
+    "description": "POST markdown text, receive a styled PDF. Uses pandoc on the server with a custom LaTeX template for clean typography. Useful for converting notes, proposals, or docs to PDF without installing anything locally. Your personal document conversion microservice.",
+    "keyTech": "`child_process.exec(\"pandoc\")` with `--pdf-engine=tinylatex`, temp file write/read, `c.body(pdfBuffer)` with PDF content-type headers"
+  },
+  {
+    "id": 93,
+    "name": "IP Address Info",
+    "route": "/api/myip",
+    "type": "API",
+    "visibility": "public",
+    "description": "Returns the caller's IP address, approximate geolocation (via a free GeoIP database on the server), user agent, and request headers as clean JSON. The simplest possible \"what's my IP\" API. Useful for debugging, curl one-liners, and network diagnostics.",
+    "keyTech": "`c.req.header(\"x-forwarded-for\")`, GeoIP lookup via `geoip-lite` or MaxMind DB, `c.json()` response"
+  },
+  {
+    "id": 94,
+    "name": "Wedding RSVP Page",
+    "route": "/wedding",
+    "type": "Both",
+    "visibility": "public",
+    "description": "A single-page wedding (or event) RSVP site. Guests see event details, location map embed, and an RSVP form (name, attending yes/no, dietary restrictions, plus-one). Submissions go to a workspace JSON file. A companion private page at `/wedding/admin` shows the guest list, headcount, and dietary summary.",
+    "keyTech": "Form POST to `/api/wedding/rsvp`, file append to workspace, admin page with bearer auth check, responsive single-column layout"
+  },
+  {
+    "id": 95,
+    "name": "Anchor Text Link Analyzer",
+    "route": "/tools/links",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Paste HTML or a URL. The page extracts every `<a>` tag, lists the anchor text, href, whether it's internal/external, and flags potential SEO issues (generic anchor text like \"click here\", broken patterns, nofollow usage). Quick SEO audit for your own sites without paying for Ahrefs.",
+    "keyTech": "API route fetching URL HTML, DOM-style regex parsing for `<a>` tags, classification logic for internal/external/nofollow, sortable React table"
+  },
+  {
+    "id": 96,
+    "name": "Teach Me Anything Flashcard System",
+    "route": "/cards/:deck",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Load flashcard decks from workspace markdown files (front/back separated by `---` within each card block). Implements spaced repetition (SM-2 algorithm) with review state stored in a companion JSON file. Keyboard-driven: space to flip, 1-4 to rate recall. Your own Anki without the 2003 UI.",
+    "keyTech": "SM-2 algorithm for interval/ease calculation, `useParams` for deck routing, keyboard event listeners, API route for state persistence, card flip via CSS `transform: rotateY`"
+  },
+  {
+    "id": 97,
+    "name": "Personal Changelog",
+    "route": "/changelog",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A public page documenting changes to your life and work — new projects launched, skills learned, tools adopted, cities visited, milestones hit. Not a blog. Not a resume. A versioned log of your own evolution. Entries from a workspace markdown file, rendered as a vertical timeline with version numbers.",
+    "keyTech": "API route parsing `/home/workspace/Persona/changelog.md`, semver-style version numbers (v2026.4.1), timeline CSS with alternating left/right cards, Syne for headings"
+  },
+  {
+    "id": 98,
+    "name": "Browser Fingerprint Viewer",
+    "route": "/tools/fingerprint",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Shows visitors exactly what their browser reveals about them: user agent, screen resolution, timezone, installed fonts (via canvas fingerprinting), WebGL renderer, language, do-not-track status, and a rough uniqueness estimate. Educational — makes tracking tangible. No data is stored or sent anywhere.",
+    "keyTech": "`navigator` API, `canvas.getContext(\"2d\")` for font detection, `WebGLRenderingContext.getParameter` for GPU info, all computation client-side, results never leave the browser"
+  },
+  {
+    "id": 99,
+    "name": "Self-Documenting Route Index",
+    "route": "/map",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A meta-page that lists every route on your zo.space with its path, type (page/api), visibility (public/private), and a one-line description extracted from a comment at the top of each route's code. A scheduled agent regenerates the index nightly. The site that documents itself.",
+    "keyTech": "Agent calls `list_space_routes` + `get_space_route`, parses `// @desc` comment from first line of each route, writes to workspace JSON, page renders as categorized directory"
+  },
+  {
+    "id": 100,
+    "name": "The 404 Page That's Worth Finding",
+    "route": "/404 (catch-all)",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Instead of a generic \"page not found,\" this page shows a random interesting fact, a random project from your portfolio, or a random poem from your poem archive — different each visit. Includes a search bar and sitemap links. Turns a dead end into a reason to stay. The page nobody means to visit but everyone remembers.",
+    "keyTech": "`Math.random()` selection from content arrays (fetched via API from workspace files), `useEffect` for random selection on mount, search input linking to `/map`, warm color palette distinct from main site"
+  }
+]
