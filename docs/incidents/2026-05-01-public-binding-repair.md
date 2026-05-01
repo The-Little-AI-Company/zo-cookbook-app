@@ -24,3 +24,4 @@
 - 2026-05-01T17:48:24Z Site publish recreated service as svc_Z7KyzizcLuA but reused local_port 51283; FRP still reports start error: port already used. Custom domain is currently detached from the new service.
 - 2026-05-01T17:48:24Z Next step: delete broken service and recreate as managed HTTP service on a fresh unused port from canonical workdir.
 - 2026-05-01T17:51:14Z Fresh service svc_aFtD4e2uRxc registered on local_port 51300, but service_doctor showed old process still listening on 51283 and port 51300 not listening. Need in-place restart/update for new service to bind fresh port.
+- 2026-05-01T17:54:14Z Diagnosis: svc_aFtD4e2uRxc config says local_port=51300, but running process env showed PORT=51283 and local 51283 returned 200 while 51300 did not listen. Updating service entrypoint to explicitly bind PORT=51300.
