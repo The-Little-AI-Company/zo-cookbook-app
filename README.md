@@ -11,10 +11,9 @@ The cookbook is a gallery of 550+ recipes (apps, spaces, automations, prompts), 
 1. **Public cookbook** (`/`): visitors browse recipes by category, search, or discover mode.
 2. **How it works strip**: a compact three-step explainer at the top makes the handoff model obvious without asking people to guess.
 3. **Recipe actions** (`RecipeActions`): expanded cards and discover/spotlight views use the same handoff action system:
-   - **Open Zo**
    - **Build/Deploy in Zo** (action-specific label)
    - **Copy recipe**
-4. **Private execution**: clicking an action copies a structured build brief to the clipboard and opens the user's Zo workspace URL (`https://<handle>.zo.computer`) so the desktop app can catch it when installed. The actual work happens inside the user’s own Zo Computer, not inside this published site.
+4. **Private execution**: clicking the primary action opens the user's Zo workspace URL with the build brief attached as a `prompt` query param when the URL stays within a safe size, while also copying the same brief to the clipboard as a fallback. The actual work happens inside the user’s own Zo Computer, not inside this published site.
 
 ### Why the old model was removed
 
@@ -28,13 +27,36 @@ It created:
 
 The cookbook now behaves like a launchpad, not a public API client.
 
+### 650-recipe release notes
+
+- The cookbook now has 650 total recipes: 200 Apps & Sites, 100 Spaces, 100 Automations, and 250 Prompts.
+- New app ideas are authored as Markdown batches in `content/` and imported into `src/data/generated/app-ideas.generated.json` with `scripts/import-app-ideas.ts`.
+- Runtime recipe data is split into static JSON files in `public/data/` with `scripts/export-data-json.ts`; the app fetches `/data/manifest.json` and only loads the active type JSON instead of bundling all recipes into the main JS chunk.
+- `/faq`, `/changelog`, `/blog`, and `/ideas/:type/:slug` are first-class routes.
+- `/blog` reads recent posts from `https://salmonidaho.substack.com/feed` through `/api/blog`.
+- `/go/substack` points to `https://salmonidaho.substack.com/`.
+
 ### Key files
 
 - `src/pages/cookbook.tsx` — main cookbook UI, filters, category views, card rendering
 - `src/components/recipe-actions.tsx` — shared handoff action system for prompts, automations, spaces, and apps
-- `src/data/cookbook-data.ts` — recipe dataset used by the UI
+- `src/data/cookbook-data.ts` — source dataset used by export scripts, not imported by runtime UI
+- `src/data/cookbook-types.ts` — shared TypeScript types without pulling the full dataset into the browser bundle
+- `src/lib/data-loader.ts` — client-side loader for `/data/manifest.json` and per-type JSON files
+- `public/data/*.json` — runtime recipe data split by type for faster loading
 - `src/App.tsx` — simplified routing (cookbook only)
 - `server.ts` — minimal Bun + Hono + Vite host; no run proxy
+
+### Split data architecture
+
+The browser runtime does **not** import the full recipe dataset anymore. The source dataset remains in TypeScript for generation/export workflows, but the public app reads static JSON at runtime:
+
+1. `scripts/import-app-ideas.ts` converts Markdown batches into generated app idea JSON.
+2. `scripts/export-data-json.ts` writes `public/data/apps.json`, `spaces.json`, `automations.json`, `prompts.json`, and `manifest.json`.
+3. `src/lib/data-loader.ts` fetches the manifest and loads only the active recipe type.
+4. Detail routes load only the type needed for that route.
+
+This keeps the recipe library out of the main JS bundle and makes the app safer to scale toward 1,000+ ideas.
 
 ### Design decisions
 
@@ -50,6 +72,8 @@ The cookbook now behaves like a launchpad, not a public API client.
 - **Custom domains attach to the published service**: in Zo, add domains from **Sites → Services** on the public service details panel, not from the project files.
 - **Zo custom domains are subdomain-only**: this project can use `www.zo-cookbook.space`, but not the apex `zo-cookbook.space`, because Zo expects a CNAME-based custom domain.
 - **Recommended setup**: point `www.zo-cookbook.space` to `cname.zocomputer.io`, then redirect `zo-cookbook.space` to `https://www.zo-cookbook.space` at the registrar or DNS provider.
+- **Preview vs live gotcha**: the Zo preview iframe runs the dev site from `local_port`; the public site runs a separately published production service from `published_port`. If the preview looks newer than the public domain, rebuild/restart the published service in place instead of changing folders or domains.
+- **HEAD support**: `server.ts` has a top-level `HEAD` middleware that internally checks the matching `GET` route and returns the same status/headers with an empty body. This keeps `curl -I`, uptime checks, and link scanners from seeing false 404s.
 
 ---
 

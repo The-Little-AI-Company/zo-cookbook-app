@@ -8,6 +8,73 @@ import { Hono } from "hono";
 type Mode = "development" | "production";
 const app = new Hono();
 
+app.use("*", async (c, next) => {
+  if (c.req.method !== "HEAD") return next();
+
+  const getRequest = new Request(c.req.url, {
+    method: "GET",
+    headers: c.req.raw.headers,
+  });
+  const response = await app.fetch(getRequest);
+  return new Response(null, {
+    status: response.status,
+    headers: response.headers,
+  });
+});
+
+const outboundLinks: Record<string, string> = {
+  zo: "https://zocomputer.com/",
+  reddit: "https://www.reddit.com/r/ZoComputerClub/",
+  facebook: "https://www.facebook.com/profile.php?id=61588689719800",
+  substack: "https://salmonidaho.substack.com/",
+  discord: "https://discord.gg/invite/zocomputer",
+};
+
+app.get("/go/:slug", (c) => {
+  const target = outboundLinks[c.req.param("slug")];
+  if (!target) return c.notFound();
+  return c.redirect(target, 302);
+});
+
+function xmlText(value: string) {
+  return value
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .trim();
+}
+
+function getXmlTag(item: string, tag: string) {
+  const match = item.match(new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`, "i"));
+  return match ? xmlText(match[1]) : "";
+}
+
+app.get("/api/blog", async (c) => {
+  try {
+    const response = await fetch("https://salmonidaho.substack.com/feed", {
+      headers: { "User-Agent": "Zo-Cookbook/1.0" },
+    });
+    if (!response.ok) throw new Error(`Substack feed returned ${response.status}`);
+    const xml = await response.text();
+    const posts = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/gi)].slice(0, 12).map((match) => {
+      const item = match[1];
+      return {
+        title: getXmlTag(item, "title"),
+        link: getXmlTag(item, "link"),
+        pubDate: getXmlTag(item, "pubDate"),
+        description: getXmlTag(item, "description"),
+      };
+    }).filter((post) => post.title && post.link);
+
+    return c.json({ posts });
+  } catch (error) {
+    console.error("Blog feed failed", error);
+    return c.json({ posts: [] }, 200);
+  }
+});
+
 const mode: Mode =
   process.env.NODE_ENV === "production" ? "production" : "development";
 
