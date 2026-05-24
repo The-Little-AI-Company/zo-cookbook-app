@@ -6,8 +6,8 @@
     "schedule": "0 7 * * * (daily at 7am)",
     "delivery": "Email",
     "tools": "web_search, use_app_gmail, use_app_google_calendar",
-    "prompt": "Build my morning briefing. Do these in parallel:\n\n1. Check my Google Calendar for today's events and tomorrow's early events\n2. Search for top 3 headlines in tech and AI from the last 24 hours\n3. Check my Gmail for any unread emails marked important or from known contacts\n4. Get today's weather for my location\n\nCombine into a clean briefing email with these sections:\n- 🗓 Today's Schedule (chronological, include prep time notes for meetings)\n- 📰 Headlines (3 bullets, linked, with 1-sentence take on each)\n- 📧 Inbox Priority (sender + subject for anything urgent)\n- 🌤 Weather (temperature, conditions, \"jacket or no jacket\" verdict)\n\nSend this to me via email with subject \"Morning Briefing — [today's date]\". Keep it scannable — no fluff.",
-    "expectedOutput": "A concise email arriving at 7am with schedule, news, inbox highlights, and weather — everything needed to start the day without opening 5 apps.",
+    "prompt": "Build my morning briefing. Do these in parallel:\n\n1. Check my Google Calendar for today's events and tomorrow's early events\n2. Search for top 3 headlines in tech and AI from the last 24 hours\n3. Check my Gmail for any unread emails marked important or from known contacts\n4. Get today's weather for my location\n\nCombine into a clean briefing email with these sections:\n- \ud83d\uddd3 Today's Schedule (chronological, include prep time notes for meetings)\n- \ud83d\udcf0 Headlines (3 bullets, linked, with 1-sentence take on each)\n- \ud83d\udce7 Inbox Priority (sender + subject for anything urgent)\n- \ud83c\udf24 Weather (temperature, conditions, \"jacket or no jacket\" verdict)\n\nSend this to me via email with subject \"Morning Briefing \u2014 [today's date]\". Keep it scannable \u2014 no fluff.",
+    "expectedOutput": "A concise email arriving at 7am with schedule, news, inbox highlights, and weather \u2014 everything needed to start the day without opening 5 apps.",
     "customization": "Change the news topics (replace \"tech and AI\" with your interests) and location for weather."
   },
   {
@@ -17,7 +17,7 @@
     "schedule": "0 18 * * 1-5 (weekdays at 6pm)",
     "delivery": "SMS",
     "tools": "use_app_gmail",
-    "prompt": "Check my Gmail inbox. Find all unread emails from today. Categorize them:\n\n- ACTION NEEDED: emails requiring a reply or task from me\n- FYI ONLY: newsletters, notifications, receipts, confirmations\n- POSSIBLE SPAM: marketing emails I didn't opt into, cold outreach\n\nFor ACTION NEEDED emails, draft a reply for each one. Save drafts in Gmail.\n\nSend me a text with:\n- Count of each category\n- List of ACTION NEEDED items (sender + subject)\n- \"Drafted replies for X emails — review in Gmail\"\n\nIf there are no unread emails, text me \"Inbox clear 🧹\" and nothing else.",
+    "prompt": "Check my Gmail inbox. Find all unread emails from today. Categorize them:\n\n- ACTION NEEDED: emails requiring a reply or task from me\n- FYI ONLY: newsletters, notifications, receipts, confirmations\n- POSSIBLE SPAM: marketing emails I didn't opt into, cold outreach\n\nFor ACTION NEEDED emails, draft a reply for each one. Save drafts in Gmail.\n\nSend me a text with:\n- Count of each category\n- List of ACTION NEEDED items (sender + subject)\n- \"Drafted replies for X emails \u2014 review in Gmail\"\n\nIf there are no unread emails, text me \"Inbox clear \ud83e\uddf9\" and nothing else.",
     "expectedOutput": "An end-of-day SMS summarizing what's in your inbox and confirming draft replies are staged for quick review.",
     "customization": "Adjust the schedule for your end-of-workday time. Add specific senders to always flag as ACTION NEEDED."
   },
@@ -28,7 +28,7 @@
     "schedule": "0 9 * * 0 (Sundays at 9am)",
     "delivery": "File",
     "tools": "web_search, x_search, create_or_rewrite_file",
-    "prompt": "Research what performed well on X/Twitter this week in the AI tools and indie dev space. Use x_search to find:\n- Tweets with 500+ likes about AI tools, solo development, or building in public\n- Trending topics and hashtags in the maker/builder community\n- Any viral threads about personal projects or side hustles\n\nBased on what's getting traction, create a 7-day content calendar for next week. For each day, provide:\n- Platform (X, Substack, or both)\n- Content type (thread, single post, article, screenshot walkthrough)\n- Topic + specific angle\n- Hook (opening line)\n- Key points to cover (3-5 bullets)\n- Best posting time\n\nWrite this to /home/workspace/Records/content-calendar-[next week's date range].md\n\nFocus on angles that are personal, specific, and opinionated — not generic \"5 tips for productivity\" garbage.",
+    "prompt": "Research what performed well on X/Twitter this week in the AI tools and indie dev space. Use x_search to find:\n- Tweets with 500+ likes about AI tools, solo development, or building in public\n- Trending topics and hashtags in the maker/builder community\n- Any viral threads about personal projects or side hustles\n\nBased on what's getting traction, create a 7-day content calendar for next week. For each day, provide:\n- Platform (X, Substack, or both)\n- Content type (thread, single post, article, screenshot walkthrough)\n- Topic + specific angle\n- Hook (opening line)\n- Key points to cover (3-5 bullets)\n- Best posting time\n\nWrite this to /home/workspace/Records/content-calendar-[next week's date range].md\n\nFocus on angles that are personal, specific, and opinionated \u2014 not generic \"5 tips for productivity\" garbage.",
     "expectedOutput": "A complete week of content planned out, informed by what's actually working on the platform right now, saved as a markdown file.",
     "customization": "Change the niche (replace \"AI tools and indie dev\" with your area). Add your Substack URL for cross-promotion angles."
   },
@@ -39,8 +39,8 @@
     "schedule": "0 10 * * 1 (Mondays at 10am)",
     "delivery": "Email",
     "tools": "web_search, read_webpage, send_email_to_user",
-    "prompt": "I track competitors in the web design and AI tools space. Check the pricing pages for these URLs:\n- https://www.squarespace.com/pricing\n- https://www.wix.com/premium-purchase-plan/dynamo\n- https://webflow.com/pricing\n- https://carrd.co/pro\n\nFor each, record:\n- Plan names and prices\n- Any changes from last week (compare against /home/workspace/Records/competitor-prices.json if it exists)\n- Any new features mentioned on the pricing page\n- Any active promotions or discounts\n\nUpdate /home/workspace/Records/competitor-prices.json with current data (include a timestamp).\n\nIf ANY prices changed, email me with subject \"💰 Price Change Alert\" and list what changed. If nothing changed, don't email — just update the JSON silently.",
-    "expectedOutput": "A weekly silent price tracker that only alerts you when something actually changes — no noise, just signal.",
+    "prompt": "I track competitors in the web design and AI tools space. Check the pricing pages for these URLs:\n- https://www.squarespace.com/pricing\n- https://www.wix.com/premium-purchase-plan/dynamo\n- https://webflow.com/pricing\n- https://carrd.co/pro\n\nFor each, record:\n- Plan names and prices\n- Any changes from last week (compare against /home/workspace/Records/competitor-prices.json if it exists)\n- Any new features mentioned on the pricing page\n- Any active promotions or discounts\n\nUpdate /home/workspace/Records/competitor-prices.json with current data (include a timestamp).\n\nIf ANY prices changed, email me with subject \"\ud83d\udcb0 Price Change Alert\" and list what changed. If nothing changed, don't email \u2014 just update the JSON silently.",
+    "expectedOutput": "A weekly silent price tracker that only alerts you when something actually changes \u2014 no noise, just signal.",
     "customization": "Replace the URLs with your actual competitors. Add or remove tracked services as needed."
   },
   {
@@ -51,7 +51,7 @@
     "delivery": "SMS",
     "tools": "web_search, send_sms_to_user",
     "prompt": "Generate a single journaling prompt for tonight. It should NOT be generic self-help (\"What are you grateful for?\"). Instead, pick from these styles randomly:\n\n- A specific memory trigger (\"Describe the last meal that surprised you\")\n- A future scenario (\"Write a letter from yourself 5 years from now\")\n- An observation prompt (\"What sound have you heard most today and what does it mean?\")\n- A values probe (\"What rule do you follow that you've never explained to anyone?\")\n- A creative constraint (\"Describe today using only 50 words\")\n\nText me just the prompt. No preamble, no explanation. Just the question or instruction.",
-    "expectedOutput": "A single, thoughtful journaling prompt delivered as a text message at 9pm — personal enough to actually make you think.",
+    "expectedOutput": "A single, thoughtful journaling prompt delivered as a text message at 9pm \u2014 personal enough to actually make you think.",
     "customization": "Change the time to match your journaling window. Add your own prompt styles to the list."
   },
   {
@@ -61,7 +61,7 @@
     "schedule": "0 8 * * 1,3,5 (Mon/Wed/Fri at 8am)",
     "delivery": "Email",
     "tools": "web_search, web_research, send_email_to_user",
-    "prompt": "Search for freelance web design and development opportunities posted in the last 48 hours. Check:\n\n1. web_search for \"freelance web developer needed\" and \"hiring web designer freelance\" with time_range=\"week\"\n2. web_research with category=\"tweet\" for people tweeting about needing a website built\n3. web_search for \"small business website help\" on Reddit (include_domains: [\"reddit.com\"])\n\nFilter results to find leads that match:\n- Small businesses or individuals (not agencies)\n- Budget likely $500+ (not \"$50 logo\" type posts)\n- Located in the US (preferred) or remote-friendly\n- Actually need a website or web app (not just social media help)\n\nFor each qualified lead, provide:\n- Source URL\n- What they need (1 sentence)\n- Why it's a fit (1 sentence)\n- Suggested outreach approach (1 sentence)\n\nEmail me the top 5 leads with subject \"🎣 Fresh Leads — [date]\". If nothing good, send \"Dry day — nothing worth pitching\" and I'll know to skip.",
+    "prompt": "Search for freelance web design and development opportunities posted in the last 48 hours. Check:\n\n1. web_search for \"freelance web developer needed\" and \"hiring web designer freelance\" with time_range=\"week\"\n2. web_research with category=\"tweet\" for people tweeting about needing a website built\n3. web_search for \"small business website help\" on Reddit (include_domains: [\"reddit.com\"])\n\nFilter results to find leads that match:\n- Small businesses or individuals (not agencies)\n- Budget likely $500+ (not \"$50 logo\" type posts)\n- Located in the US (preferred) or remote-friendly\n- Actually need a website or web app (not just social media help)\n\nFor each qualified lead, provide:\n- Source URL\n- What they need (1 sentence)\n- Why it's a fit (1 sentence)\n- Suggested outreach approach (1 sentence)\n\nEmail me the top 5 leads with subject \"\ud83c\udfa3 Fresh Leads \u2014 [date]\". If nothing good, send \"Dry day \u2014 nothing worth pitching\" and I'll know to skip.",
     "expectedOutput": "A curated list of 5 real freelance opportunities that match your skills and price range, delivered 3x/week.",
     "customization": "Adjust search terms to match your specific services. Change frequency based on how actively you're looking."
   },
@@ -72,9 +72,9 @@
     "schedule": "0 10 1 * * (1st of every month at 10am)",
     "delivery": "Email",
     "tools": "use_app_gmail, send_email_to_user",
-    "prompt": "Search my Gmail for all subscription-related emails from the past 30 days. Look for:\n- Receipts and payment confirmations\n- \"Your subscription has been renewed\" emails\n- Billing notifications from services (Stripe, PayPal, Apple, Google Play, etc.)\n\nFor each subscription found:\n- Service name\n- Amount charged\n- Date charged\n- Whether I've actually used this service in the past month (check if I have emails FROM this service that aren't just billing)\n\nCompile into a report:\n- Total monthly subscription spend\n- Services I'm paying for but NOT using (no non-billing emails = not using)\n- Services to review (charged but minimal usage signals)\n- Estimated annual cost at current rate\n\nEmail me with subject \"📊 Subscription Audit — [month]\".",
+    "prompt": "Search my Gmail for all subscription-related emails from the past 30 days. Look for:\n- Receipts and payment confirmations\n- \"Your subscription has been renewed\" emails\n- Billing notifications from services (Stripe, PayPal, Apple, Google Play, etc.)\n\nFor each subscription found:\n- Service name\n- Amount charged\n- Date charged\n- Whether I've actually used this service in the past month (check if I have emails FROM this service that aren't just billing)\n\nCompile into a report:\n- Total monthly subscription spend\n- Services I'm paying for but NOT using (no non-billing emails = not using)\n- Services to review (charged but minimal usage signals)\n- Estimated annual cost at current rate\n\nEmail me with subject \"\ud83d\udcca Subscription Audit \u2014 [month]\".",
     "expectedOutput": "A monthly breakdown of every subscription hitting your accounts, flagging ones you're paying for but not using.",
-    "customization": "Works automatically with Gmail — no setup needed beyond having subscription receipts in your inbox."
+    "customization": "Works automatically with Gmail \u2014 no setup needed beyond having subscription receipts in your inbox."
   },
   {
     "id": 8,
@@ -105,7 +105,7 @@
     "schedule": "0 9 * * 1 (Mondays at 9am)",
     "delivery": "SMS",
     "tools": "run_bash_command, send_sms_to_user",
-    "prompt": "Check my workspace for projects that might be going stale. For every directory under /home/workspace/Projects/:\n\n1. Find the most recently modified file\n2. Calculate days since last modification\n3. Check if there's a _plan.md and read its status\n\nFlag any project where:\n- No file has been modified in 7+ days\n- The _plan.md has unchecked items but nothing has been touched\n\nText me a summary like:\n\"🧊 Stale projects:\n- zo-cookbook: last touched 3 days ago, 4 open tasks\n- [project]: last touched 12 days ago ⚠️\n\n🔥 Active:\n- [project]: touched today\"\n\nKeep it short. Just the project names, days dormant, and a nudge.",
+    "prompt": "Check my workspace for projects that might be going stale. For every directory under /home/workspace/Projects/:\n\n1. Find the most recently modified file\n2. Calculate days since last modification\n3. Check if there's a _plan.md and read its status\n\nFlag any project where:\n- No file has been modified in 7+ days\n- The _plan.md has unchecked items but nothing has been touched\n\nText me a summary like:\n\"\ud83e\uddca Stale projects:\n- zo-cookbook: last touched 3 days ago, 4 open tasks\n- [project]: last touched 12 days ago \u26a0\ufe0f\n\n\ud83d\udd25 Active:\n- [project]: touched today\"\n\nKeep it short. Just the project names, days dormant, and a nudge.",
     "expectedOutput": "A Monday morning nudge showing which projects are gathering dust and which are active.",
     "customization": "Adjust the staleness threshold (7 days) to match your work rhythm."
   },
@@ -116,7 +116,7 @@
     "schedule": "0 9 * * 1 (Mondays at 9am)",
     "delivery": "Email",
     "tools": "use_app_gmail, web_search, send_email_to_user",
-    "prompt": "Compile my weekly revenue report by checking:\n\n1. Gmail for Stripe payment notifications from the past 7 days\n2. Gmail for any PayPal or Venmo payment receipts\n3. Gmail for any freelance invoice payment confirmations\n\nFor each payment found:\n- Source/client name\n- Amount\n- What it was for (product, service, subscription)\n\nCalculate:\n- This week's total revenue\n- Running monthly total\n- Projected monthly total (if this week's rate continues)\n- Gap to $500/mo passive income goal\n\nEmail me with subject \"💵 Weekly Revenue — [date range]\" with the breakdown and a one-line assessment of whether I'm on track.",
+    "prompt": "Compile my weekly revenue report by checking:\n\n1. Gmail for Stripe payment notifications from the past 7 days\n2. Gmail for any PayPal or Venmo payment receipts\n3. Gmail for any freelance invoice payment confirmations\n\nFor each payment found:\n- Source/client name\n- Amount\n- What it was for (product, service, subscription)\n\nCalculate:\n- This week's total revenue\n- Running monthly total\n- Projected monthly total (if this week's rate continues)\n- Gap to $500/mo passive income goal\n\nEmail me with subject \"\ud83d\udcb5 Weekly Revenue \u2014 [date range]\" with the breakdown and a one-line assessment of whether I'm on track.",
     "expectedOutput": "A clean weekly revenue report tracking progress toward the $500/mo passive income goal.",
     "customization": "Add your specific payment processors and client email domains for better detection."
   },
@@ -127,7 +127,7 @@
     "schedule": "0 8 * * * (daily at 8am)",
     "delivery": "SMS",
     "tools": "send_sms_to_user, read_file, create_or_rewrite_file",
-    "prompt": "This is a medication adherence tracker. \n\nCheck /home/workspace/Persona/medication-log.json for yesterday's entry:\n- If yesterday shows \"confirmed\": true, good — just send today's reminder\n- If yesterday shows \"confirmed\": false or missing, note the gap\n\nText me: \"Morning meds reminder 💊 [streak count] days consistent. Reply 'done' when taken.\"\n\nLog today's entry in the JSON as {\"date\": \"[today]\", \"reminded\": true, \"confirmed\": false}.\n\nIf there's a gap yesterday, add to the text: \"⚠️ Missed yesterday's confirmation — did you take them?\"",
+    "prompt": "This is a medication adherence tracker. \n\nCheck /home/workspace/Persona/medication-log.json for yesterday's entry:\n- If yesterday shows \"confirmed\": true, good \u2014 just send today's reminder\n- If yesterday shows \"confirmed\": false or missing, note the gap\n\nText me: \"Morning meds reminder \ud83d\udc8a [streak count] days consistent. Reply 'done' when taken.\"\n\nLog today's entry in the JSON as {\"date\": \"[today]\", \"reminded\": true, \"confirmed\": false}.\n\nIf there's a gap yesterday, add to the text: \"\u26a0\ufe0f Missed yesterday's confirmation \u2014 did you take them?\"",
     "expectedOutput": "A daily SMS reminder that tracks your medication streak and flags missed days.",
     "customization": "Adjust the time for your medication schedule. Add a second agent for evening meds if needed."
   },
@@ -138,7 +138,7 @@
     "schedule": "0 6 * * 2 (Tuesdays at 6am)",
     "delivery": "File",
     "tools": "web_search, web_research, create_or_rewrite_file",
-    "prompt": "Read /home/workspace/Records/content-ideas.md for the next unwritten topic (marked with [ ]). If no file exists or all are checked, pick a topic by:\n\n1. Searching x_search for what indie devs and AI builders are discussing this week\n2. Finding a gap — something people are asking about that nobody has written a clear answer to\n\nWrite a first draft blog post:\n- 800-1200 words\n- Written in first person, conversational, opinionated tone\n- Include at least one specific personal example or anecdote placeholder marked [PERSONAL EXAMPLE: topic]\n- Include 2-3 relevant links found via web_search\n- End with a clear takeaway, not a generic conclusion\n\nSave to /home/workspace/Projects/zo-cookbook/drafts/[slugified-title]-draft.md\n\nMark the topic as [~] in progress in the content-ideas file.",
+    "prompt": "Read /home/workspace/Records/content-ideas.md for the next unwritten topic (marked with [ ]). If no file exists or all are checked, pick a topic by:\n\n1. Searching x_search for what indie devs and AI builders are discussing this week\n2. Finding a gap \u2014 something people are asking about that nobody has written a clear answer to\n\nWrite a first draft blog post:\n- 800-1200 words\n- Written in first person, conversational, opinionated tone\n- Include at least one specific personal example or anecdote placeholder marked [PERSONAL EXAMPLE: topic]\n- Include 2-3 relevant links found via web_search\n- End with a clear takeaway, not a generic conclusion\n\nSave to /home/workspace/Projects/zo-cookbook/drafts/[slugified-title]-draft.md\n\nMark the topic as [~] in progress in the content-ideas file.",
     "expectedOutput": "A weekly first draft blog post, researched and structured, waiting in your workspace for editing.",
     "customization": "Change the day/time to match your writing schedule. Point it at your actual content ideas file."
   },
@@ -149,7 +149,7 @@
     "schedule": "0 11 * * * (daily at 11am)",
     "delivery": "Email",
     "tools": "read_webpage, send_email_to_user",
-    "prompt": "Fetch the current Hacker News front page from https://news.ycombinator.com. Parse the top 30 stories.\n\nFilter for stories relevant to: AI tools, indie development, personal computing, open source, developer experience, or remote work.\n\nFor each relevant story (max 10):\n- Title + HN link\n- Points and comment count\n- One-sentence summary of why it's relevant to an indie dev building with AI\n- Whether I should comment (based on: is there an angle from my experience I could add?)\n\nEmail me with subject \"HN Radar — [date]\". If nothing relevant today, send \"🫥 Quiet day on HN\".",
+    "prompt": "Fetch the current Hacker News front page from https://news.ycombinator.com. Parse the top 30 stories.\n\nFilter for stories relevant to: AI tools, indie development, personal computing, open source, developer experience, or remote work.\n\nFor each relevant story (max 10):\n- Title + HN link\n- Points and comment count\n- One-sentence summary of why it's relevant to an indie dev building with AI\n- Whether I should comment (based on: is there an angle from my experience I could add?)\n\nEmail me with subject \"HN Radar \u2014 [date]\". If nothing relevant today, send \"\ud83e\udee5 Quiet day on HN\".",
     "expectedOutput": "A daily curated HN digest filtered for your specific interests, with commentary suggestions for visibility building.",
     "customization": "Change the filter topics to match your niche. Adjust the relevance threshold."
   },
@@ -160,7 +160,7 @@
     "schedule": "0 10 * * 3 (Wednesdays at 10am)",
     "delivery": "SMS",
     "tools": "use_app_gmail, send_sms_to_user",
-    "prompt": "Check my Gmail sent folder for emails to clients in the past 14 days. For each sent email:\n- Check if there's been a reply\n- Calculate days since I sent it\n\nFind any emails where:\n- I sent something 5+ days ago with no reply\n- The email looked like it needed a response (proposal, question, deliverable, invoice)\n\nText me:\n\"📬 Follow-up needed:\n- [Client name]: sent [what] [X] days ago, no reply\n- [Client name]: sent [what] [X] days ago, no reply\n\nTotal: [N] pending follow-ups\"\n\nIf all sent emails have replies, text \"All caught up — no follow-ups needed 👍\"",
+    "prompt": "Check my Gmail sent folder for emails to clients in the past 14 days. For each sent email:\n- Check if there's been a reply\n- Calculate days since I sent it\n\nFind any emails where:\n- I sent something 5+ days ago with no reply\n- The email looked like it needed a response (proposal, question, deliverable, invoice)\n\nText me:\n\"\ud83d\udcec Follow-up needed:\n- [Client name]: sent [what] [X] days ago, no reply\n- [Client name]: sent [what] [X] days ago, no reply\n\nTotal: [N] pending follow-ups\"\n\nIf all sent emails have replies, text \"All caught up \u2014 no follow-ups needed \ud83d\udc4d\"",
     "expectedOutput": "A weekly nudge to follow up with clients who haven't responded, preventing opportunities from going cold.",
     "customization": "Adjust the days threshold and which sent emails count as \"needing a response.\""
   },
@@ -171,7 +171,7 @@
     "schedule": "0 8 * * 6 (Saturdays at 8am)",
     "delivery": "File",
     "tools": "web_search, x_search, image_search, create_or_rewrite_file",
-    "prompt": "Curate a weekend inspiration feed by searching for:\n\n1. 3 beautiful personal websites launched this week (web_search \"portfolio site of the week\" OR \"personal website inspiration\")\n2. 3 interesting open source projects trending on GitHub this week (web_research category=\"github\")\n3. 3 thought-provoking tweets about building, creating, or indie business (x_search)\n4. 2 design references — striking visual work (web_search \"design inspiration\" time_range=\"week\")\n\nFor each item:\n- URL\n- Why it's interesting (1 sentence, be specific — not \"nice design\")\n- One thing I could steal/adapt for my own work\n\nSave to /home/workspace/Records/inspiration/[date]-feed.md\n\nEnd with a \"Pick of the Week\" — the single item I should spend 10 minutes studying.",
+    "prompt": "Curate a weekend inspiration feed by searching for:\n\n1. 3 beautiful personal websites launched this week (web_search \"portfolio site of the week\" OR \"personal website inspiration\")\n2. 3 interesting open source projects trending on GitHub this week (web_research category=\"github\")\n3. 3 thought-provoking tweets about building, creating, or indie business (x_search)\n4. 2 design references \u2014 striking visual work (web_search \"design inspiration\" time_range=\"week\")\n\nFor each item:\n- URL\n- Why it's interesting (1 sentence, be specific \u2014 not \"nice design\")\n- One thing I could steal/adapt for my own work\n\nSave to /home/workspace/Records/inspiration/[date]-feed.md\n\nEnd with a \"Pick of the Week\" \u2014 the single item I should spend 10 minutes studying.",
     "expectedOutput": "A curated inspiration file every Saturday morning to fuel weekend creative work.",
     "customization": "Change the categories to match what inspires you. Add specific designers/developers you want to track."
   },
@@ -182,9 +182,9 @@
     "schedule": "0 7 * * * (daily at 7am)",
     "delivery": "File",
     "tools": "use_app_gmail, create_or_rewrite_file",
-    "prompt": "Search my Gmail for newsletter emails received in the last 24 hours. Identify newsletters by looking for:\n- Unsubscribe links in the email\n- Sent via known newsletter platforms (Substack, Mailchimp, ConvertKit, Beehiiv, Buttondown)\n- \"Newsletter\" or \"digest\" in the subject\n\nFor each newsletter found:\n- Publication name\n- Subject line\n- 3-bullet summary of the key points\n- One \"worth clicking\" link if any are included\n- Rating: 🔥 Must-read | 📎 Skim | 🗑️ Skip\n\nSave the digest to /home/workspace/Records/newsletter-digests/[date].md\n\nMark newsletters rated 🗑️ three times in a row with a note: \"Consider unsubscribing from [name]\"",
+    "prompt": "Search my Gmail for newsletter emails received in the last 24 hours. Identify newsletters by looking for:\n- Unsubscribe links in the email\n- Sent via known newsletter platforms (Substack, Mailchimp, ConvertKit, Beehiiv, Buttondown)\n- \"Newsletter\" or \"digest\" in the subject\n\nFor each newsletter found:\n- Publication name\n- Subject line\n- 3-bullet summary of the key points\n- One \"worth clicking\" link if any are included\n- Rating: \ud83d\udd25 Must-read | \ud83d\udcce Skim | \ud83d\uddd1\ufe0f Skip\n\nSave the digest to /home/workspace/Records/newsletter-digests/[date].md\n\nMark newsletters rated \ud83d\uddd1\ufe0f three times in a row with a note: \"Consider unsubscribing from [name]\"",
     "expectedOutput": "A daily file that distills all your newsletters into 3-bullet summaries so you can skip the ones that aren't worth your time.",
-    "customization": "Add specific newsletters you always want marked as 🔥 Must-read regardless of content."
+    "customization": "Add specific newsletters you always want marked as \ud83d\udd25 Must-read regardless of content."
   },
   {
     "id": 18,
@@ -193,7 +193,7 @@
     "schedule": "0 9 1 * * (1st of every month at 9am)",
     "delivery": "File + Email",
     "tools": "use_app_gmail, use_app_google_calendar, create_or_rewrite_file, send_email_to_user",
-    "prompt": "Generate monthly invoices for my freelance clients.\n\n1. Check Google Calendar for client meetings/work sessions last month\n2. Check Gmail for any project-related correspondence that indicates completed work\n3. Read /home/workspace/Business/clients.json for client rates and billing info (create template if missing)\n\nFor each active client:\n- Calculate hours worked (from calendar events tagged with client name)\n- List deliverables completed (from email threads about finished work)\n- Generate invoice at the client's hourly/project rate\n- Save as /home/workspace/Business/invoices/[month]-[client-name].md\n\nEmail me a summary: \"📄 [N] invoices generated for [month]. Total: $[amount]. Review in workspace before sending.\"\n\nDo NOT send invoices to clients — only generate and notify me.",
+    "prompt": "Generate monthly invoices for my freelance clients.\n\n1. Check Google Calendar for client meetings/work sessions last month\n2. Check Gmail for any project-related correspondence that indicates completed work\n3. Read /home/workspace/Business/clients.json for client rates and billing info (create template if missing)\n\nFor each active client:\n- Calculate hours worked (from calendar events tagged with client name)\n- List deliverables completed (from email threads about finished work)\n- Generate invoice at the client's hourly/project rate\n- Save as /home/workspace/Business/invoices/[month]-[client-name].md\n\nEmail me a summary: \"\ud83d\udcc4 [N] invoices generated for [month]. Total: $[amount]. Review in workspace before sending.\"\n\nDo NOT send invoices to clients \u2014 only generate and notify me.",
     "expectedOutput": "Monthly invoices auto-generated from your calendar and email activity, ready for review before sending.",
     "customization": "Set up clients.json with your client info. Adjust how hours are detected based on how you name calendar events."
   },
@@ -204,8 +204,8 @@
     "schedule": "0 7 * * * (daily at 7am)",
     "delivery": "SMS (conditional)",
     "tools": "web_search, send_sms_to_user",
-    "prompt": "Check the current weather in Salmon, Idaho.\n\nIf the temperature is below 20°F (-6°C):\n- Text me something warm and encouraging. Not corny affirmations. Something real, like:\n  - A specific reason today matters based on what day it is\n  - A reminder about what I'm building and why it's worth leaving the warm bed\n  - A practical suggestion for the cold (hot drink recipe, podcast recommendation for the cold walk)\n\nIf the temperature is above 20°F, do nothing. Don't text. Silence is fine.\n\nKeep the text under 160 characters if possible. Make it feel like it came from a friend who knows how cold Idaho gets.",
-    "expectedOutput": "A warm text only on genuinely cold mornings — not daily noise, just when it actually matters.",
+    "prompt": "Check the current weather in Salmon, Idaho.\n\nIf the temperature is below 20\u00b0F (-6\u00b0C):\n- Text me something warm and encouraging. Not corny affirmations. Something real, like:\n  - A specific reason today matters based on what day it is\n  - A reminder about what I'm building and why it's worth leaving the warm bed\n  - A practical suggestion for the cold (hot drink recipe, podcast recommendation for the cold walk)\n\nIf the temperature is above 20\u00b0F, do nothing. Don't text. Silence is fine.\n\nKeep the text under 160 characters if possible. Make it feel like it came from a friend who knows how cold Idaho gets.",
+    "expectedOutput": "A warm text only on genuinely cold mornings \u2014 not daily noise, just when it actually matters.",
     "customization": "Change the location and temperature threshold. Adjust the tone to match what motivates you."
   },
   {
@@ -237,7 +237,7 @@
     "schedule": "0 8 * * 1 (Mondays at 8am)",
     "delivery": "Email",
     "tools": "read_webpage, web_search, send_email_to_user",
-    "prompt": "Check my Substack analytics by reading my Substack dashboard (use the browser — I'm logged in on substack.com).\n\nGather:\n- Total subscribers (free + paid)\n- New subscribers this week\n- Unsubscribes this week\n- Most-read post this week\n- Open rate trend\n\nAlso check:\n- web_search for any external links to my Substack\n- x_search for mentions of my Substack posts\n\nCompile a weekly report:\n- 📈 Growth: +X subscribers (net after unsubs)\n- 📊 Engagement: [open rate]% average this week\n- 🏆 Top post: [title] — [views]\n- 🔗 External mentions: [count] (list sources)\n- 💡 One suggestion for next week's post based on what performed\n\nEmail with subject \"Substack Weekly — [date range]\"",
+    "prompt": "Check my Substack analytics by reading my Substack dashboard (use the browser \u2014 I'm logged in on substack.com).\n\nGather:\n- Total subscribers (free + paid)\n- New subscribers this week\n- Unsubscribes this week\n- Most-read post this week\n- Open rate trend\n\nAlso check:\n- web_search for any external links to my Substack\n- x_search for mentions of my Substack posts\n\nCompile a weekly report:\n- \ud83d\udcc8 Growth: +X subscribers (net after unsubs)\n- \ud83d\udcca Engagement: [open rate]% average this week\n- \ud83c\udfc6 Top post: [title] \u2014 [views]\n- \ud83d\udd17 External mentions: [count] (list sources)\n- \ud83d\udca1 One suggestion for next week's post based on what performed\n\nEmail with subject \"Substack Weekly \u2014 [date range]\"",
     "expectedOutput": "A weekly Substack performance digest with growth metrics and content strategy suggestions.",
     "customization": "Works if you're logged into Substack in Zo's browser. Replace with your blog platform if not using Substack."
   },
@@ -259,7 +259,7 @@
     "schedule": "0 8 * * 1 (Mondays at 8am)",
     "delivery": "File",
     "tools": "run_bash_command, create_or_rewrite_file",
-    "prompt": "Check my GitHub activity for the past week. Run these commands:\n- List all repos I've pushed to in the last 7 days\n- Count total commits across all repos\n- Identify which files/directories I changed most\n- Check if any of my repos received new stars, forks, or issues\n\nCompile a developer activity report:\n- Total commits: [N]\n- Repos touched: [list]\n- Most active areas: [directories/files]\n- Community activity: [stars, forks, issues]\n- Streak: [consecutive days with commits]\n\nCompare to the previous week (read /home/workspace/Records/github-activity/last.json if it exists).\n\nSave this week's data to /home/workspace/Records/github-activity/last.json\nSave the human-readable report to /home/workspace/Records/github-activity/week-of-[date].md\n\nInclude a \"highlight\" — the single most interesting thing I shipped this week, stated in one sentence I could tweet.",
+    "prompt": "Check my GitHub activity for the past week. Run these commands:\n- List all repos I've pushed to in the last 7 days\n- Count total commits across all repos\n- Identify which files/directories I changed most\n- Check if any of my repos received new stars, forks, or issues\n\nCompile a developer activity report:\n- Total commits: [N]\n- Repos touched: [list]\n- Most active areas: [directories/files]\n- Community activity: [stars, forks, issues]\n- Streak: [consecutive days with commits]\n\nCompare to the previous week (read /home/workspace/Records/github-activity/last.json if it exists).\n\nSave this week's data to /home/workspace/Records/github-activity/last.json\nSave the human-readable report to /home/workspace/Records/github-activity/week-of-[date].md\n\nInclude a \"highlight\" \u2014 the single most interesting thing I shipped this week, stated in one sentence I could tweet.",
     "expectedOutput": "A weekly GitHub activity report with trends, streaks, and a tweetable highlight of your best work.",
     "customization": "Requires GitHub to be connected. Adjust repos tracked if you want to focus on specific projects."
   },
@@ -271,7 +271,7 @@
     "delivery": "File",
     "tools": "run_bash_command, read_file, create_or_rewrite_file",
     "prompt": "Generate my personal daily standup by checking:\n\n1. What I worked on yesterday:\n   - Check git log across all project repos for yesterday's commits\n   - Check /home/workspace/Persona/Journal/ for yesterday's entry\n   - Check recently modified files in /home/workspace/Projects/\n\n2. What's planned for today:\n   - Read any _plan.md files for active projects and find the next unchecked task\n   - Check Google Calendar for today's events\n\n3. Blockers:\n   - Any _plan.md items marked [!] blocked\n   - Any project files with TODO or FIXME comments added yesterday\n\nWrite a standup note:\nYesterday: [2-3 bullets]\nToday: [2-3 bullets, with the first being the single most important task]\nBlockers: [list or \"None\"]\n\nSave to /home/workspace/Records/standups/[date].md",
-    "expectedOutput": "A daily standup written for yourself, generated from actual activity — not what you think you did, but what the file system proves.",
+    "expectedOutput": "A daily standup written for yourself, generated from actual activity \u2014 not what you think you did, but what the file system proves.",
     "customization": "Adjust the project directories scanned. Add specific task management tools if you use them."
   },
   {
@@ -281,7 +281,7 @@
     "schedule": "0 2 * * 0 (Sundays at 2am)",
     "delivery": "Email (on failure only)",
     "tools": "run_bash_command, send_email_to_user",
-    "prompt": "Perform a weekly workspace health check:\n\n1. Check disk usage: how much space is used vs available\n2. Count total files in workspace\n3. Find the 10 largest files and check if any are unnecessary (temp files, .log files, node_modules)\n4. Verify critical files exist:\n   - /home/workspace/AGENTS.md\n   - /home/workspace/SOUL.md\n   - /home/workspace/Persona/IDENTITY.md\n5. Check for any files modified in the last week that are unusually large (>50MB)\n\nIf everything looks healthy:\n- Save a brief report to /home/workspace/Records/health-checks/[date].md\n- Do NOT email me\n\nIf there are issues (low disk space, missing critical files, suspicious large files):\n- Email me with subject \"⚠️ Workspace Health Alert\" with specifics",
+    "prompt": "Perform a weekly workspace health check:\n\n1. Check disk usage: how much space is used vs available\n2. Count total files in workspace\n3. Find the 10 largest files and check if any are unnecessary (temp files, .log files, node_modules)\n4. Verify critical files exist:\n   - /home/workspace/AGENTS.md\n   - /home/workspace/SOUL.md\n   - /home/workspace/Persona/IDENTITY.md\n5. Check for any files modified in the last week that are unusually large (>50MB)\n\nIf everything looks healthy:\n- Save a brief report to /home/workspace/Records/health-checks/[date].md\n- Do NOT email me\n\nIf there are issues (low disk space, missing critical files, suspicious large files):\n- Email me with subject \"\u26a0\ufe0f Workspace Health Alert\" with specifics",
     "expectedOutput": "A silent weekly health check that only bothers you when something is actually wrong.",
     "customization": "Add your own critical files to the verification list. Adjust the large file threshold."
   },
@@ -292,7 +292,7 @@
     "schedule": "0 12 * * 3 (Wednesdays at noon)",
     "delivery": "Email",
     "tools": "web_search, web_research, x_search, send_email_to_user",
-    "prompt": "Find new developer tools, AI products, and indie projects launched this week:\n\n1. web_search \"launched this week\" AND (\"developer tool\" OR \"AI tool\" OR \"open source\") time_range=\"week\"\n2. web_research category=\"github\" for repos created this week with 100+ stars\n3. web_search on Product Hunt for this week's top launches (include_domains: [\"producthunt.com\"])\n4. x_search for \"just launched\" OR \"just shipped\" from indie dev accounts\n\nFilter for tools relevant to: web development, AI-assisted coding, content creation, small business, solo developers.\n\nFor each discovery (max 10):\n- Name + URL\n- What it does (1 sentence)\n- Why it's interesting (1 sentence)\n- Free tier? (yes/no + limits)\n- Could I build something like this on Zo? (yes/no + how)\n\nEmail with subject \"🧪 Tool Radar — Week of [date]\"",
+    "prompt": "Find new developer tools, AI products, and indie projects launched this week:\n\n1. web_search \"launched this week\" AND (\"developer tool\" OR \"AI tool\" OR \"open source\") time_range=\"week\"\n2. web_research category=\"github\" for repos created this week with 100+ stars\n3. web_search on Product Hunt for this week's top launches (include_domains: [\"producthunt.com\"])\n4. x_search for \"just launched\" OR \"just shipped\" from indie dev accounts\n\nFilter for tools relevant to: web development, AI-assisted coding, content creation, small business, solo developers.\n\nFor each discovery (max 10):\n- Name + URL\n- What it does (1 sentence)\n- Why it's interesting (1 sentence)\n- Free tier? (yes/no + limits)\n- Could I build something like this on Zo? (yes/no + how)\n\nEmail with subject \"\ud83e\uddea Tool Radar \u2014 Week of [date]\"",
     "expectedOutput": "A weekly roundup of new tools and projects in your space, with notes on which ones you could replicate on Zo.",
     "customization": "Adjust the filter categories. Add specific Product Hunt collections or GitHub topics."
   },
@@ -303,7 +303,7 @@
     "schedule": "0 6 * * * (daily at 6am)",
     "delivery": "SMS",
     "tools": "send_sms_to_user, read_file, create_or_rewrite_file",
-    "prompt": "This is a sleep tracking prompt. Text me:\n\n\"Good morning. When did you fall asleep last night and when did you wake up? (Example: 11pm-6:30am)\"\n\nWait for my reply. When I respond with a time range:\n- Parse the sleep and wake times\n- Calculate total hours\n- Log to /home/workspace/Persona/sleep-log.json with date, bedtime, wake time, total hours\n- Calculate my 7-day sleep average\n- Text back: \"[hours]h last night. 7-day avg: [avg]h. [Assessment]\"\n\nAssessment rules:\n- 7-8h avg: \"On track 🟢\"\n- 6-7h avg: \"Slipping — prioritize sleep tonight 🟡\"\n- <6h avg: \"Sleep debt building. Consider an early night. 🔴\"",
+    "prompt": "This is a sleep tracking prompt. Text me:\n\n\"Good morning. When did you fall asleep last night and when did you wake up? (Example: 11pm-6:30am)\"\n\nWait for my reply. When I respond with a time range:\n- Parse the sleep and wake times\n- Calculate total hours\n- Log to /home/workspace/Persona/sleep-log.json with date, bedtime, wake time, total hours\n- Calculate my 7-day sleep average\n- Text back: \"[hours]h last night. 7-day avg: [avg]h. [Assessment]\"\n\nAssessment rules:\n- 7-8h avg: \"On track \ud83d\udfe2\"\n- 6-7h avg: \"Slipping \u2014 prioritize sleep tonight \ud83d\udfe1\"\n- <6h avg: \"Sleep debt building. Consider an early night. \ud83d\udd34\"",
     "expectedOutput": "A daily sleep check-in via text that builds a rolling average and warns when sleep debt is accumulating.",
     "customization": "Adjust assessment thresholds based on your ideal sleep range. For epilepsy management, this data can be cross-referenced with seizure logs."
   },
@@ -325,7 +325,7 @@
     "schedule": "0 10 * * 4 (Thursdays at 10am)",
     "delivery": "SMS",
     "tools": "web_search, maps_search, send_sms_to_user",
-    "prompt": "Search for events happening this weekend in and around Salmon, Idaho (and within 1 hour drive: Challis, Leadore, North Fork, Lemhi Valley area).\n\nCheck:\n- web_search \"[Salmon Idaho events this weekend]\" time_range=\"week\"\n- web_search \"[Lemhi County events]\" time_range=\"week\"\n- maps_search for any venues, community centers, or event spaces in Salmon, ID\n\nLook for:\n- Community events (farmers markets, festivals, fundraisers)\n- Outdoor activities (group hikes, fishing derbies, trailwork)\n- Music or art events\n- Free or cheap activities\n\nText me a short list:\n\"This weekend in Salmon:\n🎪 [Event] — [where], [when]\n🎪 [Event] — [where], [when]\nNothing? → 'Quiet weekend. Good for building.'\"",
+    "prompt": "Search for events happening this weekend in and around Salmon, Idaho (and within 1 hour drive: Challis, Leadore, North Fork, Lemhi Valley area).\n\nCheck:\n- web_search \"[Salmon Idaho events this weekend]\" time_range=\"week\"\n- web_search \"[Lemhi County events]\" time_range=\"week\"\n- maps_search for any venues, community centers, or event spaces in Salmon, ID\n\nLook for:\n- Community events (farmers markets, festivals, fundraisers)\n- Outdoor activities (group hikes, fishing derbies, trailwork)\n- Music or art events\n- Free or cheap activities\n\nText me a short list:\n\"This weekend in Salmon:\n\ud83c\udfaa [Event] \u2014 [where], [when]\n\ud83c\udfaa [Event] \u2014 [where], [when]\nNothing? \u2192 'Quiet weekend. Good for building.'\"",
     "expectedOutput": "A Thursday text with local weekend events so you can plan ahead without having to search Facebook groups.",
     "customization": "Change the location and search radius. Add specific event types you prefer."
   },
@@ -336,9 +336,9 @@
     "schedule": "*/15 * * * * (every 15 minutes)",
     "delivery": "SMS (on failure only)",
     "tools": "run_bash_command, send_sms_to_user",
-    "prompt": "Check if my public services are responding:\n\n1. curl -s -o /dev/null -w \"%{http_code}\" https://jeffkazzee.zo.space/ (expect 200)\n2. curl -s -o /dev/null -w \"%{http_code}\" https://worldfactbook.xyz/ (expect 200)\n\nFor each service:\n- If status is 200: log \"up\" to /home/workspace/Records/uptime/[service].json\n- If status is NOT 200: \n  - Check if it was down 15 minutes ago too (consecutive failure)\n  - If first failure: log but don't alert (might be transient)\n  - If consecutive failure: TEXT ME immediately \"🔴 [service] is down. Status: [code]. Down since [time].\"\n\nWhen a service recovers after being down, text me \"🟢 [service] is back up. Was down for [duration].\"\n\nKeep uptime percentage in the JSON (trailing 7 days).",
+    "prompt": "Check if my public services are responding:\n\n1. curl -s -o /dev/null -w \"%{http_code}\" https://jeffkazzee.zo.space/ (expect 200)\n2. curl -s -o /dev/null -w \"%{http_code}\" https://worldfactbook.xyz/ (expect 200)\n\nFor each service:\n- If status is 200: log \"up\" to /home/workspace/Records/uptime/[service].json\n- If status is NOT 200: \n  - Check if it was down 15 minutes ago too (consecutive failure)\n  - If first failure: log but don't alert (might be transient)\n  - If consecutive failure: TEXT ME immediately \"\ud83d\udd34 [service] is down. Status: [code]. Down since [time].\"\n\nWhen a service recovers after being down, text me \"\ud83d\udfe2 [service] is back up. Was down for [duration].\"\n\nKeep uptime percentage in the JSON (trailing 7 days).",
     "expectedOutput": "Silent monitoring of your public sites, with SMS alerts only on real outages (not transient blips).",
-    "customization": "Add or remove URLs. Adjust the check interval (every 15 min is aggressive — every hour might be enough)."
+    "customization": "Add or remove URLs. Adjust the check interval (every 15 min is aggressive \u2014 every hour might be enough)."
   },
   {
     "id": 32,
@@ -347,8 +347,8 @@
     "schedule": "0 20 * * * (daily at 8pm)",
     "delivery": "File",
     "tools": "read_file, run_bash_command, create_or_rewrite_file",
-    "prompt": "Generate an evening reflection prompt that is NOT about gratitude. Check what I actually did today:\n\n1. Read today's standup from /home/workspace/Records/standups/[today].md if it exists\n2. Check git log for today's commits\n3. Check recently modified files in the workspace\n\nBased on what I actually worked on, generate a reflection that's one of:\n- A hard question about the work (\"You refactored X twice today. Are you avoiding the real problem?\")\n- A pattern observation (\"Three days in a row of infrastructure work. When do you ship something a user sees?\")\n- A calibration check (\"You planned 4 things this morning. You did 2. Was the plan wrong or the execution?\")\n- A creative prompt connected to the work (\"The thing you built today — what if it had to work for 1000 people?\")\n\nAppend to today's journal at /home/workspace/Persona/Journal/[date].md under a \"## Evening Reflection\" heading.\n\nDo not text or email. This is private.",
-    "expectedOutput": "A daily evening reflection written to your journal, grounded in what you actually did — not generic self-help.",
+    "prompt": "Generate an evening reflection prompt that is NOT about gratitude. Check what I actually did today:\n\n1. Read today's standup from /home/workspace/Records/standups/[today].md if it exists\n2. Check git log for today's commits\n3. Check recently modified files in the workspace\n\nBased on what I actually worked on, generate a reflection that's one of:\n- A hard question about the work (\"You refactored X twice today. Are you avoiding the real problem?\")\n- A pattern observation (\"Three days in a row of infrastructure work. When do you ship something a user sees?\")\n- A calibration check (\"You planned 4 things this morning. You did 2. Was the plan wrong or the execution?\")\n- A creative prompt connected to the work (\"The thing you built today \u2014 what if it had to work for 1000 people?\")\n\nAppend to today's journal at /home/workspace/Persona/Journal/[date].md under a \"## Evening Reflection\" heading.\n\nDo not text or email. This is private.",
+    "expectedOutput": "A daily evening reflection written to your journal, grounded in what you actually did \u2014 not generic self-help.",
     "customization": "Adjust the tone. You can make it harsher (drill sergeant) or gentler (therapist) by changing the prompt style."
   },
   {
@@ -358,8 +358,8 @@
     "schedule": "0 11 * * * (daily at 11am)",
     "delivery": "SMS (conditional)",
     "tools": "web_search, send_sms_to_user",
-    "prompt": "Check today's weather in Salmon, Idaho.\n\nOnly text me if ALL of these are true:\n- Temperature is between 45°F and 85°F\n- No rain or snow expected\n- Wind under 20mph\n- It's not already past 3pm\n\nIf conditions are good, text me ONE suggestion:\n- If it's been 3+ days since the last good-weather text: \"Lucky needs a long walk and so do you. [temperature]°F, [conditions]. Go.\"\n- If recent: \"Another good one. Even 15 minutes outside counts.\"\n\nIf conditions aren't good, do nothing. Silence means stay in.\n\nKeep a log of texts sent at /home/workspace/Persona/outdoor-log.json to track the \"3+ days\" rule.",
-    "expectedOutput": "A nudge to go outside only when the weather is genuinely pleasant — respecting that you live somewhere with extreme weather.",
+    "prompt": "Check today's weather in Salmon, Idaho.\n\nOnly text me if ALL of these are true:\n- Temperature is between 45\u00b0F and 85\u00b0F\n- No rain or snow expected\n- Wind under 20mph\n- It's not already past 3pm\n\nIf conditions are good, text me ONE suggestion:\n- If it's been 3+ days since the last good-weather text: \"Lucky needs a long walk and so do you. [temperature]\u00b0F, [conditions]. Go.\"\n- If recent: \"Another good one. Even 15 minutes outside counts.\"\n\nIf conditions aren't good, do nothing. Silence means stay in.\n\nKeep a log of texts sent at /home/workspace/Persona/outdoor-log.json to track the \"3+ days\" rule.",
+    "expectedOutput": "A nudge to go outside only when the weather is genuinely pleasant \u2014 respecting that you live somewhere with extreme weather.",
     "customization": "Adjust temperature range and conditions for your climate. Change the dog's name."
   },
   {
@@ -369,8 +369,8 @@
     "schedule": "0 10 L * * (last day of every month at 10am)",
     "delivery": "File + Email",
     "tools": "read_file, run_bash_command, use_app_gmail, send_email_to_user, create_or_rewrite_file",
-    "prompt": "Perform an end-of-month review by checking:\n\n1. Revenue data from /home/workspace/Records/ (any revenue/payment tracking files)\n2. Git activity across all repos for the month\n3. Content published (check Substack via browser, check workspace for draft/published content)\n4. Project progress (read all _plan.md files, compare checked vs unchecked items)\n5. Journal entries from /home/workspace/Persona/Journal/ this month\n\nCompile a monthly review:\n\n## [Month] Review\n\n### Revenue\n- Total: $[amount]\n- Sources: [breakdown]\n- vs $500/mo goal: [gap or surplus]\n\n### Shipped\n- [List of things actually completed/launched]\n\n### In Progress\n- [List of things started but not finished]\n\n### Dropped\n- [Things I said I'd do but didn't]\n\n### Key Insight\n[One honest observation about the month — a pattern, a breakthrough, or a hard truth]\n\n### Next Month Priority\n[The single most important thing to focus on, based on this review]\n\nSave to /home/workspace/Records/monthly-reviews/[month]-[year].md\nEmail me with subject \"📋 [Month] Review\" with the full report.",
-    "expectedOutput": "An honest end-of-month review compiled from real data — not what you think happened, but what actually happened.",
+    "prompt": "Perform an end-of-month review by checking:\n\n1. Revenue data from /home/workspace/Records/ (any revenue/payment tracking files)\n2. Git activity across all repos for the month\n3. Content published (check Substack via browser, check workspace for draft/published content)\n4. Project progress (read all _plan.md files, compare checked vs unchecked items)\n5. Journal entries from /home/workspace/Persona/Journal/ this month\n\nCompile a monthly review:\n\n## [Month] Review\n\n### Revenue\n- Total: $[amount]\n- Sources: [breakdown]\n- vs $500/mo goal: [gap or surplus]\n\n### Shipped\n- [List of things actually completed/launched]\n\n### In Progress\n- [List of things started but not finished]\n\n### Dropped\n- [Things I said I'd do but didn't]\n\n### Key Insight\n[One honest observation about the month \u2014 a pattern, a breakthrough, or a hard truth]\n\n### Next Month Priority\n[The single most important thing to focus on, based on this review]\n\nSave to /home/workspace/Records/monthly-reviews/[month]-[year].md\nEmail me with subject \"\ud83d\udccb [Month] Review\" with the full report.",
+    "expectedOutput": "An honest end-of-month review compiled from real data \u2014 not what you think happened, but what actually happened.",
     "customization": "Add specific goals or metrics you want tracked. Point it at your actual tracking files."
   },
   {
@@ -402,8 +402,8 @@
     "schedule": "0 12 * * 6,0 (weekends at noon)",
     "delivery": "File",
     "tools": "read_webpage, create_or_rewrite_file",
-    "prompt": "Take me on a Wikipedia rabbit hole. Start from a random interesting topic — NOT technology. Think: obscure historical events, weird biology, forgotten inventors, unusual geography, bizarre cultural practices.\n\n1. Pick a starting article (something genuinely surprising)\n2. Read it and find the most interesting link within it\n3. Follow that link, read, find the next interesting connection\n4. Do this 5 times (5 hops total)\n\nFor each stop:\n- Article title + URL\n- The most surprising fact (1-2 sentences)\n- Why you followed the link you did (the connection)\n\nEnd with: \"The thread connecting all of these: [one sentence tying the whole journey together]\"\n\nSave to /home/workspace/Records/rabbit-holes/[date].md",
-    "expectedOutput": "A weekend treat — a curated knowledge journey through Wikipedia that's actually interesting, not random.",
+    "prompt": "Take me on a Wikipedia rabbit hole. Start from a random interesting topic \u2014 NOT technology. Think: obscure historical events, weird biology, forgotten inventors, unusual geography, bizarre cultural practices.\n\n1. Pick a starting article (something genuinely surprising)\n2. Read it and find the most interesting link within it\n3. Follow that link, read, find the next interesting connection\n4. Do this 5 times (5 hops total)\n\nFor each stop:\n- Article title + URL\n- The most surprising fact (1-2 sentences)\n- Why you followed the link you did (the connection)\n\nEnd with: \"The thread connecting all of these: [one sentence tying the whole journey together]\"\n\nSave to /home/workspace/Records/rabbit-holes/[date].md",
+    "expectedOutput": "A weekend treat \u2014 a curated knowledge journey through Wikipedia that's actually interesting, not random.",
     "customization": "Change the exclusion (currently \"NOT technology\") to whatever you want to avoid. Add preferred starting topics."
   },
   {
@@ -413,8 +413,8 @@
     "schedule": "0 8 * * * (daily at 8am)",
     "delivery": "SMS (conditional)",
     "tools": "use_app_gmail, read_file, send_sms_to_user",
-    "prompt": "Check for upcoming bills:\n\n1. Search Gmail for bill notifications, payment reminders, and \"due date\" emails from the last 14 days\n2. Read /home/workspace/Persona/bills.json for known recurring bills (create with common ones if missing)\n3. Cross-reference: are any bills due in the next 3 days?\n\nIf bills are due in 3 days or less:\nText me: \"💸 Due soon: [Bill name] — $[amount] due [date]. [Pay link if found in email]\"\n\nIf bills are due TODAY:\nText me: \"⚠️ DUE TODAY: [Bill name] — $[amount]. Pay now.\"\n\nIf nothing due in the next 3 days, do nothing. Update bills.json with any new recurring bills detected from email.",
-    "expectedOutput": "Timely bill payment reminders that come from scanning your actual email — no manual entry needed after initial setup.",
+    "prompt": "Check for upcoming bills:\n\n1. Search Gmail for bill notifications, payment reminders, and \"due date\" emails from the last 14 days\n2. Read /home/workspace/Persona/bills.json for known recurring bills (create with common ones if missing)\n3. Cross-reference: are any bills due in the next 3 days?\n\nIf bills are due in 3 days or less:\nText me: \"\ud83d\udcb8 Due soon: [Bill name] \u2014 $[amount] due [date]. [Pay link if found in email]\"\n\nIf bills are due TODAY:\nText me: \"\u26a0\ufe0f DUE TODAY: [Bill name] \u2014 $[amount]. Pay now.\"\n\nIf nothing due in the next 3 days, do nothing. Update bills.json with any new recurring bills detected from email.",
+    "expectedOutput": "Timely bill payment reminders that come from scanning your actual email \u2014 no manual entry needed after initial setup.",
     "customization": "Seed bills.json with your known recurring bills for better accuracy from day one."
   },
   {
@@ -424,7 +424,7 @@
     "schedule": "0 21 * * * (daily at 9pm)",
     "delivery": "SMS",
     "tools": "web_search, send_sms_to_user",
-    "prompt": "Teach me one interesting thing I probably don't know. Rules:\n\n- Must be a verifiable fact, not an opinion\n- Should be surprising or counterintuitive\n- Related to one of these rotating topics (pick based on day of week):\n  Monday: History\n  Tuesday: Science\n  Wednesday: Geography\n  Thursday: Language/linguistics\n  Friday: Economics/business\n  Saturday: Nature/biology\n  Sunday: Art/music/culture\n\n- Must NOT start with \"Did you know...\"\n- Maximum 2 texts long\n- Include the source URL at the end\n\nFormat: \"[The fact, stated directly and interestingly.] — [source URL]\"",
+    "prompt": "Teach me one interesting thing I probably don't know. Rules:\n\n- Must be a verifiable fact, not an opinion\n- Should be surprising or counterintuitive\n- Related to one of these rotating topics (pick based on day of week):\n  Monday: History\n  Tuesday: Science\n  Wednesday: Geography\n  Thursday: Language/linguistics\n  Friday: Economics/business\n  Saturday: Nature/biology\n  Sunday: Art/music/culture\n\n- Must NOT start with \"Did you know...\"\n- Maximum 2 texts long\n- Include the source URL at the end\n\nFormat: \"[The fact, stated directly and interestingly.] \u2014 [source URL]\"",
     "expectedOutput": "A nightly text with one genuinely interesting fact, rotating across topics so you build breadth.",
     "customization": "Change the topic rotation to subjects you want to learn about. Adjust the time."
   },
@@ -435,7 +435,7 @@
     "schedule": "0 8 * * * (daily at 8am)",
     "delivery": "SMS (conditional)",
     "tools": "read_file, send_sms_to_user, create_or_rewrite_file",
-    "prompt": "Check Lucky's care schedule in /home/workspace/Persona/pet-care.json (create with defaults if missing):\n\nDefaults:\n- Flea/tick treatment: monthly (1st of month)\n- Heartworm pill: monthly (15th of month)\n- Nail trim: every 3 weeks\n- Vet checkup: every 6 months\n- Teeth cleaning: every 6 months\n- Food reorder: every 4 weeks (30lb bag)\n\nCheck if anything is due today or in the next 2 days.\n\nIf something is due:\nText: \"🐕 Lucky reminder: [task] is due [today/tomorrow/in 2 days]. Last done: [date].\"\n\nIf multiple things, combine into one text.\nIf nothing due, do nothing.\n\nAfter any reminder is acknowledged (or 3 days pass), mark it done and calculate the next due date.",
+    "prompt": "Check Lucky's care schedule in /home/workspace/Persona/pet-care.json (create with defaults if missing):\n\nDefaults:\n- Flea/tick treatment: monthly (1st of month)\n- Heartworm pill: monthly (15th of month)\n- Nail trim: every 3 weeks\n- Vet checkup: every 6 months\n- Teeth cleaning: every 6 months\n- Food reorder: every 4 weeks (30lb bag)\n\nCheck if anything is due today or in the next 2 days.\n\nIf something is due:\nText: \"\ud83d\udc15 Lucky reminder: [task] is due [today/tomorrow/in 2 days]. Last done: [date].\"\n\nIf multiple things, combine into one text.\nIf nothing due, do nothing.\n\nAfter any reminder is acknowledged (or 3 days pass), mark it done and calculate the next due date.",
     "expectedOutput": "Automatic pet care scheduling that tracks when treatments, vet visits, and supplies are due.",
     "customization": "Update the care schedule with your pet's specific needs. Add vaccinations, grooming, etc."
   },
@@ -443,7 +443,7 @@
     "id": 41,
     "name": "Resume Tailor-on-Demand",
     "category": "Professional development",
-    "schedule": "On-demand (not scheduled — run manually)",
+    "schedule": "On-demand (not scheduled \u2014 run manually)",
     "delivery": "File",
     "tools": "read_file, read_webpage, create_or_rewrite_file",
     "prompt": "I found a job listing I want to apply to. The listing is at: {{job_listing_url}}\n\n1. Read the job listing thoroughly\n2. Read my base resume at /home/workspace/Business/resume-base.md\n3. Analyze the gap between what they want and what my resume emphasizes\n\nTailor my resume:\n- Reorder experience bullets to lead with the most relevant ones\n- Adjust skill emphasis to match the listing's priorities\n- Tweak project descriptions to highlight aspects relevant to this role\n- Add a 2-sentence summary at the top customized to this specific position\n- Flag any hard requirements I don't meet (be honest)\n\nSave the tailored version to /home/workspace/Business/resumes/[company-name]-[role].md\n\nAlso generate a cover letter draft in the same directory: [company-name]-cover.md\n- Address specific things mentioned in the listing\n- Connect my background to their specific needs\n- Keep it under 250 words\n- Make it sound human, not templated",
@@ -457,7 +457,7 @@
     "schedule": "0 7 * * * (daily at 7am)",
     "delivery": "SMS",
     "tools": "web_search, send_sms_to_user, create_or_rewrite_file",
-    "prompt": "Teach me one uncommon but genuinely useful English word. Requirements:\n- Not obscure for obscurity's sake — it should fill a gap where no common word does the job cleanly\n- Include: the word, pronunciation, definition, and a real-world example sentence using it naturally\n- The example should be from a context relevant to tech, writing, or building things\n- NOT: SAT vocab, archaic terms, or words nobody uses in conversation\n\nText me: \"[word] (pronunciation): [definition]. Example: '[sentence]'\"\n\nLog the word to /home/workspace/Persona/vocabulary.json with date and usage status.\n\nAvoid repeating any word already in the log.",
+    "prompt": "Teach me one uncommon but genuinely useful English word. Requirements:\n- Not obscure for obscurity's sake \u2014 it should fill a gap where no common word does the job cleanly\n- Include: the word, pronunciation, definition, and a real-world example sentence using it naturally\n- The example should be from a context relevant to tech, writing, or building things\n- NOT: SAT vocab, archaic terms, or words nobody uses in conversation\n\nText me: \"[word] (pronunciation): [definition]. Example: '[sentence]'\"\n\nLog the word to /home/workspace/Persona/vocabulary.json with date and usage status.\n\nAvoid repeating any word already in the log.",
     "expectedOutput": "A daily vocabulary word that's actually useful in professional writing and conversation.",
     "customization": "Change the context focus (tech/writing/building) to your field."
   },
@@ -469,7 +469,7 @@
     "delivery": "File",
     "tools": "run_bash_command, read_file, list_space_routes, create_or_rewrite_file",
     "prompt": "Check for portfolio-worthy updates from the past week:\n\n1. New zo.space routes created (list_space_routes)\n2. New commits to public repos (check git log in workspace projects)\n3. New files in /home/workspace/Projects/ that represent shipped work\n4. New content published (check for recent blog/article files)\n\nIf anything new and portfolio-worthy was shipped:\n- Generate a project card entry with: title, description (2 sentences), tech used, link (if public)\n- Append to /home/workspace/Business/portfolio-updates.md\n- Note which items should be added to the live portfolio at jeffkazzee.zo.space\n\nIf nothing shipped this week, write: \"No new portfolio items this week. Last shipped: [most recent item and date].\"",
-    "expectedOutput": "A weekly check that catches anything you shipped and formats it for your portfolio — no manual tracking needed.",
+    "expectedOutput": "A weekly check that catches anything you shipped and formats it for your portfolio \u2014 no manual tracking needed.",
     "customization": "Adjust what counts as \"portfolio-worthy.\" Add specific project directories to monitor."
   },
   {
@@ -490,8 +490,8 @@
     "schedule": "0 10 * * 2 (Tuesdays at 10am)",
     "delivery": "Email (draft)",
     "tools": "use_app_gmail, read_file",
-    "prompt": "Help me stay in touch with my professional network.\n\nRead /home/workspace/Business/network.json (create a template if missing) for contacts with a \"last_contacted\" date.\n\nFind 2-3 people I haven't contacted in 30+ days.\n\nFor each person, draft a short, personal email:\n- Reference something specific about them (their work, a project they mentioned, their company)\n- Keep it under 100 words\n- Don't be fake — no \"just checking in\" or \"hope this finds you well\"\n- Give them something useful: a link they'd find interesting, a compliment on something they shipped, or a genuine question\n- Save as a Gmail DRAFT (do NOT send)\n\nLog the contacts I drafted to in the JSON with today's date.\n\nDon't pick the same people two weeks in a row. Rotate through the full list.",
-    "expectedOutput": "2-3 personal email drafts queued in Gmail, ready for you to review and send — maintaining your network without the guilt of forgetting people.",
+    "prompt": "Help me stay in touch with my professional network.\n\nRead /home/workspace/Business/network.json (create a template if missing) for contacts with a \"last_contacted\" date.\n\nFind 2-3 people I haven't contacted in 30+ days.\n\nFor each person, draft a short, personal email:\n- Reference something specific about them (their work, a project they mentioned, their company)\n- Keep it under 100 words\n- Don't be fake \u2014 no \"just checking in\" or \"hope this finds you well\"\n- Give them something useful: a link they'd find interesting, a compliment on something they shipped, or a genuine question\n- Save as a Gmail DRAFT (do NOT send)\n\nLog the contacts I drafted to in the JSON with today's date.\n\nDon't pick the same people two weeks in a row. Rotate through the full list.",
+    "expectedOutput": "2-3 personal email drafts queued in Gmail, ready for you to review and send \u2014 maintaining your network without the guilt of forgetting people.",
     "customization": "Populate network.json with your contacts. Add notes about each person for more personalized drafts."
   },
   {
@@ -501,8 +501,8 @@
     "schedule": "0 8,14,20 * * * (three times daily)",
     "delivery": "Silent",
     "tools": "use_app_notion",
-    "prompt": "Check my Notion inbox (the database or page I use for quick captures).\n\nFor each unprocessed item:\n1. Read the content\n2. Determine what type it is: task, idea, reference, meeting note, or random thought\n3. Move it to the appropriate Notion database/page:\n   - Tasks → my Tasks database (add a due date if implied in the text)\n   - Ideas → Ideas database\n   - References → a References page\n   - Meeting notes → relevant project page\n   - Random thoughts → a \"Fleeting Notes\" page\n4. Mark the inbox item as processed\n\nLog a summary to /home/workspace/Records/notion-processing.log:\n\"[timestamp] Processed [N] items: [X] tasks, [Y] ideas, [Z] references\"\n\nDo this silently. No notifications unless an item can't be categorized (then SMS me asking where to put it).",
-    "expectedOutput": "Your Notion inbox automatically triaged 3x/day — dump anything in, it gets sorted.",
+    "prompt": "Check my Notion inbox (the database or page I use for quick captures).\n\nFor each unprocessed item:\n1. Read the content\n2. Determine what type it is: task, idea, reference, meeting note, or random thought\n3. Move it to the appropriate Notion database/page:\n   - Tasks \u2192 my Tasks database (add a due date if implied in the text)\n   - Ideas \u2192 Ideas database\n   - References \u2192 a References page\n   - Meeting notes \u2192 relevant project page\n   - Random thoughts \u2192 a \"Fleeting Notes\" page\n4. Mark the inbox item as processed\n\nLog a summary to /home/workspace/Records/notion-processing.log:\n\"[timestamp] Processed [N] items: [X] tasks, [Y] ideas, [Z] references\"\n\nDo this silently. No notifications unless an item can't be categorized (then SMS me asking where to put it).",
+    "expectedOutput": "Your Notion inbox automatically triaged 3x/day \u2014 dump anything in, it gets sorted.",
     "customization": "Requires Notion connected. Set up your database structure first, then point the agent at the right pages."
   },
   {
@@ -512,8 +512,8 @@
     "schedule": "0 */2 * * * (every 2 hours)",
     "delivery": "Silent",
     "tools": "use_app_gmail, use_app_linear",
-    "prompt": "Check my Gmail for emails labeled \"to-linear\" (I'll apply this label manually to emails that need to become tasks).\n\nFor each labeled email:\n1. Extract the key information: who sent it, what they need, any deadlines mentioned\n2. Create a Linear issue:\n   - Title: [sender name] — [subject, shortened]\n   - Description: summarize the email's ask in 2-3 bullets, include original email date and sender\n   - Priority: estimate based on urgency signals in the email (deadlines = urgent, \"when you get a chance\" = low)\n3. Remove the \"to-linear\" label and add a \"ticketed\" label\n4. Reply to the email thread with a draft: \"Created ticket for this — will follow up by [estimated date based on priority]\" (save as DRAFT, don't send)\n\nLog: \"[timestamp] Created [N] Linear tickets from Gmail\"",
-    "expectedOutput": "Label an email \"to-linear\" and it becomes a tracked ticket with a draft reply — no context switching.",
+    "prompt": "Check my Gmail for emails labeled \"to-linear\" (I'll apply this label manually to emails that need to become tasks).\n\nFor each labeled email:\n1. Extract the key information: who sent it, what they need, any deadlines mentioned\n2. Create a Linear issue:\n   - Title: [sender name] \u2014 [subject, shortened]\n   - Description: summarize the email's ask in 2-3 bullets, include original email date and sender\n   - Priority: estimate based on urgency signals in the email (deadlines = urgent, \"when you get a chance\" = low)\n3. Remove the \"to-linear\" label and add a \"ticketed\" label\n4. Reply to the email thread with a draft: \"Created ticket for this \u2014 will follow up by [estimated date based on priority]\" (save as DRAFT, don't send)\n\nLog: \"[timestamp] Created [N] Linear tickets from Gmail\"",
+    "expectedOutput": "Label an email \"to-linear\" and it becomes a tracked ticket with a draft reply \u2014 no context switching.",
     "customization": "Requires Gmail and Linear connected. Change the label names to match your workflow."
   },
   {
@@ -523,7 +523,7 @@
     "schedule": "0 8 * * 1 (Mondays at 8am)",
     "delivery": "SMS",
     "tools": "use_app_google_calendar, send_sms_to_user",
-    "prompt": "Look at my Google Calendar for this week (Monday through Friday).\n\nFind:\n- Total hours of meetings/events scheduled\n- Longest uninterrupted free block each day\n- Any back-to-back meetings with no buffer\n- Days with the most free time\n- Any events that overlap (double-booked)\n\nText me:\n\"This week: [N]h scheduled, [N]h free.\nBest deep work blocks:\n[Day]: [time range] ([hours]h)\n[Day]: [time range] ([hours]h)\n⚠️ [any warnings: double-bookings, back-to-backs, overloaded days]\"\n\nIf my week is more than 60% booked, add: \"Heavy week. Protect your free blocks.\"\nIf my week is less than 30% booked, add: \"Light week. Good time to tackle something big.\"",
+    "prompt": "Look at my Google Calendar for this week (Monday through Friday).\n\nFind:\n- Total hours of meetings/events scheduled\n- Longest uninterrupted free block each day\n- Any back-to-back meetings with no buffer\n- Days with the most free time\n- Any events that overlap (double-booked)\n\nText me:\n\"This week: [N]h scheduled, [N]h free.\nBest deep work blocks:\n[Day]: [time range] ([hours]h)\n[Day]: [time range] ([hours]h)\n\u26a0\ufe0f [any warnings: double-bookings, back-to-backs, overloaded days]\"\n\nIf my week is more than 60% booked, add: \"Heavy week. Protect your free blocks.\"\nIf my week is less than 30% booked, add: \"Light week. Good time to tackle something big.\"",
     "expectedOutput": "A Monday morning text showing your week's free blocks so you can plan deep work before the calendar fills up.",
     "customization": "Adjust the \"heavy\" and \"light\" thresholds. Add specific calendar names if you use multiple."
   },
@@ -534,8 +534,8 @@
     "schedule": "0 22 * * * (daily at 10pm)",
     "delivery": "SMS",
     "tools": "run_bash_command, read_file, send_sms_to_user, create_or_rewrite_file",
-    "prompt": "Check if I wrote anything today:\n\n1. Look for new or modified files in:\n   - /home/workspace/Persona/Journal/\n   - /home/workspace/Projects/ (any .md files)\n   - Any blog draft directories\n2. Check git commits for today that touch .md files\n3. Read /home/workspace/Persona/writing-streak.json for current streak\n\nIf I wrote today (any file modified with >100 words of content):\n- Increment streak\n- Text: \"Day [N] ✍️\" (just the number and emoji, nothing else)\n\nIf I did NOT write today:\n- If streak was 0 already: don't text (no guilt trip for non-writers)\n- If streak was 1-6: text \"Streak ended at [N] days. Start fresh tomorrow.\"\n- If streak was 7+: text \"Lost a [N]-day streak. That stings. But you'll start again.\"\n- Reset streak to 0\n\nUpdate writing-streak.json.",
-    "expectedOutput": "A minimal daily nudge that tracks your writing streak — celebrates consistency without being annoying about breaks.",
+    "prompt": "Check if I wrote anything today:\n\n1. Look for new or modified files in:\n   - /home/workspace/Persona/Journal/\n   - /home/workspace/Projects/ (any .md files)\n   - Any blog draft directories\n2. Check git commits for today that touch .md files\n3. Read /home/workspace/Persona/writing-streak.json for current streak\n\nIf I wrote today (any file modified with >100 words of content):\n- Increment streak\n- Text: \"Day [N] \u270d\ufe0f\" (just the number and emoji, nothing else)\n\nIf I did NOT write today:\n- If streak was 0 already: don't text (no guilt trip for non-writers)\n- If streak was 1-6: text \"Streak ended at [N] days. Start fresh tomorrow.\"\n- If streak was 7+: text \"Lost a [N]-day streak. That stings. But you'll start again.\"\n- Reset streak to 0\n\nUpdate writing-streak.json.",
+    "expectedOutput": "A minimal daily nudge that tracks your writing streak \u2014 celebrates consistency without being annoying about breaks.",
     "customization": "Adjust the word count threshold. Add or remove directories to monitor."
   },
   {
@@ -545,7 +545,7 @@
     "schedule": "0 10 1 * * (1st of every month)",
     "delivery": "Email",
     "tools": "use_app_google_drive, send_email_to_user",
-    "prompt": "Audit my Google Drive for cleanup opportunities:\n\n1. Find files I own that haven't been opened in 6+ months\n2. Find duplicate file names (same name in different folders)\n3. Find large files (>50MB) and check if they're still relevant\n4. Find files shared with people who might no longer need access (ex-collaborators, old clients)\n\nCompile a report:\n- Total Drive usage\n- [N] files untouched for 6+ months (list top 10 by size)\n- [N] potential duplicates\n- [N] large files worth reviewing\n- [N] files with stale sharing permissions\n\nEmail with subject \"🧹 Drive Cleanup — [month]\"\n\nInclude a \"Quick wins\" section: the 5 files that would free the most space if deleted.\nDo NOT delete anything — just report.",
+    "prompt": "Audit my Google Drive for cleanup opportunities:\n\n1. Find files I own that haven't been opened in 6+ months\n2. Find duplicate file names (same name in different folders)\n3. Find large files (>50MB) and check if they're still relevant\n4. Find files shared with people who might no longer need access (ex-collaborators, old clients)\n\nCompile a report:\n- Total Drive usage\n- [N] files untouched for 6+ months (list top 10 by size)\n- [N] potential duplicates\n- [N] large files worth reviewing\n- [N] files with stale sharing permissions\n\nEmail with subject \"\ud83e\uddf9 Drive Cleanup \u2014 [month]\"\n\nInclude a \"Quick wins\" section: the 5 files that would free the most space if deleted.\nDo NOT delete anything \u2014 just report.",
     "expectedOutput": "A monthly Google Drive audit that finds the cleanup opportunities without you having to dig through folders.",
     "customization": "Adjust the \"stale\" threshold (6 months). Add specific folders to exclude from the audit."
   },
@@ -557,7 +557,7 @@
     "delivery": "File",
     "tools": "web_search, read_file, create_or_rewrite_file",
     "prompt": "Write an original poem based on this week's reality. Source material:\n\n1. Read this week's journal entries from /home/workspace/Persona/Journal/\n2. Check the weather this week in Salmon, Idaho\n3. Read any recent git commit messages for what I built\n\nWrite a poem that:\n- Is grounded in specific details from the week (not generic)\n- Is 8-20 lines\n- Has a consistent form (pick one: free verse with internal rhyme, haiku sequence, prose poem, or sonnet)\n- Does NOT sound like a greeting card\n- Treats the mundane seriously (code commits, dog walks, cold mornings can all be poetry)\n\nSave to /home/workspace/Persona/poems/week-of-[date].md\n\nNo commentary. Just the poem and a one-line note about what inspired it.",
-    "expectedOutput": "A weekly poem generated from the raw material of your actual life — not AI slop, but something rooted in specifics.",
+    "expectedOutput": "A weekly poem generated from the raw material of your actual life \u2014 not AI slop, but something rooted in specifics.",
     "customization": "Change the tone (darker, funnier, more experimental). Add specific life events you want reflected."
   },
   {
@@ -567,7 +567,7 @@
     "schedule": "On-demand",
     "delivery": "SMS",
     "tools": "read_file, send_sms_to_user",
-    "prompt": "I just added items to /home/workspace/Persona/shopping-list.md (or texted you a list).\n\n1. Read the current shopping list\n2. Remove exact duplicates\n3. Merge similar items (e.g., \"chicken breast\" and \"chicken\" → \"chicken breast\")\n4. Group by store section: Produce, Dairy, Meat, Pantry, Frozen, Household, Other\n5. Check my meal plan (/home/workspace/Persona/meal-plans/) and add anything missing that's needed for this week's recipes\n6. Estimate the total cost based on recent price data\n\nText me the clean, organized list:\n\"🛒 Shopping list ([N] items, ~$[estimate]):\n🥬 Produce: [items]\n🥛 Dairy: [items]\n🥩 Meat: [items]\n📦 Pantry: [items]\"",
+    "prompt": "I just added items to /home/workspace/Persona/shopping-list.md (or texted you a list).\n\n1. Read the current shopping list\n2. Remove exact duplicates\n3. Merge similar items (e.g., \"chicken breast\" and \"chicken\" \u2192 \"chicken breast\")\n4. Group by store section: Produce, Dairy, Meat, Pantry, Frozen, Household, Other\n5. Check my meal plan (/home/workspace/Persona/meal-plans/) and add anything missing that's needed for this week's recipes\n6. Estimate the total cost based on recent price data\n\nText me the clean, organized list:\n\"\ud83d\uded2 Shopping list ([N] items, ~$[estimate]):\n\ud83e\udd6c Produce: [items]\n\ud83e\udd5b Dairy: [items]\n\ud83e\udd69 Meat: [items]\n\ud83d\udce6 Pantry: [items]\"",
     "expectedOutput": "A deduplicated, organized, cost-estimated shopping list texted to your phone when you're heading to the store.",
     "customization": "Works best when paired with the meal planner recipe (#23). Edit the store sections to match your grocery store layout."
   },
@@ -578,7 +578,7 @@
     "schedule": "0 9 * * 5 (Fridays at 9am)",
     "delivery": "File",
     "tools": "run_bash_command, create_or_rewrite_file",
-    "prompt": "Scan my active projects for tech debt signals:\n\nFor each directory under /home/workspace/Projects/:\n1. Count TODO, FIXME, HACK, and XXX comments in code files\n2. Find package.json/requirements.txt and check for outdated dependencies (compare version numbers against latest via web_search)\n3. Look for files over 300 lines (complexity signal)\n4. Check for console.log/print statements left in production code\n5. Find any hardcoded URLs, API keys, or credentials (security debt)\n\nGenerate a tech debt report:\n- Total debt items across all projects\n- Severity breakdown: 🔴 Critical (security), 🟡 Warning (outdated deps, long files), 🟢 Minor (TODOs, console.logs)\n- Top 5 items to fix this weekend (prioritized by impact)\n- Week-over-week trend (compare to /home/workspace/Records/tech-debt/last.json)\n\nSave to /home/workspace/Records/tech-debt/[date].md and update last.json",
+    "prompt": "Scan my active projects for tech debt signals:\n\nFor each directory under /home/workspace/Projects/:\n1. Count TODO, FIXME, HACK, and XXX comments in code files\n2. Find package.json/requirements.txt and check for outdated dependencies (compare version numbers against latest via web_search)\n3. Look for files over 300 lines (complexity signal)\n4. Check for console.log/print statements left in production code\n5. Find any hardcoded URLs, API keys, or credentials (security debt)\n\nGenerate a tech debt report:\n- Total debt items across all projects\n- Severity breakdown: \ud83d\udd34 Critical (security), \ud83d\udfe1 Warning (outdated deps, long files), \ud83d\udfe2 Minor (TODOs, console.logs)\n- Top 5 items to fix this weekend (prioritized by impact)\n- Week-over-week trend (compare to /home/workspace/Records/tech-debt/last.json)\n\nSave to /home/workspace/Records/tech-debt/[date].md and update last.json",
     "expectedOutput": "A weekly tech debt inventory across all projects, prioritized so you can chip away at it systematically.",
     "customization": "Add project-specific rules (e.g., ignore certain TODO patterns). Adjust severity thresholds."
   },
@@ -589,7 +589,7 @@
     "schedule": "0 10 * * 0 (Sundays at 10am)",
     "delivery": "File",
     "tools": "use_app_spotify, create_or_rewrite_file",
-    "prompt": "Check my Spotify listening activity for the past week:\n\n1. Get my recently played tracks\n2. Get my current top tracks and artists (short-term)\n3. Check if I have any new Discover Weekly or Release Radar tracks\n\nCompile a listening report:\n- Most played artist this week\n- Most played track this week\n- Total unique artists listened to\n- Genre distribution (estimate from artist info)\n- New discoveries: tracks I played this week that I hadn't played before\n- \"Mood signature\": based on the music patterns, what was my vibe this week? (upbeat, mellow, intense, nostalgic, etc.)\n\nSave to /home/workspace/Persona/music/week-of-[date].md\n\nIf there's a noticeable shift in listening patterns (genre change, new artist dominating), note it as \"🎵 Shift: [description]\"",
+    "prompt": "Check my Spotify listening activity for the past week:\n\n1. Get my recently played tracks\n2. Get my current top tracks and artists (short-term)\n3. Check if I have any new Discover Weekly or Release Radar tracks\n\nCompile a listening report:\n- Most played artist this week\n- Most played track this week\n- Total unique artists listened to\n- Genre distribution (estimate from artist info)\n- New discoveries: tracks I played this week that I hadn't played before\n- \"Mood signature\": based on the music patterns, what was my vibe this week? (upbeat, mellow, intense, nostalgic, etc.)\n\nSave to /home/workspace/Persona/music/week-of-[date].md\n\nIf there's a noticeable shift in listening patterns (genre change, new artist dominating), note it as \"\ud83c\udfb5 Shift: [description]\"",
     "expectedOutput": "A weekly music listening report that captures what you listened to and reads your mood from the patterns.",
     "customization": "Requires Spotify connected. Add specific playlists you want tracked."
   },
@@ -611,7 +611,7 @@
     "schedule": "0 9 1 * * (1st of every month)",
     "delivery": "SMS",
     "tools": "read_file, send_sms_to_user, create_or_rewrite_file",
-    "prompt": "Check the camper maintenance schedule in /home/workspace/Persona/camper-maintenance.json (create with these defaults if missing):\n\n- Propane check: monthly\n- Water filter: every 3 months\n- Roof seal inspection: every 6 months (spring and fall)\n- Battery check: monthly in winter, quarterly otherwise\n- Tire pressure: monthly\n- Winterization: October\n- De-winterization: April\n- Deep clean: quarterly\n- Pest inspection: monthly (spring through fall)\n- Generator service: every 6 months\n\nCheck what's due this month. Text me:\n\"🏕️ Camper checklist for [month]:\n- [Task] (last done: [date] / never)\n- [Task] (last done: [date])\n\n[Seasonal note if applicable, e.g., 'April = de-winterization month']\"\n\nIf nothing is due, text \"Camper's good this month 👍\"",
+    "prompt": "Check the camper maintenance schedule in /home/workspace/Persona/camper-maintenance.json (create with these defaults if missing):\n\n- Propane check: monthly\n- Water filter: every 3 months\n- Roof seal inspection: every 6 months (spring and fall)\n- Battery check: monthly in winter, quarterly otherwise\n- Tire pressure: monthly\n- Winterization: October\n- De-winterization: April\n- Deep clean: quarterly\n- Pest inspection: monthly (spring through fall)\n- Generator service: every 6 months\n\nCheck what's due this month. Text me:\n\"\ud83c\udfd5\ufe0f Camper checklist for [month]:\n- [Task] (last done: [date] / never)\n- [Task] (last done: [date])\n\n[Seasonal note if applicable, e.g., 'April = de-winterization month']\"\n\nIf nothing is due, text \"Camper's good this month \ud83d\udc4d\"",
     "expectedOutput": "A monthly camper maintenance reminder that prevents things from falling through the cracks.",
     "customization": "Update the maintenance items for your specific camper setup. Adjust seasonal items for your climate."
   },
@@ -623,7 +623,7 @@
     "delivery": "Email (draft)",
     "tools": "use_app_gmail, read_file",
     "prompt": "Check my Gmail for any projects completed in the last 30 days (look for \"project complete\", \"site is live\", \"looks great\", positive client responses).\n\nFor each completed project:\n1. Identify the client and what was delivered\n2. Draft a testimonial request email:\n   - Reference the specific work done\n   - Make it easy: suggest 2-3 specific questions they could answer instead of asking for a generic testimonial\n   - Include: \"Even a 2-sentence response would be huge for my portfolio\"\n   - Offer to write a draft they can edit (based on their positive emails about the work)\n   - Keep it under 150 words\n\nSave as Gmail DRAFTS. Do NOT send.\n\nLog which clients were drafted for in /home/workspace/Business/testimonial-requests.json to avoid re-asking.",
-    "expectedOutput": "Monthly testimonial request drafts queued in Gmail for completed projects — the ask most freelancers forget to make.",
+    "expectedOutput": "Monthly testimonial request drafts queued in Gmail for completed projects \u2014 the ask most freelancers forget to make.",
     "customization": "Adjust the trigger criteria for \"completed project.\" Add specific client email domains to watch."
   },
   {
@@ -633,7 +633,7 @@
     "schedule": "0 8 * * 3 (Wednesdays at 8am)",
     "delivery": "File",
     "tools": "run_bash_command, web_search, create_or_rewrite_file",
-    "prompt": "Check all package.json and requirements.txt files in /home/workspace/Projects/ for outdated dependencies.\n\nFor each project:\n1. List current dependency versions\n2. Search for the latest version of each\n3. Check changelogs/release notes for anything breaking or security-related\n\nGenerate a report:\n- [Project name]: [N] deps outdated, [N] with security advisories\n  - [package]: [current] → [latest] | [severity: patch/minor/major] | [breaking changes: yes/no]\n  - ...\n\nPrioritize:\n🔴 Security patches: update immediately\n🟡 Minor versions with useful features\n🟢 Major versions (review before updating)\n\nSave to /home/workspace/Records/dep-updates/[date].md\n\nOnly flag items where the version difference is significant (skip patch-level bumps with no security implications).",
+    "prompt": "Check all package.json and requirements.txt files in /home/workspace/Projects/ for outdated dependencies.\n\nFor each project:\n1. List current dependency versions\n2. Search for the latest version of each\n3. Check changelogs/release notes for anything breaking or security-related\n\nGenerate a report:\n- [Project name]: [N] deps outdated, [N] with security advisories\n  - [package]: [current] \u2192 [latest] | [severity: patch/minor/major] | [breaking changes: yes/no]\n  - ...\n\nPrioritize:\n\ud83d\udd34 Security patches: update immediately\n\ud83d\udfe1 Minor versions with useful features\n\ud83d\udfe2 Major versions (review before updating)\n\nSave to /home/workspace/Records/dep-updates/[date].md\n\nOnly flag items where the version difference is significant (skip patch-level bumps with no security implications).",
     "expectedOutput": "A weekly dependency health check that prioritizes security updates and filters out noise.",
     "customization": "Exclude specific projects or dependencies that you intentionally keep pinned."
   },
@@ -645,7 +645,7 @@
     "delivery": "File",
     "tools": "run_bash_command, create_or_rewrite_file",
     "prompt": "Review my git commits from today across all projects.\n\nFor each commit:\n- Original message\n- Files changed (count and names)\n- Diff size (rough lines added/removed)\n\nAssess each commit message:\n- Is it descriptive enough that someone else could understand what changed and why?\n- Does it follow conventional commit patterns? (feat:, fix:, refactor:, docs:, etc.)\n- Is it too vague? (\"update stuff\", \"fix bug\", \"wip\")\n\nRewrite any weak commit messages and save to /home/workspace/Records/commit-reviews/[date].md:\n\nOriginal: \"fix bug\"\nSuggested: \"fix(auth): resolve token expiry check that allowed stale sessions past 24h\"\nWhy: [what makes the new version better]\n\nEnd with a \"Commit hygiene score: [X/10]\" for today.",
-    "expectedOutput": "A daily review of your commit messages with suggested improvements — building better documentation habits over time.",
+    "expectedOutput": "A daily review of your commit messages with suggested improvements \u2014 building better documentation habits over time.",
     "customization": "Change the scoring criteria. Add your project's specific commit conventions."
   },
   {
@@ -655,7 +655,7 @@
     "schedule": "0 10 1 * * (1st of every month)",
     "delivery": "Email",
     "tools": "use_app_gmail, send_email_to_user",
-    "prompt": "Analyze my email patterns over the last 30 days:\n\n1. Find all newsletters and marketing emails (identify by unsubscribe links)\n2. For each sender:\n   - How many emails they sent this month\n   - How many I actually opened (check if I replied or interacted)\n   - Whether I ever click links in their emails\n   - Whether I've ever marked them as read without opening\n\nCategorize each sender:\n- 📬 Engaged: I regularly open and read these (keep)\n- 😐 Passive: I sometimes skim these (review)\n- 🗑️ Noise: I never open these or always mark-read (unsubscribe)\n\nEmail me:\n\"📧 Email audit — [month]\n[N] regular senders found\n[N] recommended unsubscribes (saving ~[N] emails/month)\n\nUnsubscribe candidates:\n[List with sender name, frequency, and open rate]\n\nAction: Reply 'yes' and I'll draft unsubscribe actions for each.\"",
+    "prompt": "Analyze my email patterns over the last 30 days:\n\n1. Find all newsletters and marketing emails (identify by unsubscribe links)\n2. For each sender:\n   - How many emails they sent this month\n   - How many I actually opened (check if I replied or interacted)\n   - Whether I ever click links in their emails\n   - Whether I've ever marked them as read without opening\n\nCategorize each sender:\n- \ud83d\udcec Engaged: I regularly open and read these (keep)\n- \ud83d\ude10 Passive: I sometimes skim these (review)\n- \ud83d\uddd1\ufe0f Noise: I never open these or always mark-read (unsubscribe)\n\nEmail me:\n\"\ud83d\udce7 Email audit \u2014 [month]\n[N] regular senders found\n[N] recommended unsubscribes (saving ~[N] emails/month)\n\nUnsubscribe candidates:\n[List with sender name, frequency, and open rate]\n\nAction: Reply 'yes' and I'll draft unsubscribe actions for each.\"",
     "expectedOutput": "A monthly email audit that identifies which newsletters you actually read vs. ignore, with unsubscribe recommendations.",
     "customization": "Add specific senders to a \"never unsubscribe\" list. Adjust the engagement thresholds."
   },
@@ -666,7 +666,7 @@
     "schedule": "0 9 * * 5 (Fridays at 9am)",
     "delivery": "Email",
     "tools": "use_app_linear, send_email_to_user",
-    "prompt": "Review my Linear activity for the week:\n\n1. List all issues I moved to \"Done\" this week\n2. List all issues still \"In Progress\"\n3. List all issues created this week\n4. Check for any issues that have been \"In Progress\" for more than 5 days (stale)\n\nCompile a sprint review:\n## This Week\n✅ Completed: [N] issues\n🔄 In Progress: [N] issues\n📝 Created: [N] issues\n⚠️ Stale (5+ days): [N] issues\n\n### Completed\n[List each with title and date completed]\n\n### Still Open\n[List each with title, days in progress, and priority]\n\n### Stale Items\n[List with suggested action: break into smaller tasks, reprioritize, or drop]\n\n### Velocity Note\n[Compare to last week if /home/workspace/Records/sprint-reviews/last.json exists]\n\nEmail with subject \"Sprint Review — Week of [date]\"\nSave to /home/workspace/Records/sprint-reviews/ and update last.json.",
+    "prompt": "Review my Linear activity for the week:\n\n1. List all issues I moved to \"Done\" this week\n2. List all issues still \"In Progress\"\n3. List all issues created this week\n4. Check for any issues that have been \"In Progress\" for more than 5 days (stale)\n\nCompile a sprint review:\n## This Week\n\u2705 Completed: [N] issues\n\ud83d\udd04 In Progress: [N] issues\n\ud83d\udcdd Created: [N] issues\n\u26a0\ufe0f Stale (5+ days): [N] issues\n\n### Completed\n[List each with title and date completed]\n\n### Still Open\n[List each with title, days in progress, and priority]\n\n### Stale Items\n[List with suggested action: break into smaller tasks, reprioritize, or drop]\n\n### Velocity Note\n[Compare to last week if /home/workspace/Records/sprint-reviews/last.json exists]\n\nEmail with subject \"Sprint Review \u2014 Week of [date]\"\nSave to /home/workspace/Records/sprint-reviews/ and update last.json.",
     "expectedOutput": "A Friday sprint review that shows what you shipped, what's stuck, and how your velocity compares to last week.",
     "customization": "Requires Linear connected. Adjust the \"stale\" threshold and add specific project filters."
   },
@@ -677,7 +677,7 @@
     "schedule": "0 7 * * * (daily at 7am)",
     "delivery": "File",
     "tools": "read_webpage, create_or_rewrite_file",
-    "prompt": "Check these RSS/Atom feeds for new posts from the last 24 hours:\n\n- https://hnrss.org/newest?points=100 (top HN stories)\n- https://www.theverge.com/rss/index.xml\n- https://feeds.arstechnica.com/arstechnica/index\n- https://blog.pragmaticengineer.com/rss/\n\nFor each feed:\n1. Fetch the feed URL using read_webpage\n2. Parse for items published in the last 24 hours\n3. Summarize each new item in 1-2 sentences\n\nCompile into a clean daily digest:\n## Feed Digest — [date]\n\n### Hacker News (100+ points)\n- [Title]: [summary] ([link])\n...\n\n### The Verge\n...\n\nSave to /home/workspace/Records/feed-digests/[date].md\n\nIf a total of 0 new items across all feeds, save a note: \"Quiet day across feeds\" and skip the file.",
+    "prompt": "Check these RSS/Atom feeds for new posts from the last 24 hours:\n\n- https://hnrss.org/newest?points=100 (top HN stories)\n- https://www.theverge.com/rss/index.xml\n- https://feeds.arstechnica.com/arstechnica/index\n- https://blog.pragmaticengineer.com/rss/\n\nFor each feed:\n1. Fetch the feed URL using read_webpage\n2. Parse for items published in the last 24 hours\n3. Summarize each new item in 1-2 sentences\n\nCompile into a clean daily digest:\n## Feed Digest \u2014 [date]\n\n### Hacker News (100+ points)\n- [Title]: [summary] ([link])\n...\n\n### The Verge\n...\n\nSave to /home/workspace/Records/feed-digests/[date].md\n\nIf a total of 0 new items across all feeds, save a note: \"Quiet day across feeds\" and skip the file.",
     "expectedOutput": "A daily digest of your favorite feeds, pre-summarized, waiting in your workspace each morning.",
     "customization": "Replace the feed URLs with your own favorites. Add or remove feeds as interests change."
   },
@@ -688,7 +688,7 @@
     "schedule": "0 8 * * 1,4 (Mon & Thu at 8am)",
     "delivery": "zo.space update",
     "tools": "read_file, list_space_routes, update_space_route",
-    "prompt": "Read client project data from /home/workspace/Business/client-projects.json (create template if missing).\n\nFor each active project:\n- Client name\n- Project description\n- Current phase\n- Completion percentage (estimate from _plan.md if available)\n- Next milestone\n- Any blockers\n\nUpdate the zo.space page at /clients (private, owner-only) with a clean status dashboard:\n- Card per project showing status, progress bar, and next milestone\n- Color-coded: 🟢 On track, 🟡 At risk, 🔴 Blocked\n- Last updated timestamp\n\nThis page serves as my private client dashboard — I can check it from my phone to know where everything stands.",
+    "prompt": "Read client project data from /home/workspace/Business/client-projects.json (create template if missing).\n\nFor each active project:\n- Client name\n- Project description\n- Current phase\n- Completion percentage (estimate from _plan.md if available)\n- Next milestone\n- Any blockers\n\nUpdate the zo.space page at /clients (private, owner-only) with a clean status dashboard:\n- Card per project showing status, progress bar, and next milestone\n- Color-coded: \ud83d\udfe2 On track, \ud83d\udfe1 At risk, \ud83d\udd34 Blocked\n- Last updated timestamp\n\nThis page serves as my private client dashboard \u2014 I can check it from my phone to know where everything stands.",
     "expectedOutput": "A live private dashboard on your zo.space showing all client project statuses, updated twice weekly.",
     "customization": "Populate client-projects.json with your actual projects. Adjust update frequency."
   },
@@ -699,8 +699,8 @@
     "schedule": "0 20 * * 0 (Sundays at 8pm)",
     "delivery": "SMS",
     "tools": "use_app_google_calendar, send_sms_to_user",
-    "prompt": "Look at my Google Calendar for the entire upcoming week.\n\nCheck for:\n1. Double-bookings (overlapping events)\n2. Back-to-back meetings with no travel/transition time\n3. Meetings during times I've blocked for deep work (any event labeled \"focus\" or \"deep work\")\n4. Days with 4+ meetings (overloaded)\n5. Meetings without a location or video link\n\nText me ONLY if problems are found:\n\"📅 Week ahead — [N] conflicts:\n⚠️ [Day]: [Event A] overlaps with [Event B] at [time]\n⚠️ [Day]: Back-to-back [Event A] → [Event B], no buffer\n⚠️ [Day]: [N] meetings — heavy day\n\nFix these before Monday?\"\n\nIf the week is clean, don't text. Silence means all clear.",
-    "expectedOutput": "A Sunday evening text if your upcoming week has scheduling conflicts — giving you time to fix them before Monday.",
+    "prompt": "Look at my Google Calendar for the entire upcoming week.\n\nCheck for:\n1. Double-bookings (overlapping events)\n2. Back-to-back meetings with no travel/transition time\n3. Meetings during times I've blocked for deep work (any event labeled \"focus\" or \"deep work\")\n4. Days with 4+ meetings (overloaded)\n5. Meetings without a location or video link\n\nText me ONLY if problems are found:\n\"\ud83d\udcc5 Week ahead \u2014 [N] conflicts:\n\u26a0\ufe0f [Day]: [Event A] overlaps with [Event B] at [time]\n\u26a0\ufe0f [Day]: Back-to-back [Event A] \u2192 [Event B], no buffer\n\u26a0\ufe0f [Day]: [N] meetings \u2014 heavy day\n\nFix these before Monday?\"\n\nIf the week is clean, don't text. Silence means all clear.",
+    "expectedOutput": "A Sunday evening text if your upcoming week has scheduling conflicts \u2014 giving you time to fix them before Monday.",
     "customization": "Adjust what counts as a conflict. Add your \"deep work\" event labels."
   },
   {
@@ -711,7 +711,7 @@
     "delivery": "File",
     "tools": "run_bash_command, create_or_rewrite_file",
     "prompt": "Take screenshots of my public-facing properties for archival:\n\n1. jeffkazzee.zo.space (homepage)\n2. worldfactbook.xyz (if it's still up)\n3. My Substack page\n4. My GitHub profile (github.com/jeffkazzee)\n5. My X/Twitter profile\n\nUse agent-browser to visit each URL and capture a full-page screenshot.\n\nSave screenshots to /home/workspace/Records/screenshots/[date]/\n- [service-name]-[date].png\n\nAlso save a text snapshot of key metrics visible on each page (follower counts, post counts, subscriber counts if visible).\n\nAppend metrics to /home/workspace/Records/screenshots/metrics.json with today's date.\n\nThis creates a visual and data record of how my web presence evolves over time.",
-    "expectedOutput": "Weekly screenshots and metrics snapshots of all your public profiles — useful for tracking visual changes and growth.",
+    "expectedOutput": "Weekly screenshots and metrics snapshots of all your public profiles \u2014 useful for tracking visual changes and growth.",
     "customization": "Add or remove URLs. Change frequency (monthly might be enough for slow-changing profiles)."
   },
   {
@@ -722,7 +722,7 @@
     "delivery": "Silent",
     "tools": "use_app_google_drive, create_or_rewrite_file",
     "prompt": "Check my Google Drive folder called \"Zo Sync\" (or create a note to set one up if it doesn't exist).\n\nFor any new or modified files in that folder:\n1. Download the file content\n2. Convert Google Docs to markdown\n3. Save to /home/workspace/Documents/drive-sync/[filename].md\n4. Log the sync to /home/workspace/Records/drive-sync.json\n\nThis lets me drop files into a Drive folder from any device and have them appear in my Zo workspace automatically.\n\nIf no changes detected, do nothing silently.\nIf sync fails for a file, log the error but don't notify unless it fails 3 times in a row.",
-    "expectedOutput": "A silent bridge between Google Drive and your Zo workspace — drop a file in Drive, it appears in your workspace.",
+    "expectedOutput": "A silent bridge between Google Drive and your Zo workspace \u2014 drop a file in Drive, it appears in your workspace.",
     "customization": "Change the Drive folder name. Adjust sync frequency. Add specific file type handling rules."
   },
   {
@@ -732,7 +732,7 @@
     "schedule": "0 17 * * 1-5 (weekdays at 5pm)",
     "delivery": "File",
     "tools": "run_bash_command, read_file, create_or_rewrite_file",
-    "prompt": "Capture my end-of-day context so tomorrow-me can pick up where today-me left off.\n\nCheck:\n1. All files modified today across /home/workspace/Projects/\n2. Git status of all repos (uncommitted changes, branch names)\n3. Any running services or active agents\n4. Open _plan.md files and their current state\n5. Today's standup notes if they exist\n\nWrite a \"context dump\":\n## End of Day — [date]\n\n### Where I Left Off\n[The specific file/function/task I was last touching, based on most recent modification timestamps]\n\n### Uncommitted Work\n[List any unstaged or uncommitted changes and which project they belong to]\n\n### Open Threads\n[Anything in-progress from _plan.md files]\n\n### Tomorrow's First Move\n[Based on what's in progress, the single best thing to start with tomorrow morning]\n\nSave to /home/workspace/Records/context/[date].md\n\nThis is my \"pick up where I left off\" breadcrumb trail.",
+    "prompt": "Capture my end-of-day context so tomorrow-me can pick up where today-me left off.\n\nCheck:\n1. All files modified today across /home/workspace/Projects/\n2. Git status of all repos (uncommitted changes, branch names)\n3. Any running services or active agents\n4. Open _plan.md files and their current state\n5. Today's standup notes if they exist\n\nWrite a \"context dump\":\n## End of Day \u2014 [date]\n\n### Where I Left Off\n[The specific file/function/task I was last touching, based on most recent modification timestamps]\n\n### Uncommitted Work\n[List any unstaged or uncommitted changes and which project they belong to]\n\n### Open Threads\n[Anything in-progress from _plan.md files]\n\n### Tomorrow's First Move\n[Based on what's in progress, the single best thing to start with tomorrow morning]\n\nSave to /home/workspace/Records/context/[date].md\n\nThis is my \"pick up where I left off\" breadcrumb trail.",
     "expectedOutput": "A daily context capture that eliminates the \"where was I?\" problem every morning.",
     "customization": "Adjust the directories scanned. Add specific projects to always check."
   },
@@ -743,7 +743,7 @@
     "schedule": "0 8 * * 1,4 (Mon/Thu at 8am)",
     "delivery": "File",
     "tools": "web_search, x_search, read_webpage, create_or_rewrite_file",
-    "prompt": "Monitor my competitors' content and product moves:\n\nRead /home/workspace/Business/competitors.json for tracked companies (create template if missing with 5 placeholder entries).\n\nFor each competitor:\n1. Check their blog/website for new posts (read_webpage on their blog URL)\n2. x_search for their brand name and any announcements\n3. web_search for \"[competitor name] launch\" or \"[competitor name] update\" time_range=\"week\"\n\nReport:\n## Competitor Intel — [date]\n\n### [Competitor 1]\n- New content: [title + URL] or \"Nothing new\"\n- Social activity: [summary of X presence]\n- Notable moves: [any product changes, pricing changes, partnerships]\n\n### [Competitor 2]\n...\n\n### Patterns\n[1-2 sentences on what the market is doing collectively]\n\n### Opportunities\n[1-2 things none of them are doing that I could do]\n\nSave to /home/workspace/Business/competitor-intel/[date].md",
+    "prompt": "Monitor my competitors' content and product moves:\n\nRead /home/workspace/Business/competitors.json for tracked companies (create template if missing with 5 placeholder entries).\n\nFor each competitor:\n1. Check their blog/website for new posts (read_webpage on their blog URL)\n2. x_search for their brand name and any announcements\n3. web_search for \"[competitor name] launch\" or \"[competitor name] update\" time_range=\"week\"\n\nReport:\n## Competitor Intel \u2014 [date]\n\n### [Competitor 1]\n- New content: [title + URL] or \"Nothing new\"\n- Social activity: [summary of X presence]\n- Notable moves: [any product changes, pricing changes, partnerships]\n\n### [Competitor 2]\n...\n\n### Patterns\n[1-2 sentences on what the market is doing collectively]\n\n### Opportunities\n[1-2 things none of them are doing that I could do]\n\nSave to /home/workspace/Business/competitor-intel/[date].md",
     "expectedOutput": "Twice-weekly competitive intelligence digests that track what your competitors are shipping and saying.",
     "customization": "Populate competitors.json with real competitors, their website URLs, and X handles."
   },
@@ -754,7 +754,7 @@
     "schedule": "0 9 * * 1 (Mondays at 9am)",
     "delivery": "Email",
     "tools": "use_app_gmail, use_app_google_calendar, read_file, send_email_to_user",
-    "prompt": "Manage my personal CRM:\n\n1. Read /home/workspace/Business/crm.json for all contacts and their last interaction dates\n2. Check Gmail for any emails exchanged with these contacts in the past 7 days\n3. Check Google Calendar for any meetings with these contacts\n4. Update last interaction dates based on email/calendar activity\n\nGenerate a relationship health report:\n\n🟢 Active (contact in last 14 days): [list with last interaction type]\n🟡 Cooling (14-30 days): [list — these need a touch]\n🔴 Cold (30+ days): [list — these need attention]\n🆕 New contacts detected in email this week: [list — ask if they should be added to CRM]\n\nFor each 🟡 contact, suggest a specific reason to reach out (based on their industry, last conversation topic, or recent news about them).\n\nEmail with subject \"CRM Weekly — [N] contacts need attention\"\nUpdate crm.json with current states.",
+    "prompt": "Manage my personal CRM:\n\n1. Read /home/workspace/Business/crm.json for all contacts and their last interaction dates\n2. Check Gmail for any emails exchanged with these contacts in the past 7 days\n3. Check Google Calendar for any meetings with these contacts\n4. Update last interaction dates based on email/calendar activity\n\nGenerate a relationship health report:\n\n\ud83d\udfe2 Active (contact in last 14 days): [list with last interaction type]\n\ud83d\udfe1 Cooling (14-30 days): [list \u2014 these need a touch]\n\ud83d\udd34 Cold (30+ days): [list \u2014 these need attention]\n\ud83c\udd95 New contacts detected in email this week: [list \u2014 ask if they should be added to CRM]\n\nFor each \ud83d\udfe1 contact, suggest a specific reason to reach out (based on their industry, last conversation topic, or recent news about them).\n\nEmail with subject \"CRM Weekly \u2014 [N] contacts need attention\"\nUpdate crm.json with current states.",
     "expectedOutput": "A weekly CRM health check that prevents relationships from going cold and suggests specific outreach reasons.",
     "customization": "Build crm.json over time by adding contacts. Include notes about each person for better outreach suggestions."
   },
@@ -765,7 +765,7 @@
     "schedule": "0 12 * * * (daily at noon)",
     "delivery": "File + zo.space update",
     "tools": "generate_image, web_search, create_or_rewrite_file, update_space_route",
-    "prompt": "Generate a daily AI art piece based on a creative constraint:\n\nRotate through these themes (by day of week):\n- Monday: Landscape inspired by today's weather in Salmon, Idaho\n- Tuesday: Abstract representation of a programming concept\n- Wednesday: \"A border collie in the style of [random art movement]\"\n- Thursday: Reimagine a mundane object as beautiful\n- Friday: Visual metaphor for this week's biggest news story\n- Saturday: Pure experimentation — combine 3 random words into an image\n- Sunday: Idaho wilderness in an unexpected medium (watercolor, pixel art, ukiyo-e, etc.)\n\nFor each image:\n1. Generate a thoughtful prompt (not generic)\n2. Generate the image using generate_image\n3. Save metadata: prompt used, theme, date\n4. Upload the image as a zo.space asset at /images/daily-art/[date].png\n5. Update a gallery page at /art on zo.space showing the last 7 days\n\nLog the full history to /home/workspace/Records/daily-art/log.json",
+    "prompt": "Generate a daily AI art piece based on a creative constraint:\n\nRotate through these themes (by day of week):\n- Monday: Landscape inspired by today's weather in Salmon, Idaho\n- Tuesday: Abstract representation of a programming concept\n- Wednesday: \"A border collie in the style of [random art movement]\"\n- Thursday: Reimagine a mundane object as beautiful\n- Friday: Visual metaphor for this week's biggest news story\n- Saturday: Pure experimentation \u2014 combine 3 random words into an image\n- Sunday: Idaho wilderness in an unexpected medium (watercolor, pixel art, ukiyo-e, etc.)\n\nFor each image:\n1. Generate a thoughtful prompt (not generic)\n2. Generate the image using generate_image\n3. Save metadata: prompt used, theme, date\n4. Upload the image as a zo.space asset at /images/daily-art/[date].png\n5. Update a gallery page at /art on zo.space showing the last 7 days\n\nLog the full history to /home/workspace/Records/daily-art/log.json",
     "expectedOutput": "A daily AI-generated art piece with a rotating creative theme, displayed on a public gallery page.",
     "customization": "Change the themes. Add your own creative constraints. Make the gallery public or private."
   },
@@ -776,7 +776,7 @@
     "schedule": "0 10 * * 5 (Fridays at 10am)",
     "delivery": "Email",
     "tools": "use_app_gmail, use_app_google_calendar, read_file, send_email_to_user",
-    "prompt": "Calculate my revenue per hour for each active income stream this week:\n\n1. Check Gmail for payment notifications and invoice confirmations\n2. Check Google Calendar for time spent on each client/project\n3. Read /home/workspace/Business/ for any tracked project data\n\nFor each income source:\n- Revenue this week\n- Hours spent (from calendar)\n- Revenue per hour\n- Trend vs last week\n\nReport:\n## Revenue per Hour — Week of [date]\n\n| Source | Revenue | Hours | $/hr | Trend |\n|--------|---------|-------|------|-------|\n| [Client A] | $X | Xh | $X/hr | ↑/↓/→ |\n| [Product] | $X | Xh | $X/hr | ↑/↓/→ |\n\n**Best $/hr:** [source] at $[amount]/hr\n**Worst $/hr:** [source] at $[amount]/hr\n**Weighted average:** $[X]/hr\n\n**Insight:** [One specific recommendation — should I raise rates somewhere? Drop a low-value client? Double down on the highest $/hr source?]\n\nEmail with subject \"💰 $/hr Report — Week of [date]\"",
+    "prompt": "Calculate my revenue per hour for each active income stream this week:\n\n1. Check Gmail for payment notifications and invoice confirmations\n2. Check Google Calendar for time spent on each client/project\n3. Read /home/workspace/Business/ for any tracked project data\n\nFor each income source:\n- Revenue this week\n- Hours spent (from calendar)\n- Revenue per hour\n- Trend vs last week\n\nReport:\n## Revenue per Hour \u2014 Week of [date]\n\n| Source | Revenue | Hours | $/hr | Trend |\n|--------|---------|-------|------|-------|\n| [Client A] | $X | Xh | $X/hr | \u2191/\u2193/\u2192 |\n| [Product] | $X | Xh | $X/hr | \u2191/\u2193/\u2192 |\n\n**Best $/hr:** [source] at $[amount]/hr\n**Worst $/hr:** [source] at $[amount]/hr\n**Weighted average:** $[X]/hr\n\n**Insight:** [One specific recommendation \u2014 should I raise rates somewhere? Drop a low-value client? Double down on the highest $/hr source?]\n\nEmail with subject \"\ud83d\udcb0 $/hr Report \u2014 Week of [date]\"",
     "expectedOutput": "A weekly breakdown of which work is most profitable per hour, with actionable recommendations on where to focus.",
     "customization": "Set up calendar events with client names for automatic tracking. Add project rate data to Business/ files."
   },
@@ -787,7 +787,7 @@
     "schedule": "0 17 * * 5 (Fridays at 5pm)",
     "delivery": "File + zo.space update",
     "tools": "run_bash_command, read_file, create_or_rewrite_file, update_space_route",
-    "prompt": "Generate a weekly changelog from my git activity:\n\n1. For each project in /home/workspace/Projects/, get this week's git log\n2. Group commits by project\n3. Translate technical commit messages into user-facing changelog entries\n4. Categorize: ✨ New, 🔧 Improved, 🐛 Fixed, 🗑️ Removed\n\nFormat as a clean changelog:\n## Week of [date range]\n\n### [Project Name]\n✨ **New:** [feature description in plain language]\n🔧 **Improved:** [what got better]\n🐛 **Fixed:** [what was broken, now works]\n\nSave to /home/workspace/Records/changelogs/week-of-[date].md\n\nAlso update a public changelog page at /changelog on zo.space with the latest entries.\nThis builds a public record of what you're shipping — useful for building trust with clients and followers.",
+    "prompt": "Generate a weekly changelog from my git activity:\n\n1. For each project in /home/workspace/Projects/, get this week's git log\n2. Group commits by project\n3. Translate technical commit messages into user-facing changelog entries\n4. Categorize: \u2728 New, \ud83d\udd27 Improved, \ud83d\udc1b Fixed, \ud83d\uddd1\ufe0f Removed\n\nFormat as a clean changelog:\n## Week of [date range]\n\n### [Project Name]\n\u2728 **New:** [feature description in plain language]\n\ud83d\udd27 **Improved:** [what got better]\n\ud83d\udc1b **Fixed:** [what was broken, now works]\n\nSave to /home/workspace/Records/changelogs/week-of-[date].md\n\nAlso update a public changelog page at /changelog on zo.space with the latest entries.\nThis builds a public record of what you're shipping \u2014 useful for building trust with clients and followers.",
     "expectedOutput": "A weekly changelog auto-generated from commits, published publicly to show you're actively shipping.",
     "customization": "Exclude personal/private projects from the public changelog. Adjust the commit-to-changelog translation style."
   },
@@ -809,7 +809,7 @@
     "schedule": "0 9 * * 1 (Mondays at 9am)",
     "delivery": "Email",
     "tools": "web_search, web_research, x_search, send_email_to_user",
-    "prompt": "Search for passive income opportunities that match my skills (React, TypeScript, AI tools, web design, content creation):\n\n1. web_search \"developer passive income ideas 2026\" time_range=\"month\"\n2. web_research category=\"tweet\" for devs sharing revenue numbers from side projects\n3. web_search \"sell digital products developer\" time_range=\"month\"\n4. web_search for marketplaces where developers sell templates, tools, or components\n\nFilter for opportunities where:\n- Initial build time < 2 weeks\n- Has evidence of people paying (not just theoretical)\n- Matches my tech stack\n- Doesn't require a large audience to start\n\nFor each opportunity (max 5):\n- What it is\n- Evidence it works (specific revenue numbers from real people)\n- How I could build it on Zo\n- Estimated build time\n- Revenue potential (conservative estimate)\n\nEmail with subject \"💡 Passive Income Radar — [date]\"\n\nThis is a research tool, not a get-rich-quick scanner. Only surface things with real evidence.",
+    "prompt": "Search for passive income opportunities that match my skills (React, TypeScript, AI tools, web design, content creation):\n\n1. web_search \"developer passive income ideas 2026\" time_range=\"month\"\n2. web_research category=\"tweet\" for devs sharing revenue numbers from side projects\n3. web_search \"sell digital products developer\" time_range=\"month\"\n4. web_search for marketplaces where developers sell templates, tools, or components\n\nFilter for opportunities where:\n- Initial build time < 2 weeks\n- Has evidence of people paying (not just theoretical)\n- Matches my tech stack\n- Doesn't require a large audience to start\n\nFor each opportunity (max 5):\n- What it is\n- Evidence it works (specific revenue numbers from real people)\n- How I could build it on Zo\n- Estimated build time\n- Revenue potential (conservative estimate)\n\nEmail with subject \"\ud83d\udca1 Passive Income Radar \u2014 [date]\"\n\nThis is a research tool, not a get-rich-quick scanner. Only surface things with real evidence.",
     "expectedOutput": "A weekly scan of passive income opportunities filtered for your specific skills and constraints.",
     "customization": "Adjust the skill filter and build time constraint. Add specific marketplaces to always check."
   },
@@ -821,7 +821,7 @@
     "delivery": "SMS (on failure only)",
     "tools": "run_bash_command, read_file, send_sms_to_user",
     "prompt": "Check the health of all my running automations:\n\n1. List all active scheduled agents\n2. For each agent, check:\n   - Last run time (is it running on schedule?)\n   - Last output (did it succeed or error?)\n   - Output size (empty output = probable failure)\n3. Check /dev/shm/ for any error logs from space routes or services\n\nReport:\n- Total agents: [N]\n- Healthy: [N]\n- Missed last run: [N] (list them)\n- Errored last run: [N] (list with error summary)\n\nIf ALL healthy: do nothing (silence = healthy)\nIf ANY unhealthy: text me \"[N] automations need attention: [names]. Check agent dashboard.\"\n\nSave full health report to /home/workspace/Records/agent-health/[date-time].json",
-    "expectedOutput": "Silent monitoring of all your automations — you only hear about it when something breaks.",
+    "expectedOutput": "Silent monitoring of all your automations \u2014 you only hear about it when something breaks.",
     "customization": "Adjust check frequency. Add specific agents to always monitor closely."
   },
   {
@@ -864,8 +864,8 @@
     "schedule": "0 8 * * * (daily at 8am)",
     "delivery": "SMS (on milestone only)",
     "tools": "use_app_gmail, read_file, send_sms_to_user, create_or_rewrite_file",
-    "prompt": "Track revenue across all my products and income streams:\n\n1. Check Gmail for Stripe payment notifications from the last 24 hours\n2. Check for any other payment confirmations (PayPal, direct transfers)\n3. Update /home/workspace/Business/revenue-tracker.json with:\n   - Date, amount, source, type (one-time/recurring)\n\nCalculate:\n- Today's revenue\n- This month's total\n- Monthly recurring revenue (MRR)\n- Progress toward $500/mo goal: [X]% ([gap or surplus])\n- Projected end-of-month total at current rate\n\nOnly text me if:\n- New payment received: \"💰 +$[amount] from [source]. Monthly total: $[X] ([Y]% of goal)\"\n- Monthly milestone hit: \"🎯 Hit $[100/200/300/400/500] this month!\"\n- Goal achieved: \"🏆 $500/mo goal reached! Total: $[amount]\"\n\nIf no new payments, update the tracker silently.",
-    "expectedOutput": "Silent revenue tracking with milestone-based SMS celebrations — only texts you when money comes in or goals are hit.",
+    "prompt": "Track revenue across all my products and income streams:\n\n1. Check Gmail for Stripe payment notifications from the last 24 hours\n2. Check for any other payment confirmations (PayPal, direct transfers)\n3. Update /home/workspace/Business/revenue-tracker.json with:\n   - Date, amount, source, type (one-time/recurring)\n\nCalculate:\n- Today's revenue\n- This month's total\n- Monthly recurring revenue (MRR)\n- Progress toward $500/mo goal: [X]% ([gap or surplus])\n- Projected end-of-month total at current rate\n\nOnly text me if:\n- New payment received: \"\ud83d\udcb0 +$[amount] from [source]. Monthly total: $[X] ([Y]% of goal)\"\n- Monthly milestone hit: \"\ud83c\udfaf Hit $[100/200/300/400/500] this month!\"\n- Goal achieved: \"\ud83c\udfc6 $500/mo goal reached! Total: $[amount]\"\n\nIf no new payments, update the tracker silently.",
+    "expectedOutput": "Silent revenue tracking with milestone-based SMS celebrations \u2014 only texts you when money comes in or goals are hit.",
     "customization": "Adjust the goal amount. Add specific payment sources to track."
   },
   {
@@ -875,7 +875,7 @@
     "schedule": "On-demand (triggered when a project _plan.md has all tasks checked)",
     "delivery": "File",
     "tools": "read_file, run_bash_command, create_or_rewrite_file",
-    "prompt": "A project just finished. Generate a post-mortem:\n\n1. Read the project's _plan.md for what was planned\n2. Check git log for the project's full commit history\n3. Calculate: time from first commit to last commit\n4. Count: total commits, files created, lines of code\n5. Read any critique checkpoints or notes in the plan\n\nWrite a post-mortem:\n## [Project Name] — Post-Mortem\n\n### What was built\n[2-3 sentences, what shipped]\n\n### Timeline\n- Planned: [what the plan estimated]\n- Actual: [how long it actually took]\n- Deviation: [faster/slower and why]\n\n### What went well\n[3 specific things]\n\n### What went wrong\n[3 specific things — be honest]\n\n### What I'd do differently\n[2-3 actionable items for next time]\n\n### Key learning\n[The single most important thing this project taught me]\n\nSave to /home/workspace/Records/post-mortems/[project-name].md",
+    "prompt": "A project just finished. Generate a post-mortem:\n\n1. Read the project's _plan.md for what was planned\n2. Check git log for the project's full commit history\n3. Calculate: time from first commit to last commit\n4. Count: total commits, files created, lines of code\n5. Read any critique checkpoints or notes in the plan\n\nWrite a post-mortem:\n## [Project Name] \u2014 Post-Mortem\n\n### What was built\n[2-3 sentences, what shipped]\n\n### Timeline\n- Planned: [what the plan estimated]\n- Actual: [how long it actually took]\n- Deviation: [faster/slower and why]\n\n### What went well\n[3 specific things]\n\n### What went wrong\n[3 specific things \u2014 be honest]\n\n### What I'd do differently\n[2-3 actionable items for next time]\n\n### Key learning\n[The single most important thing this project taught me]\n\nSave to /home/workspace/Records/post-mortems/[project-name].md",
     "expectedOutput": "An honest post-mortem for every completed project, building a library of lessons learned.",
     "customization": "Run this manually when you finish a project. The questions can be customized per project type."
   },
@@ -886,7 +886,7 @@
     "schedule": "0 10 1 * * (1st of every month)",
     "delivery": "File + Email",
     "tools": "web_search, maps_search, create_or_rewrite_file, send_email_to_user",
-    "prompt": "Help me contribute to the Salmon, Idaho community:\n\n1. Search for community needs:\n   - web_search \"[Salmon Idaho community events volunteer]\" time_range=\"month\"\n   - web_search \"[Lemhi County community needs]\"\n   - maps_search for community centers, libraries, and nonprofits in Salmon, ID\n\n2. Based on my skills (web design, development, AI tools), identify:\n   - Local organizations that could use a website upgrade (check their current sites)\n   - Community events I could volunteer tech skills at\n   - Pro bono project opportunities\n   - Local businesses that might benefit from my services\n\nReport:\n## Community Opportunities — [month]\n\n### Pro Bono Possibilities\n[Organizations with bad/no websites that I could help]\n\n### Volunteer Opportunities\n[Events or ongoing needs]\n\n### Potential Clients\n[Businesses that might pay for web work]\n\n### Community Need I Could Build\n[One idea for a tool or site that would serve the Salmon community]\n\nSave to /home/workspace/Records/community/[month].md\nEmail me the highlights.",
+    "prompt": "Help me contribute to the Salmon, Idaho community:\n\n1. Search for community needs:\n   - web_search \"[Salmon Idaho community events volunteer]\" time_range=\"month\"\n   - web_search \"[Lemhi County community needs]\"\n   - maps_search for community centers, libraries, and nonprofits in Salmon, ID\n\n2. Based on my skills (web design, development, AI tools), identify:\n   - Local organizations that could use a website upgrade (check their current sites)\n   - Community events I could volunteer tech skills at\n   - Pro bono project opportunities\n   - Local businesses that might benefit from my services\n\nReport:\n## Community Opportunities \u2014 [month]\n\n### Pro Bono Possibilities\n[Organizations with bad/no websites that I could help]\n\n### Volunteer Opportunities\n[Events or ongoing needs]\n\n### Potential Clients\n[Businesses that might pay for web work]\n\n### Community Need I Could Build\n[One idea for a tool or site that would serve the Salmon community]\n\nSave to /home/workspace/Records/community/[month].md\nEmail me the highlights.",
     "expectedOutput": "A monthly scan of how you could contribute to your local community, combining altruism with business development.",
     "customization": "Change the location. Add specific causes or organizations you care about."
   },
@@ -897,7 +897,7 @@
     "schedule": "0 0 * * * (daily at midnight)",
     "delivery": "zo.space update",
     "tools": "read_file, run_bash_command, update_space_route",
-    "prompt": "Aggregate today's life data into a personal API endpoint:\n\nRead from all available tracking files:\n- Sleep: /home/workspace/Persona/sleep-log.json\n- Writing: /home/workspace/Persona/writing-streak.json\n- Revenue: /home/workspace/Business/revenue-tracker.json\n- Health: /home/workspace/Persona/health/ (any tracking files)\n- Git activity: run git log for today's commits\n- Outdoor time: /home/workspace/Persona/outdoor-log.json\n\nCompile into a JSON summary:\n{\n  \"date\": \"[today]\",\n  \"sleep_hours\": X,\n  \"writing_streak\": X,\n  \"revenue_today\": X,\n  \"revenue_mtd\": X,\n  \"commits_today\": X,\n  \"went_outside\": true/false,\n  \"mood_signals\": \"[derived from available data]\"\n}\n\nSave to /home/workspace/Records/daily-data/[date].json\n\nUpdate the API route at /api/me (private, bearer-token protected) to serve the latest data.\nThis is your personal quantified-self API — query it from any device or integration.",
+    "prompt": "Aggregate today's life data into a personal API endpoint:\n\nRead from all available tracking files:\n- Sleep: /home/workspace/Persona/sleep-log.json\n- Writing: /home/workspace/Persona/writing-streak.json\n- Revenue: /home/workspace/Business/revenue-tracker.json\n- Health: /home/workspace/Persona/health/ (any tracking files)\n- Git activity: run git log for today's commits\n- Outdoor time: /home/workspace/Persona/outdoor-log.json\n\nCompile into a JSON summary:\n{\n  \"date\": \"[today]\",\n  \"sleep_hours\": X,\n  \"writing_streak\": X,\n  \"revenue_today\": X,\n  \"revenue_mtd\": X,\n  \"commits_today\": X,\n  \"went_outside\": true/false,\n  \"mood_signals\": \"[derived from available data]\"\n}\n\nSave to /home/workspace/Records/daily-data/[date].json\n\nUpdate the API route at /api/me (private, bearer-token protected) to serve the latest data.\nThis is your personal quantified-self API \u2014 query it from any device or integration.",
     "expectedOutput": "A private API endpoint that serves your life metrics, updated daily from all your tracking data.",
     "customization": "Add or remove data sources. Build a private dashboard page that reads from this API."
   },
@@ -930,7 +930,7 @@
     "schedule": "0 21 * * * (daily at 9pm)",
     "delivery": "File",
     "tools": "read_file, create_or_rewrite_file",
-    "prompt": "Write tonight's reflection. No gratitude lists. No toxic positivity. Instead, one of these (rotate daily):\n\nMonday — TENSION: What felt off today? Name the friction without resolving it.\nTuesday — OBSERVATION: Describe one thing you noticed today that most people would miss.\nWednesday — CONTRADICTION: Name something you believe that contradicts something else you believe.\nThursday — REGRET: One thing you'd do differently if you could replay today.\nFriday — ENERGY: Map your energy today. When were you alive? When were you coasting? When were you dead?\nSaturday — CONNECTION: Who did you interact with? How did it go? (Include Lucky.)\nSunday — DIRECTION: Are you headed where you want to go? Zoom out.\n\nWrite the reflection question to /home/workspace/Persona/Journal/[date].md under \"## Evening Prompt\"\n\nKeep it to one paragraph of honest prompting. No fluff. No \"remember you're doing great.\" Just the question and space to answer.",
+    "prompt": "Write tonight's reflection. No gratitude lists. No toxic positivity. Instead, one of these (rotate daily):\n\nMonday \u2014 TENSION: What felt off today? Name the friction without resolving it.\nTuesday \u2014 OBSERVATION: Describe one thing you noticed today that most people would miss.\nWednesday \u2014 CONTRADICTION: Name something you believe that contradicts something else you believe.\nThursday \u2014 REGRET: One thing you'd do differently if you could replay today.\nFriday \u2014 ENERGY: Map your energy today. When were you alive? When were you coasting? When were you dead?\nSaturday \u2014 CONNECTION: Who did you interact with? How did it go? (Include Lucky.)\nSunday \u2014 DIRECTION: Are you headed where you want to go? Zoom out.\n\nWrite the reflection question to /home/workspace/Persona/Journal/[date].md under \"## Evening Prompt\"\n\nKeep it to one paragraph of honest prompting. No fluff. No \"remember you're doing great.\" Just the question and space to answer.",
     "expectedOutput": "A daily rotating reflection prompt that's more honest and useful than a gratitude journal.",
     "customization": "Rewrite the daily themes to match what you actually want to reflect on."
   },
@@ -941,7 +941,7 @@
     "schedule": "0 9 * * 1 (Mondays at 9am)",
     "delivery": "File",
     "tools": "run_bash_command, read_webpage, create_or_rewrite_file",
-    "prompt": "Audit my public landing pages:\n\n1. Fetch https://jeffkazzee.zo.space/ and any other public space routes\n2. For each page, check:\n   - Load time (curl timing)\n   - Whether all images load\n   - Whether links work (no 404s)\n   - Meta tags present (title, description, OG tags)\n   - Mobile-friendliness (viewport meta tag present)\n   - Accessibility basics (alt text on images, heading hierarchy)\n\n3. Read the copy and evaluate:\n   - Is the value proposition clear within 5 seconds?\n   - Is there a clear call to action?\n   - Does it sound human or AI-generated?\n\nReport:\n## Landing Page Audit — [date]\n\n### [Page URL]\n- Performance: [load time]ms — [fast/acceptable/slow]\n- Broken links: [N]\n- SEO: [score/10] — [what's missing]\n- Copy: [assessment]\n- Top 3 improvements: [actionable items]\n\nSave to /home/workspace/Records/page-audits/[date].md",
+    "prompt": "Audit my public landing pages:\n\n1. Fetch https://jeffkazzee.zo.space/ and any other public space routes\n2. For each page, check:\n   - Load time (curl timing)\n   - Whether all images load\n   - Whether links work (no 404s)\n   - Meta tags present (title, description, OG tags)\n   - Mobile-friendliness (viewport meta tag present)\n   - Accessibility basics (alt text on images, heading hierarchy)\n\n3. Read the copy and evaluate:\n   - Is the value proposition clear within 5 seconds?\n   - Is there a clear call to action?\n   - Does it sound human or AI-generated?\n\nReport:\n## Landing Page Audit \u2014 [date]\n\n### [Page URL]\n- Performance: [load time]ms \u2014 [fast/acceptable/slow]\n- Broken links: [N]\n- SEO: [score/10] \u2014 [what's missing]\n- Copy: [assessment]\n- Top 3 improvements: [actionable items]\n\nSave to /home/workspace/Records/page-audits/[date].md",
     "expectedOutput": "A weekly automated audit of your public pages, catching broken links, slow loads, and copy issues.",
     "customization": "Add all your public URLs. Adjust the evaluation criteria for your specific needs."
   },
@@ -952,7 +952,7 @@
     "schedule": "0 7 * * 1-5 (weekdays at 7am, before meetings)",
     "delivery": "Email",
     "tools": "use_app_google_calendar, web_search, web_research, send_email_to_user",
-    "prompt": "Check my Google Calendar for today's meetings.\n\nFor each meeting with external attendees (people I don't meet with daily):\n1. Identify attendees by email\n2. Search for each attendee: name, title, company, recent work\n3. Check if we've met before (search Gmail for prior correspondence)\n\nGenerate a pre-meeting brief for each meeting:\n\n## [Meeting name] — [time]\n### Attendees\n- [Name] | [Title] at [Company] | [LinkedIn URL if found]\n  - What they do: [1 sentence]\n  - Last interaction: [date and context, or \"First meeting\"]\n  - Talking point: [one specific thing about them I could reference]\n\nEmail with subject \"Meeting Prep — [date]\"\n\nIf all meetings today are internal/solo, don't send anything.",
+    "prompt": "Check my Google Calendar for today's meetings.\n\nFor each meeting with external attendees (people I don't meet with daily):\n1. Identify attendees by email\n2. Search for each attendee: name, title, company, recent work\n3. Check if we've met before (search Gmail for prior correspondence)\n\nGenerate a pre-meeting brief for each meeting:\n\n## [Meeting name] \u2014 [time]\n### Attendees\n- [Name] | [Title] at [Company] | [LinkedIn URL if found]\n  - What they do: [1 sentence]\n  - Last interaction: [date and context, or \"First meeting\"]\n  - Talking point: [one specific thing about them I could reference]\n\nEmail with subject \"Meeting Prep \u2014 [date]\"\n\nIf all meetings today are internal/solo, don't send anything.",
     "expectedOutput": "Pre-meeting dossiers on everyone you're meeting with today, so you walk in prepared.",
     "customization": "Define what counts as \"internal\" vs \"external.\" Add specific domains to always research."
   },
@@ -963,7 +963,7 @@
     "schedule": "0 9 * * 2,5 (Tue/Fri at 9am)",
     "delivery": "zo.space update + SMS",
     "tools": "read_file, run_bash_command, update_space_route, send_sms_to_user",
-    "prompt": "Check /home/workspace/Projects/zo-cookbook/drafts/ for any files marked as ready to publish (look for \"status: ready\" in frontmatter or a \"READY\" tag).\n\nFor each ready draft:\n1. Read the content\n2. Generate SEO metadata (title, description, keywords)\n3. Format for web display (add reading time estimate, publication date)\n4. Publish to a blog page on zo.space at /blog/[slug] (public)\n5. Update the blog index page at /blog with the new post\n6. Move the draft to /home/workspace/Projects/zo-cookbook/published/\n\nText me: \"📝 Published: '[title]' at https://jeffkazzee.zo.space/blog/[slug]\"\n\nIf no ready drafts, do nothing.",
+    "prompt": "Check /home/workspace/Projects/zo-cookbook/drafts/ for any files marked as ready to publish (look for \"status: ready\" in frontmatter or a \"READY\" tag).\n\nFor each ready draft:\n1. Read the content\n2. Generate SEO metadata (title, description, keywords)\n3. Format for web display (add reading time estimate, publication date)\n4. Publish to a blog page on zo.space at /blog/[slug] (public)\n5. Update the blog index page at /blog with the new post\n6. Move the draft to /home/workspace/Projects/zo-cookbook/published/\n\nText me: \"\ud83d\udcdd Published: '[title]' at https://jeffkazzee.zo.space/blog/[slug]\"\n\nIf no ready drafts, do nothing.",
     "expectedOutput": "Drafts marked \"ready\" auto-publish to your zo.space blog, with SEO metadata and an updated index.",
     "customization": "Change the drafts directory. Adjust the publish schedule. Add social sharing steps."
   },
@@ -974,7 +974,7 @@
     "schedule": "On-demand",
     "delivery": "File",
     "tools": "read_file, read_webpage, web_search, create_or_rewrite_file",
-    "prompt": "Generate a client proposal for: {{client_name}} at {{client_website}}\n\n1. Read and analyze their current website\n2. Research their industry and competitors (3-5 competitor sites)\n3. Read my portfolio and services at /home/workspace/Business/services.md\n4. Read my rate card at /home/workspace/Business/rates.md\n\nGenerate a professional proposal:\n\n## Proposal for [Client Name]\n**Prepared by:** Jeff Kazzee | jeffkazzee.dev\n**Date:** [today]\n\n### Understanding Your Needs\n[2-3 paragraphs based on website analysis — what works, what doesn't, what's missing]\n\n### Competitive Landscape\n[What competitors are doing that [client] isn't]\n\n### Proposed Solution\n[Specific deliverables, phased approach]\n\n### Investment\n[Price tiers: Basic / Standard / Premium with specific deliverables for each]\n[Based on my rate card, adjusted for project scope]\n\n### Timeline\n[Realistic timeline for each tier]\n\n### Why Me\n[2-3 sentences, specific to what this client needs]\n\nSave to /home/workspace/Business/proposals/[client-name]-[date].md",
+    "prompt": "Generate a client proposal for: {{client_name}} at {{client_website}}\n\n1. Read and analyze their current website\n2. Research their industry and competitors (3-5 competitor sites)\n3. Read my portfolio and services at /home/workspace/Business/services.md\n4. Read my rate card at /home/workspace/Business/rates.md\n\nGenerate a professional proposal:\n\n## Proposal for [Client Name]\n**Prepared by:** Jeff Kazzee | jeffkazzee.dev\n**Date:** [today]\n\n### Understanding Your Needs\n[2-3 paragraphs based on website analysis \u2014 what works, what doesn't, what's missing]\n\n### Competitive Landscape\n[What competitors are doing that [client] isn't]\n\n### Proposed Solution\n[Specific deliverables, phased approach]\n\n### Investment\n[Price tiers: Basic / Standard / Premium with specific deliverables for each]\n[Based on my rate card, adjusted for project scope]\n\n### Timeline\n[Realistic timeline for each tier]\n\n### Why Me\n[2-3 sentences, specific to what this client needs]\n\nSave to /home/workspace/Business/proposals/[client-name]-[date].md",
     "expectedOutput": "A professional, researched proposal generated from analyzing the client's current site and their competitive landscape.",
     "customization": "Create services.md and rates.md with your offerings. Run this whenever a lead looks promising."
   },
@@ -985,7 +985,7 @@
     "schedule": "0 7 * * * (daily at 7am)",
     "delivery": "SMS",
     "tools": "web_search, read_file, send_sms_to_user",
-    "prompt": "Recommend one podcast episode for today's dog walk. Requirements:\n\n1. Length: 20-45 minutes (typical walk length)\n2. Topic rotation (check /home/workspace/Persona/podcast-log.json for recent listens):\n   - Tech/AI (but not corporate keynotes)\n   - History or science (storytelling, not lectures)\n   - Business/indie (real stories, not hustle bros)\n   - Culture/society (long-form journalism)\n   - Wild card (something I'd never pick myself)\n\n3. Search for recently published episodes (this week preferred)\n4. Prefer episodes from shows I've liked before (check log) but mix in new shows\n\nText me: \"🎧 Walk pick: [Show Name] — '[Episode Title]' ([length]min). [1-sentence hook]. [Link if findable]\"\n\nLog the recommendation to podcast-log.json.",
+    "prompt": "Recommend one podcast episode for today's dog walk. Requirements:\n\n1. Length: 20-45 minutes (typical walk length)\n2. Topic rotation (check /home/workspace/Persona/podcast-log.json for recent listens):\n   - Tech/AI (but not corporate keynotes)\n   - History or science (storytelling, not lectures)\n   - Business/indie (real stories, not hustle bros)\n   - Culture/society (long-form journalism)\n   - Wild card (something I'd never pick myself)\n\n3. Search for recently published episodes (this week preferred)\n4. Prefer episodes from shows I've liked before (check log) but mix in new shows\n\nText me: \"\ud83c\udfa7 Walk pick: [Show Name] \u2014 '[Episode Title]' ([length]min). [1-sentence hook]. [Link if findable]\"\n\nLog the recommendation to podcast-log.json.",
     "expectedOutput": "A daily podcast recommendation sized for your dog walk, rotating across topics you care about.",
     "customization": "Adjust episode length for your walk. Add specific shows you love. Remove topics you don't want."
   },
@@ -996,7 +996,7 @@
     "schedule": "0 10 1 * * (1st of every month)",
     "delivery": "File",
     "tools": "read_webpage, run_bash_command, create_or_rewrite_file",
-    "prompt": "Audit my personal brand consistency across all public touchpoints:\n\n1. Screenshot and read: jeffkazzee.zo.space, GitHub profile, X profile, LinkedIn, Substack\n2. Check each for:\n   - Bio/description: are they consistent? Same key messages?\n   - Profile photo: same across platforms?\n   - Links: do they all cross-reference each other?\n   - Recent activity: is any platform noticeably quiet?\n   - Tone: does the writing voice match across platforms?\n\nReport:\n## Brand Consistency Audit — [month]\n\n### Platform Status\n| Platform | Bio Match | Photo Match | Active | Links Working |\n|----------|-----------|-------------|--------|---------------|\n| zo.space | ✅/❌ | ✅/❌ | ✅/❌ | ✅/❌ |\n| GitHub | ... | ... | ... | ... |\n\n### Inconsistencies Found\n[List specific mismatches]\n\n### Recommendations\n[Top 3 things to fix for consistency]\n\n### Brand Health Score: [X/10]\n\nSave to /home/workspace/Records/brand-audits/[month].md",
+    "prompt": "Audit my personal brand consistency across all public touchpoints:\n\n1. Screenshot and read: jeffkazzee.zo.space, GitHub profile, X profile, LinkedIn, Substack\n2. Check each for:\n   - Bio/description: are they consistent? Same key messages?\n   - Profile photo: same across platforms?\n   - Links: do they all cross-reference each other?\n   - Recent activity: is any platform noticeably quiet?\n   - Tone: does the writing voice match across platforms?\n\nReport:\n## Brand Consistency Audit \u2014 [month]\n\n### Platform Status\n| Platform | Bio Match | Photo Match | Active | Links Working |\n|----------|-----------|-------------|--------|---------------|\n| zo.space | \u2705/\u274c | \u2705/\u274c | \u2705/\u274c | \u2705/\u274c |\n| GitHub | ... | ... | ... | ... |\n\n### Inconsistencies Found\n[List specific mismatches]\n\n### Recommendations\n[Top 3 things to fix for consistency]\n\n### Brand Health Score: [X/10]\n\nSave to /home/workspace/Records/brand-audits/[month].md",
     "expectedOutput": "A monthly brand consistency audit that catches mismatched bios, broken links, and quiet platforms.",
     "customization": "Add all your public profiles. Define what your \"consistent\" brand message should say."
   },
@@ -1007,7 +1007,7 @@
     "schedule": "0 22 * * 1-5 (weekdays at 10pm)",
     "delivery": "SMS (conditional)",
     "tools": "run_bash_command, send_sms_to_user",
-    "prompt": "Check all git repos in my workspace for uncommitted work:\n\nFor each project in /home/workspace/Projects/:\n1. Check git status for uncommitted changes\n2. Check for stashed changes (git stash list)\n3. Check if the current branch is ahead of remote (unpushed commits)\n\nIf ANY uncommitted work exists:\nText me: \"🔓 Uncommitted work:\n- [project]: [N] modified files on branch [name]\n- [project]: [N] stashed changes\n\nCommit before bed?\"\n\nIf everything is clean, do nothing.\n\nThis prevents losing work to accidental resets or system issues.",
+    "prompt": "Check all git repos in my workspace for uncommitted work:\n\nFor each project in /home/workspace/Projects/:\n1. Check git status for uncommitted changes\n2. Check for stashed changes (git stash list)\n3. Check if the current branch is ahead of remote (unpushed commits)\n\nIf ANY uncommitted work exists:\nText me: \"\ud83d\udd13 Uncommitted work:\n- [project]: [N] modified files on branch [name]\n- [project]: [N] stashed changes\n\nCommit before bed?\"\n\nIf everything is clean, do nothing.\n\nThis prevents losing work to accidental resets or system issues.",
     "expectedOutput": "A nightly check for uncommitted work, texted only when you have changes that should be saved.",
     "customization": "Add specific repos to always check. Exclude repos where uncommitted work is normal."
   },
@@ -1018,7 +1018,7 @@
     "schedule": "0 18 * * 5 (Fridays at 6pm)",
     "delivery": "Email",
     "tools": "read_file, run_bash_command, use_app_gmail, send_email_to_user",
-    "prompt": "Compile my weekly wins — not what I planned to do, but what I actually shipped.\n\nCheck:\n1. Git commits across all projects this week\n2. New or updated zo.space routes\n3. Published content (blog posts, social posts)\n4. Revenue received (from tracking files)\n5. Any completed items in _plan.md files\n6. Positive feedback or mentions (from social-proof.json)\n\nWrite a \"wins\" email:\nSubject: \"🏆 This Week's Wins — [date range]\"\n\n## Shipped\n[List of tangible things that are now live or done]\n\n## Progress\n[Things that moved forward meaningfully even if not done]\n\n## Revenue\n[$X this week, $X MTD, X% toward goal]\n\n## Best Moment\n[The single thing that felt best about this week, based on the data]\n\nThis is not a status report. It's a weekly reminder that I'm building something real, assembled from evidence — not feelings.",
+    "prompt": "Compile my weekly wins \u2014 not what I planned to do, but what I actually shipped.\n\nCheck:\n1. Git commits across all projects this week\n2. New or updated zo.space routes\n3. Published content (blog posts, social posts)\n4. Revenue received (from tracking files)\n5. Any completed items in _plan.md files\n6. Positive feedback or mentions (from social-proof.json)\n\nWrite a \"wins\" email:\nSubject: \"\ud83c\udfc6 This Week's Wins \u2014 [date range]\"\n\n## Shipped\n[List of tangible things that are now live or done]\n\n## Progress\n[Things that moved forward meaningfully even if not done]\n\n## Revenue\n[$X this week, $X MTD, X% toward goal]\n\n## Best Moment\n[The single thing that felt best about this week, based on the data]\n\nThis is not a status report. It's a weekly reminder that I'm building something real, assembled from evidence \u2014 not feelings.",
     "expectedOutput": "A Friday evening email that summarizes your actual wins for the week, compiled from real data.",
     "customization": "Adjust what counts as a \"win.\" Add specific metrics you want tracked."
   },
@@ -1029,7 +1029,7 @@
     "schedule": "0 6,12,18 * * * (three times daily)",
     "delivery": "SMS (conditional)",
     "tools": "web_search, read_file, send_sms_to_user",
-    "prompt": "Check barometric pressure in Salmon, Idaho:\n\n1. Get current barometric pressure\n2. Get forecast for next 12 hours\n3. Read /home/workspace/Persona/health/seizure-log.json for correlation data\n\nIf pressure is dropping rapidly (>0.3 inHg in 6 hours) or a significant pressure system is incoming:\nText me: \"⚠️ Pressure drop alert: [current] → [forecast] in next [hours]h. Based on your history, [risk level: low/moderate/elevated]. Extra rest and hydration today.\"\n\nIf pressure is stable or rising, do nothing.\n\nLog all readings to /home/workspace/Persona/health/pressure-log.json for long-term correlation analysis.\n\nAfter 30+ days of data, start including: \"Correlation analysis: [X]% of your episodes occurred within 24h of a >0.3 inHg pressure drop.\"",
+    "prompt": "Check barometric pressure in Salmon, Idaho:\n\n1. Get current barometric pressure\n2. Get forecast for next 12 hours\n3. Read /home/workspace/Persona/health/seizure-log.json for correlation data\n\nIf pressure is dropping rapidly (>0.3 inHg in 6 hours) or a significant pressure system is incoming:\nText me: \"\u26a0\ufe0f Pressure drop alert: [current] \u2192 [forecast] in next [hours]h. Based on your history, [risk level: low/moderate/elevated]. Extra rest and hydration today.\"\n\nIf pressure is stable or rising, do nothing.\n\nLog all readings to /home/workspace/Persona/health/pressure-log.json for long-term correlation analysis.\n\nAfter 30+ days of data, start including: \"Correlation analysis: [X]% of your episodes occurred within 24h of a >0.3 inHg pressure drop.\"",
     "expectedOutput": "A weather-based early warning system for seizure triggers, building correlation data over time.",
     "customization": "Adjust pressure threshold based on your sensitivity. Add other environmental triggers to monitor."
   },
@@ -1051,7 +1051,7 @@
     "schedule": "0 9 * * 1 (Mondays at 9am)",
     "delivery": "Email",
     "tools": "read_file, use_app_gmail, send_email_to_user",
-    "prompt": "Generate a 4-week financial forecast:\n\nRead:\n1. /home/workspace/Business/revenue-tracker.json for income history\n2. Gmail for upcoming invoices due to me\n3. /home/workspace/Persona/bills.json for known expenses\n\nProject:\n- Expected income next 4 weeks (based on recurring revenue + pending invoices)\n- Expected expenses next 4 weeks (based on known bills + historical spending)\n- Net cash flow projection\n- When I'll hit $500/mo target at current trajectory\n\nReport:\n## 4-Week Forecast — [date]\n\n| Week | Income (est) | Expenses (est) | Net |\n|------|-------------|-----------------|-----|\n| This week | $X | $X | +/-$X |\n| Week 2 | $X | $X | +/-$X |\n| Week 3 | $X | $X | +/-$X |\n| Week 4 | $X | $X | +/-$X |\n\n**MRR trend:** $X/mo → $X/mo (projected)\n**Goal gap:** $X/mo to reach $500\n**Break-even date at current growth:** [estimate]\n\n**One lever to pull:** [The single highest-impact thing I could do to accelerate toward the goal]\n\nEmail with subject \"💹 4-Week Forecast — [date]\"",
+    "prompt": "Generate a 4-week financial forecast:\n\nRead:\n1. /home/workspace/Business/revenue-tracker.json for income history\n2. Gmail for upcoming invoices due to me\n3. /home/workspace/Persona/bills.json for known expenses\n\nProject:\n- Expected income next 4 weeks (based on recurring revenue + pending invoices)\n- Expected expenses next 4 weeks (based on known bills + historical spending)\n- Net cash flow projection\n- When I'll hit $500/mo target at current trajectory\n\nReport:\n## 4-Week Forecast \u2014 [date]\n\n| Week | Income (est) | Expenses (est) | Net |\n|------|-------------|-----------------|-----|\n| This week | $X | $X | +/-$X |\n| Week 2 | $X | $X | +/-$X |\n| Week 3 | $X | $X | +/-$X |\n| Week 4 | $X | $X | +/-$X |\n\n**MRR trend:** $X/mo \u2192 $X/mo (projected)\n**Goal gap:** $X/mo to reach $500\n**Break-even date at current growth:** [estimate]\n\n**One lever to pull:** [The single highest-impact thing I could do to accelerate toward the goal]\n\nEmail with subject \"\ud83d\udcb9 4-Week Forecast \u2014 [date]\"",
     "expectedOutput": "A weekly financial forecast showing projected income, expenses, and trajectory toward your passive income goal.",
     "customization": "Populate revenue-tracker.json and bills.json with real data. Add seasonal income patterns if applicable."
   },
@@ -1063,7 +1063,7 @@
     "delivery": "Silent (creates Linear tickets)",
     "tools": "use_app_gmail, use_app_linear, read_file",
     "prompt": "Check for user-reported bugs:\n\n1. Search Gmail for emails containing words like \"broken\", \"doesn't work\", \"bug\", \"error\", \"can't access\", \"not loading\"\n2. Filter to emails from users/clients (not automated notifications)\n3. Check if a Linear ticket already exists for this issue (search by email subject keywords)\n\nFor each new bug report:\n1. Extract: what's broken, steps to reproduce (if described), severity (guess from language)\n2. Create a Linear issue:\n   - Title: \"[Bug] [brief description from email]\"\n   - Description: user's exact words + my interpretation + suggested priority\n   - Priority: based on severity signals (data loss = urgent, cosmetic = low)\n   - Label: \"user-reported\"\n3. Draft a reply to the user: \"Thanks for reporting this. I've logged it as ticket #[X] and will look into it. [Estimated timeline based on priority].\" (save as Gmail DRAFT)\n\nLog processed emails to /home/workspace/Records/bug-reports.json to avoid duplicates.",
-    "expectedOutput": "User-reported bugs automatically become Linear tickets with draft acknowledgment emails — no triage backlog.",
+    "expectedOutput": "User-reported bugs automatically become Linear tickets with draft acknowledgment emails \u2014 no triage backlog.",
     "customization": "Requires Gmail and Linear connected. Add specific bug report email labels for better filtering."
   },
   {
@@ -1084,8 +1084,8 @@
     "schedule": "0 5 * * * (daily at 5am)",
     "delivery": "SMS (conditional)",
     "tools": "web_search, send_sms_to_user",
-    "prompt": "Check tomorrow's sunrise conditions for Salmon, Idaho:\n\n1. Get sunrise time\n2. Check cloud cover forecast for sunrise hour\n3. Check if there's smoke, haze, or unusual atmospheric conditions\n\nPredict whether tomorrow's sunrise will be worth waking up for:\n- Clear skies + some clouds = 🟢 \"Could be stunning\"\n- High clouds (cirrus/altocumulus) = 🟢 \"Canvas for color\"\n- Overcast = 🔴 \"Skip it, sleep in\"\n- Post-storm clearing = 🟢🟢 \"Set an alarm, this could be the one\"\n- Wildfire smoke = 🟡 \"Vivid but unhealthy — watch from inside\"\n\nOnly text me if the prediction is 🟢 or better:\n\"🌅 Tomorrow's sunrise ([time]): [prediction]. [One-line poetic description of what the sky might do].\"\n\nIf it's a skip, silence.",
-    "expectedOutput": "A text only on mornings when the sunrise is worth seeing — with a poetic heads-up about what to expect.",
+    "prompt": "Check tomorrow's sunrise conditions for Salmon, Idaho:\n\n1. Get sunrise time\n2. Check cloud cover forecast for sunrise hour\n3. Check if there's smoke, haze, or unusual atmospheric conditions\n\nPredict whether tomorrow's sunrise will be worth waking up for:\n- Clear skies + some clouds = \ud83d\udfe2 \"Could be stunning\"\n- High clouds (cirrus/altocumulus) = \ud83d\udfe2 \"Canvas for color\"\n- Overcast = \ud83d\udd34 \"Skip it, sleep in\"\n- Post-storm clearing = \ud83d\udfe2\ud83d\udfe2 \"Set an alarm, this could be the one\"\n- Wildfire smoke = \ud83d\udfe1 \"Vivid but unhealthy \u2014 watch from inside\"\n\nOnly text me if the prediction is \ud83d\udfe2 or better:\n\"\ud83c\udf05 Tomorrow's sunrise ([time]): [prediction]. [One-line poetic description of what the sky might do].\"\n\nIf it's a skip, silence.",
+    "expectedOutput": "A text only on mornings when the sunrise is worth seeing \u2014 with a poetic heads-up about what to expect.",
     "customization": "Change the location. Adjust what counts as \"worth it\" based on how much you value sleep vs. sunrises."
   },
   {
@@ -1095,8 +1095,128 @@
     "schedule": "0 10 L * * (last day of every month at 10am)",
     "delivery": "File + Email",
     "tools": "run_bash_command, read_file, create_or_rewrite_file, send_email_to_user",
-    "prompt": "Audit ALL my running automations:\n\n1. List every scheduled agent with: name, schedule, last run, status\n2. For each agent, review last 30 days of outputs:\n   - How many times did it run?\n   - How many times did it produce useful output?\n   - How many times did it error?\n   - Am I actually reading/using the output? (check if output files are being accessed)\n\n3. Categorize each automation:\n   - 🟢 Valuable: runs well, I use the output\n   - 🟡 Underperforming: runs but output isn't great or I'm not using it\n   - 🔴 Broken/useless: errors frequently or I never look at it\n   - 💰 ROI positive: directly saves or makes money\n\n4. Calculate:\n   - Total automations running\n   - Estimated time saved per week (vs doing these tasks manually)\n   - Estimated cost (compute/API usage)\n   - Net value: time saved minus cost\n\nReport:\n## Monthly Automation Audit — [month]\n\n### Fleet Status\n🟢 Valuable: [N] | 🟡 Underperforming: [N] | 🔴 Broken: [N]\n\n### Kill List (recommend deactivating)\n[Agents that are broken or unused]\n\n### Upgrade List (could be better)\n[Agents that work but could be improved, with specific suggestions]\n\n### Top Performers\n[The 3 automations providing the most value]\n\n### New Automation Ideas\n[2-3 gaps in my automation fleet based on patterns in my manual work]\n\nEmail with subject \"🤖 Automation Audit — [month]\"\nSave to /home/workspace/Records/automation-audits/[month].md",
+    "prompt": "Audit ALL my running automations:\n\n1. List every scheduled agent with: name, schedule, last run, status\n2. For each agent, review last 30 days of outputs:\n   - How many times did it run?\n   - How many times did it produce useful output?\n   - How many times did it error?\n   - Am I actually reading/using the output? (check if output files are being accessed)\n\n3. Categorize each automation:\n   - \ud83d\udfe2 Valuable: runs well, I use the output\n   - \ud83d\udfe1 Underperforming: runs but output isn't great or I'm not using it\n   - \ud83d\udd34 Broken/useless: errors frequently or I never look at it\n   - \ud83d\udcb0 ROI positive: directly saves or makes money\n\n4. Calculate:\n   - Total automations running\n   - Estimated time saved per week (vs doing these tasks manually)\n   - Estimated cost (compute/API usage)\n   - Net value: time saved minus cost\n\nReport:\n## Monthly Automation Audit \u2014 [month]\n\n### Fleet Status\n\ud83d\udfe2 Valuable: [N] | \ud83d\udfe1 Underperforming: [N] | \ud83d\udd34 Broken: [N]\n\n### Kill List (recommend deactivating)\n[Agents that are broken or unused]\n\n### Upgrade List (could be better)\n[Agents that work but could be improved, with specific suggestions]\n\n### Top Performers\n[The 3 automations providing the most value]\n\n### New Automation Ideas\n[2-3 gaps in my automation fleet based on patterns in my manual work]\n\nEmail with subject \"\ud83e\udd16 Automation Audit \u2014 [month]\"\nSave to /home/workspace/Records/automation-audits/[month].md",
     "expectedOutput": "A monthly review of every automation you run, with recommendations to kill, upgrade, or add new ones.",
     "customization": "Run this after you've had automations running for at least 1 month. Use the audit to prune aggressively."
+  },
+  {
+    "id": 101,
+    "name": "Domain & Cert Expiry Watcher",
+    "category": "Financial/business tracking",
+    "schedule": "0 9 * * 1 (Mondays at 9am)",
+    "delivery": "Email (conditional)",
+    "tools": "run_bash_command, send_email_to_user",
+    "prompt": "Check the SSL certificate and domain registration expiry for every domain I own.\n\n1. Read my domain list from /home/workspace/Records/domains.txt (one domain per line). If the file does not exist, create it with a single placeholder and tell me to populate it.\n\n2. For each domain, run two checks:\n   - SSL cert expiry: `echo | openssl s_client -connect <domain>:443 -servername <domain> 2>/dev/null | openssl x509 -noout -dates`\n   - Registration expiry: `whois <domain> | grep -iE 'expiry|expiration|paid-till' | head -1`\n\n3. Parse the dates. Flag any cert expiring in less than 30 days. Flag any domain expiring in less than 60 days.\n\n4. Only email me if at least one flag fires. Subject: \"Domain/Cert Expiry Warning\". Body lists each flagged domain, what is expiring, when, and a one-line renewal instruction.\n\n5. Silent when nothing is at risk. No \"all clear\" emails.",
+    "expectedOutput": "A weekly check that emails only when a domain or SSL cert is about to expire, with clear renewal next steps.",
+    "customization": "Adjust the warning windows. Add Cloudflare or Namecheap API calls if you want auto-renewal status instead of whois.",
+    "addedDate": "2026-05-24"
+  },
+  {
+    "id": 102,
+    "name": "AI API Spend Tracker",
+    "category": "Financial/business tracking",
+    "schedule": "0 8 * * * (daily at 8am)",
+    "delivery": "SMS (conditional)",
+    "tools": "use_app_gmail, read_file, create_or_rewrite_file, send_sms_to_user",
+    "prompt": "Track my AI API spend across providers and warn me before I overshoot a monthly budget.\n\n1. Search Gmail for receipts and usage emails from the past 30 days. Look for senders or subjects from: Anthropic, OpenAI, Google AI, Groq, Cerebras, OpenRouter, Cursor, GitHub Copilot, Replit. Extract dollar amounts.\n\n2. Read my monthly budget from /home/workspace/Records/ai-budget.json (shape: { \"monthly_budget_usd\": number }). If the file does not exist, create it with a default of 100 and tell me to adjust.\n\n3. Sum the spend month-to-date. Compute percent of budget used and projected end-of-month total based on daily run rate.\n\n4. Append today's snapshot to /home/workspace/Records/AISpend/[YYYY-MM].md.\n\n5. Text me only if percent used is above 80, or if projected end-of-month is more than 110 percent of budget. Format: \"AI spend MTD $[amount] ([pct]% of $[budget]). Projected EOM $[projected].\"\n\n6. Silent when under 80 percent and tracking on budget.",
+    "expectedOutput": "A daily silent tracker that only texts when AI API spend is heading toward overage, with month-to-date totals saved as a log.",
+    "customization": "Add or remove providers. Lower the alert thresholds for tighter budgets. Connect a Stripe customer portal for more accurate billing data.",
+    "addedDate": "2026-05-24"
+  },
+  {
+    "id": 103,
+    "name": "Stale GitHub Issue Resurrector",
+    "category": "Open source maintenance",
+    "schedule": "0 10 * * 3 (Wednesdays at 10am)",
+    "delivery": "File + Telegram",
+    "tools": "run_bash_command, create_or_rewrite_file, send_telegram_message",
+    "prompt": "Find stale issues across my GitHub repos and surface the ones still worth attention.\n\n1. List my repos: `gh repo list --json name,owner --limit 100`. For each repo I own:\n   - Get issues with no activity in 30+ days: `gh issue list --repo <owner>/<repo> --state open --json number,title,updatedAt,labels,comments --limit 50`\n   - Skip issues labeled \"wontfix\", \"duplicate\", or \"discussion\"\n\n2. For each stale issue, score it:\n   - +2 if it has 3+ comments (community interest)\n   - +1 if title contains \"bug\", \"crash\", or \"broken\"\n   - +1 if the original poster commented twice (real user pain)\n   - -1 if no one but me has touched it\n\n3. Pick the top 10 across all repos by score.\n\n4. Write to /home/workspace/Records/github-stale/[YYYY-MM-DD].md a table: Repo | Issue # | Title | Last activity | Score | Suggested action (Close as won't fix | Reply asking if still relevant | Schedule for next sprint).\n\n5. Send a Telegram message: \"[N] stale issues worth attention this week. Top: [repo] #[num] [title]. Full list saved.\"",
+    "expectedOutput": "A weekly triage list of stale GitHub issues with scores and suggested actions, so nothing important gets buried in old tickets.",
+    "customization": "Adjust the staleness threshold. Add label-based scoring (e.g., +2 for \"good first issue\"). Restrict to specific repos.",
+    "addedDate": "2026-05-24"
+  },
+  {
+    "id": 104,
+    "name": "Backup Sanity Check",
+    "category": "System reliability",
+    "schedule": "0 7 * * 1 (Mondays at 7am)",
+    "delivery": "Email (conditional)",
+    "tools": "run_bash_command, send_email_to_user",
+    "prompt": "Verify that my backups are actually running and capturing the right data.\n\n1. Read my backup config from /home/workspace/Records/backup-targets.json. Expected shape: array of { \"path\": string, \"max_age_hours\": number, \"min_size_mb\": number }.\n\n2. For each target, check:\n   - File exists at the expected location\n   - Last modified time (file or directory) is within max_age_hours\n   - File or directory size is at least min_size_mb\n\n3. For cloud or remote backups, check via `rclone size <remote>:<path>` if rclone is installed and the remote is configured. Skip silently if not available.\n\n4. Compile a status report: each target as PASS or FAIL with reason.\n\n5. Email me only if at least one target failed. Subject: \"Backup Failure Detected\". Body: which targets failed, what was expected, what was found. Silent on a clean run.",
+    "expectedOutput": "A weekly silent verification that every backup target is fresh and complete, emailing only when something is broken.",
+    "customization": "Add encrypted-archive integrity checks (e.g., test-decrypting one random file). Adjust target list as your backup strategy evolves.",
+    "addedDate": "2026-05-24"
+  },
+  {
+    "id": 105,
+    "name": "Pet Care Reminder Loop",
+    "category": "Pet care",
+    "schedule": "0 8 * * * (daily at 8am)",
+    "delivery": "SMS",
+    "tools": "read_file, send_sms_to_user",
+    "prompt": "Send me one SMS per day with whatever pet care is due today.\n\n1. Read /home/workspace/Records/pets.json. Expected shape per pet: { name, species, meds: [{ name, schedule, last_given }], vet_due: ISO date, grooming_due: ISO date, food_runout_estimate: ISO date }.\n\n2. For each pet, build a short status:\n   - Any meds due today (compare schedule and last_given)\n   - Vet appointment within 7 days\n   - Grooming due within 7 days\n   - Food estimated to run out within 5 days\n\n3. If nothing is due for any pet, send: \"Pets: nothing due.\"\n\n4. If something is due, format as: \"[Pet name]: [item], [item]. [Next pet]: ...\" Keep under 300 characters.\n\n5. Never include motivational text. Just the facts.",
+    "expectedOutput": "A short daily SMS listing whatever pet care is actually due, with no fluff. Quiet on days when nothing is needed.",
+    "customization": "Add medication dosage tracking. Connect to a pet store API for auto-reorder triggers when food is low.",
+    "addedDate": "2026-05-24"
+  },
+  {
+    "id": 106,
+    "name": "Quarterly Tax Estimate Nudge",
+    "category": "Financial/business tracking",
+    "schedule": "0 9 1 1,4,7,10 (1st of Jan, Apr, Jul, Oct at 9am)",
+    "delivery": "Email",
+    "tools": "use_app_gmail, run_bash_command, send_email_to_user",
+    "prompt": "Generate a quarterly tax estimate prep email at the start of each estimated-tax quarter.\n\n1. Search Gmail for income emails over the past 3 months: Stripe payouts, PayPal transfers, Substack subscriber payments, client invoices marked paid, 1099 documents. Extract dollar amounts.\n\n2. Search Gmail for business expense emails over the past 3 months: subscriptions (Anthropic, Vercel, GitHub, etc), tools, software, professional services. Extract dollar amounts.\n\n3. Compute:\n   - Total quarterly income\n   - Total deductible expenses\n   - Estimated net taxable income\n   - Rough federal estimated tax at 22 percent (placeholder rate, user adjusts)\n   - Rough self-employment tax at 15.3 percent\n\n4. Email me with subject \"Quarterly Tax Estimate Prep - Q[N]\". Body includes the numbers, a checklist of forms to file (1040-ES, state equivalent, sales tax if applicable), and the next IRS estimated tax deadline.\n\n5. End with: \"These are rough estimates from email scraping. Verify with your CPA or QuickBooks before filing.\"",
+    "expectedOutput": "A quarterly email with rough income, expenses, and estimated tax owed, ready to hand to an accountant or use as a starting point for self-filing.",
+    "customization": "Adjust the tax rate placeholders for your bracket. Add state-specific calculations. Connect QuickBooks for accurate numbers.",
+    "addedDate": "2026-05-24"
+  },
+  {
+    "id": 107,
+    "name": "Reading Highlight Extractor",
+    "category": "Learning",
+    "schedule": "0 19 * * 0 (Sundays at 7pm)",
+    "delivery": "File + SMS",
+    "tools": "list_files, read_file, create_or_rewrite_file, send_sms_to_user",
+    "prompt": "Consolidate this week's reading highlights into one weekly notebook.\n\n1. Look for highlight files added or modified this week under /home/workspace/Reading/ and /home/workspace/Documents/highlights/. Common formats: Readwise exports (.md, .json), Kindle clippings, Pocket exports, manual notes.\n\n2. Read each file. For each, extract:\n   - Source title and author\n   - The actual highlighted passages\n   - Any of my own notes attached\n\n3. Group passages by theme. Themes you can detect from common keywords: craft, attention, systems, history, technology, nature, power, work. If a passage does not fit a theme, put it in \"loose\".\n\n4. Write a single weekly notebook to /home/workspace/Reading/weekly/[YYYY-WW].md formatted as:\n\n# Reading Week [YYYY-WW]\n## [Theme]\n> Passage\n- Source: Title - Author\n- Note: My note if any\n\n5. SMS me: \"Reading week packed: [N] highlights across [M] sources. Top theme: [theme]. Saved.\"",
+    "expectedOutput": "A weekly consolidated reading notebook grouping highlights by theme, with a short SMS summary of what you read.",
+    "customization": "Add specific sources or apps you read with. Change the themes to match your interests. Pipe weekly notebooks into a Substack draft for a reading roundup.",
+    "addedDate": "2026-05-24"
+  },
+  {
+    "id": 108,
+    "name": "Launch Day War Room",
+    "category": "Content creation pipelines",
+    "schedule": "0 */2 * * * (every 2 hours, manually enabled on launch day)",
+    "delivery": "Telegram",
+    "tools": "x_search, web_search, use_app_gmail, send_telegram_message",
+    "prompt": "On launch days, give me a single status pulse every 2 hours so I can stop refreshing tabs.\n\n1. Check for new X mentions of my launch by searching for the product name (read /home/workspace/Records/launch-product.txt for the current launch handle and keywords).\n\n2. Check Gmail for any new signups, payments, or support emails received in the last 2 hours.\n\n3. Check the product URL for any error indicators (use web_search to confirm the site is still returning a 200 if the URL is known).\n\n4. Compile a pulse:\n   - New mentions: [count] (list top 3 with handles and one-line excerpts)\n   - New signups or payments: [count] (list senders/amounts)\n   - Support emails: [count] (urgent flag if any contain \"broken\", \"down\", \"error\", \"refund\")\n   - Site status: OK or DEGRADED\n\n5. Telegram message format:\n\"Launch pulse [time]\nMentions: [count] | Signups: [count] | Support: [count]\n[If urgent: 'URGENT: [excerpt]']\n[Top mention: @[handle] - [excerpt]]\"\n\n6. If there is nothing new since the last run, send: \"Launch pulse [time]: quiet hour.\"",
+    "expectedOutput": "A 2-hourly Telegram pulse during launch day that summarizes mentions, signups, support load, and site health, so the user does not have to refresh manually.",
+    "customization": "Adjust frequency (hourly during peak hours, every 4 hours overnight). Add LinkedIn or Product Hunt monitoring. Pause via edit_automation when the launch window closes.",
+    "addedDate": "2026-05-24"
+  },
+  {
+    "id": 109,
+    "name": "Inactive Client Re-engagement",
+    "category": "Financial/business tracking",
+    "schedule": "0 11 * * 2 (Tuesdays at 11am)",
+    "delivery": "File",
+    "tools": "use_app_gmail, read_file, create_or_rewrite_file",
+    "prompt": "Find clients I have not talked to in 60+ days and draft a re-engagement message for each.\n\n1. Read my pipeline file: /home/workspace/Records/FreelancePipeline/pipeline.md. Extract client names.\n\n2. For each client, search Gmail for the most recent email exchange (either direction). Note the date of last contact.\n\n3. Identify any client where last contact is 60+ days ago and the relationship was not formally closed (no \"goodbye\" or \"final invoice\" type wording in the last message).\n\n4. For each candidate, read the last 3 emails of the thread to remember context. Draft a short re-engagement message in my voice:\n   - One specific reference to the work we did or discussed\n   - One concrete update or offer (e.g., \"I am taking on new projects starting [month]\", \"I built a new thing that reminded me of your use case\")\n   - One direct ask (e.g., \"Want to catch up on a call?\", \"Is the X project still on your radar?\")\n   - Under 120 words. Conversational, not salesy.\n\n5. Write all drafts to /home/workspace/Records/Reengagement/[YYYY-MM-DD].md. Each draft includes: client name, last contact date, the thread context summary in one line, the drafted message ready to copy.\n\n6. Do not send anything. These are drafts for me to review and send manually.",
+    "expectedOutput": "A weekly file of draft re-engagement messages for clients gone quiet, with context and ready-to-send copy. No auto-sending.",
+    "customization": "Adjust the staleness threshold. Add a tone variant (more formal vs. friendly) based on client type. Filter out clients flagged as \"do not contact\".",
+    "addedDate": "2026-05-24"
+  },
+  {
+    "id": 110,
+    "name": "Daily AI Tool Watch",
+    "category": "Industry watch",
+    "schedule": "0 6 * * 1-5 (weekdays at 6am)",
+    "delivery": "Email",
+    "tools": "x_search, web_search, send_email_to_user",
+    "prompt": "Give me one short daily briefing on what is moving in the AI developer tools space.\n\n1. Search X for the last 24 hours of high-engagement posts (200+ likes) from these patterns:\n   - \"Claude\", \"Cursor\", \"Copilot\", \"Codex\", \"Cline\", \"Aider\", \"Zed\" with release or launch or announcement context\n   - \"new model\" or \"open weights\" with provider names\n   - \"shipped\" or \"launched\" with AI coding tool keywords\n\n2. Web search the last 24 hours for: \"AI coding assistant release\", \"new LLM benchmark\", \"open source AI tool launch\". Skip aggregator sites; favor primary sources (vendor blogs, GitHub releases, project pages).\n\n3. Filter for things I have not seen before by comparing against /home/workspace/Records/AIWatch/seen.json (an array of {url, date}). Append new items to seen.json after processing.\n\n4. Pick the top 3 most notable items.\n\n5. Email me with subject \"AI Watch [date]\". For each item:\n   - One-line summary of what shipped or changed\n   - Why it matters for someone building with AI tools (1 sentence, no hype)\n   - Direct link to the primary source\n\n6. If there were no new items, send: \"AI Watch [date]: quiet day, nothing new worth reporting.\"",
+    "expectedOutput": "A 6am weekday email with three or fewer concrete things that actually shipped in AI dev tools, with primary-source links and zero hype filler.",
+    "customization": "Add or remove specific tools you care about. Adjust the engagement threshold to filter signal. Restrict to weekends only if weekday volume is too noisy.",
+    "addedDate": "2026-05-24"
   }
 ]

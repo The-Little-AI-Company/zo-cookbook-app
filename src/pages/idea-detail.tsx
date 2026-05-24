@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { RecipeActions } from "@/components/recipe-actions";
+import { NewBadge } from "@/components/new-badge";
+import { isNew } from "@/lib/is-new";
 import { getIdeaPath, getIdeaSlug, isIdeaType, type IdeaType } from "@/lib/idea-slugs";
 import { loadIdeas } from "@/lib/data-loader";
 import type { App, Automation, Prompt, Space } from "@/data/cookbook-types";
@@ -191,6 +193,7 @@ export default function IdeaDetailPage() {
             </span>
             {"category" in item && <span className="rounded bg-[var(--secondary)] px-2 py-1 text-[10px] font-mono text-[var(--muted-foreground)]">{item.category}</span>}
             {"difficulty" in item && <span className="rounded bg-[var(--secondary)] px-2 py-1 text-[10px] font-mono text-[var(--muted-foreground)]">{item.difficulty}</span>}
+            {"addedDate" in item && isNew((item as { addedDate?: string }).addedDate) && <NewBadge />}
           </div>
 
           <h1 className="font-display text-4xl font-black tracking-tight sm:text-5xl">{itemName(item)}</h1>

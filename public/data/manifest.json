@@ -2,9 +2,9 @@
   "counts": {
     "apps": 200,
     "spaces": 100,
-    "automations": 100,
-    "prompts": 250,
-    "total": 650
+    "automations": 110,
+    "prompts": 251,
+    "total": 661
   },
   "files": {
     "apps": "/data/apps.json",
@@ -12,5 +12,5 @@
     "automations": "/data/automations.json",
     "prompts": "/data/prompts.json"
   },
-  "generatedAt": "2026-04-30T22:07:53.711Z"
+  "generatedAt": "2026-05-24T22:35:00.000Z"
 }

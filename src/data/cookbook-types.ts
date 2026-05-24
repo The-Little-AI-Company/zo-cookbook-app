@@ -28,6 +28,7 @@ export type Automation = {
   prompt: string;
   expectedOutput: string;
   customization: string;
+  addedDate?: string;
 };
 
 export type Prompt = {
@@ -37,4 +38,5 @@ export type Prompt = {
   whenToUse: string;
   prompt: string;
   whatYouGet: string;
+  addedDate?: string;
 };

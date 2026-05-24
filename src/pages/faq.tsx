@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 const faqs = [
   {
     question: "How many recipes are in the dev cookbook now?",
-    answer: "The cookbook shows 650 total recipes: 200 Apps & Sites, 100 Spaces, 100 Automations, and 250 Prompts. If the header ever drifts from those numbers, the data merge or cached build needs verification.",
+    answer: "The cookbook shows 661 total recipes: 200 Apps & Sites, 100 Spaces, 110 Automations, and 251 Prompts. If the header ever drifts from those numbers, the data merge or cached build needs verification.",
   },
   {
     question: "What counts as one idea?",

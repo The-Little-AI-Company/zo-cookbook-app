@@ -3,7 +3,9 @@ import { Link } from "react-router-dom";
 import type { App, Space, Automation, Prompt } from "@/data/cookbook-types";
 import { loadIdeas, loadManifest, type Counts } from "@/lib/data-loader";
 import { RecipeActions } from "@/components/recipe-actions";
+import { NewBadge } from "@/components/new-badge";
 import { getIdeaPath } from "@/lib/idea-slugs";
+import { isNew } from "@/lib/is-new";
 
 // ─── Types ────────────────────────────────────────────
 type Tab = "apps" | "spaces" | "automations" | "prompts";
@@ -125,6 +127,11 @@ const categoryMap: Record<string, string> = {
   "Debugging / Emotional regulation": "Health & Wellness",
   "Relationships / Personal": "Communication",
   "Strategy / Blind spots": "Business & Strategy",
+  "Open source maintenance": "Open Source",
+  "System reliability": "System Reliability",
+  "Pet care": "Pet Care",
+  "Industry watch": "Industry Watch",
+  "Cookbook helpers": "Cookbook Helpers",
 };
 
 function normalizeCategory(raw: string): string {
@@ -181,6 +188,11 @@ const groupMeta: Record<string, { icon: string; color: string }> = {
   "Learning": { icon: "▤", color: "var(--teal)" },
   "Automation Setup": { icon: "⌘", color: "var(--yellow)" },
   "Communication": { icon: "▣", color: "var(--blue)" },
+  "Open Source": { icon: "⌥", color: "var(--teal)" },
+  "System Reliability": { icon: "◐", color: "var(--blue)" },
+  "Pet Care": { icon: "❉", color: "#34d399" },
+  "Industry Watch": { icon: "◬", color: "#c084fc" },
+  "Cookbook Helpers": { icon: "✺", color: "var(--yellow)" },
   "Page": { icon: "▣", color: "var(--blue)" },
   "API": { icon: "⌘", color: "var(--teal)" },
   "Both": { icon: "◈", color: "var(--yellow)" },
@@ -340,6 +352,7 @@ function SpaceCard({ item, expanded, onToggle }: { item: Space; expanded: boolea
 function AutomationCard({ item, expanded, onToggle }: { item: Automation; expanded: boolean; onToggle: () => void }) {
   const group = normalizeCategory(item.category);
   const meta = getGroupMeta(group);
+  const fresh = isNew(item.addedDate);
   return (
     <div className="group border border-[var(--border)] rounded-lg bg-[var(--card)] hover:border-[var(--yellow)]/30 transition-colors">
       <button onClick={onToggle} className="w-full text-left p-4 cursor-pointer">
@@ -354,9 +367,12 @@ function AutomationCard({ item, expanded, onToggle }: { item: Automation; expand
               <span className="text-xs font-mono text-[var(--muted-foreground)]">{item.delivery}</span>
             </div>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded shrink-0" style={{ background: `color-mix(in srgb, ${meta.color} 12%, transparent)`, color: meta.color }}>
-            {group}
-          </span>
+          <div className="flex items-center gap-1.5 shrink-0">
+            {fresh && <NewBadge />}
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded" style={{ background: `color-mix(in srgb, ${meta.color} 12%, transparent)`, color: meta.color }}>
+              {group}
+            </span>
+          </div>
         </div>
       </button>
       {expanded && (
@@ -399,6 +415,7 @@ function AutomationCard({ item, expanded, onToggle }: { item: Automation; expand
 function PromptCard({ item, expanded, onToggle }: { item: Prompt; expanded: boolean; onToggle: () => void }) {
   const group = normalizeCategory(item.category);
   const meta = getGroupMeta(group);
+  const fresh = isNew(item.addedDate);
   return (
     <div className="group border border-[var(--border)] rounded-lg bg-[var(--card)] hover:border-[var(--teal)]/30 transition-colors">
       <button onClick={onToggle} className="w-full text-left p-4 cursor-pointer">
@@ -409,9 +426,12 @@ function PromptCard({ item, expanded, onToggle }: { item: Prompt; expanded: bool
             </h3>
             <p className="text-sm text-[var(--muted-foreground)] mt-1 line-clamp-2">{item.whenToUse}</p>
           </div>
-          <span className="text-[10px] font-mono px-2 py-0.5 rounded shrink-0" style={{ background: `color-mix(in srgb, ${meta.color} 12%, transparent)`, color: meta.color }}>
-            {group}
-          </span>
+          <div className="flex items-center gap-1.5 shrink-0">
+            {fresh && <NewBadge />}
+            <span className="text-[10px] font-mono px-2 py-0.5 rounded" style={{ background: `color-mix(in srgb, ${meta.color} 12%, transparent)`, color: meta.color }}>
+              {group}
+            </span>
+          </div>
         </div>
       </button>
       {expanded && (

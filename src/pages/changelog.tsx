@@ -2,6 +2,17 @@ import { Link } from "react-router-dom";
 
 const changes = [
   {
+    date: "2026-05-24",
+    title: "Recipes 101 through 110 plus Automation Interviewer",
+    items: [
+      "Added 10 new automation recipes: Domain & Cert Expiry Watcher, AI API Spend Tracker, Stale GitHub Issue Resurrector, Backup Sanity Check, Pet Care Reminder Loop, Quarterly Tax Estimate Nudge, Reading Highlight Extractor, Launch Day War Room, Inactive Client Re-engagement, Daily AI Tool Watch.",
+      "Added the Automation Interviewer prompt: take it to your own Zo, answer a short interview, walk away with 3 to 5 ready-to-deploy automation recipes drafted for you.",
+      "Added a small \"new\" badge that appears on cards added in the last 30 days and disappears automatically after the window closes. No cron, no manual cleanup.",
+      "Five new categories surfaced in the UI: Open Source, System Reliability, Pet Care, Industry Watch, Cookbook Helpers.",
+      "Counts updated: 200 Apps & Sites, 100 Spaces, 110 Automations, 251 Prompts, 661 total recipes.",
+    ],
+  },
+  {
     date: "2026-04-30",
     title: "Dev copy content expansion",
     items: [
