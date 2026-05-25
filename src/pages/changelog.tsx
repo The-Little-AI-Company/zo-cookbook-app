@@ -3,6 +3,17 @@ import { Link } from "react-router-dom";
 const changes = [
   {
     date: "2026-05-25",
+    title: "Massive batch: 500 new recipes",
+    items: [
+      "Added 75 apps, 75 spaces, 175 automations, and 175 prompts in a single batch.",
+      "Cookbook total moved from 662 to 1162. Manifest, FAQ, and homepage counts pick this up automatically at runtime.",
+      "Every entry was validated for schema, banned writing patterns, and uniqueness against the existing library before merge.",
+      "The /whats-new page now leads with an Editor's Picks section: roughly 10 hand-selected standouts per type, followed by the full new list.",
+      "Curating this many specific, varied names that hold a consistent tone is the real work behind the cookbook. The picks are the ones that earned their place.",
+    ],
+  },
+  {
+    date: "2026-05-25",
     title: "Cookbook Recipe Generator prompt + workspace recipe-author prompt",
     items: [
       "Added prompt 252: Cookbook Recipe Generator. Visitors can take this to their own Zo, answer three questions, and get 3-5 deploy-ready recipes in cookbook shape.",
