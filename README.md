@@ -10,10 +10,13 @@ The cookbook is a gallery of 1162 recipes (apps, spaces, automations, prompts), 
 
 1. **Public cookbook** (`/`): visitors browse recipes by category, search, or discover mode.
 2. **How it works strip**: a compact three-step explainer at the top makes the handoff model obvious without asking people to guess.
-3. **Recipe actions** (`RecipeActions`): expanded cards and discover/spotlight views use the same handoff action system:
-   - **Build/Deploy in Zo** (action-specific label)
-   - **Copy recipe**
-4. **Private execution**: clicking the primary action opens the user's Zo workspace URL with the build brief attached as a `prompt` query param when the URL stays within a safe size, while also copying the same brief to the clipboard as a fallback. The actual work happens inside the user’s own Zo Computer, not inside this published site.
+3. **Recipe actions** (`RecipeActions`): expanded cards and discover/spotlight views use the same handoff action system, with labels keyed to the recipe type:
+   - Primary: **Build in Zo** (apps) / **Deploy in Zo** (spaces) / **Create automation** (automations) / **Open in Zo** (prompts).
+   - Secondary: **Copy build brief** (apps and spaces) / **Copy automation** (automations) / **Copy prompt** (prompts).
+   - Tertiary: **Read brief / Read automation / Read prompt** opens an inline reader with the same content.
+4. **Structured briefs, not label dumps**: each type generates a brief with explicit Intent / Build approach (or Execution prompt) / Stack / Constraints / Out of scope / Definition of done sections. The receiving AI gets a contract, not a slot-filled form. Prompt placeholders (`{{like_this}}`) are extracted and listed as inputs the user should fill in before running.
+5. **In-app browser fallback**: when a visitor arrives from Facebook, Messenger, Instagram, TikTok, X, Line, or WeChat in-app browsers, the cookbook detects the UA, skips the silent clipboard write, auto-opens the spec panel, and shows a banner offering to open the page in the real browser. This avoids the silent NotAllowedError that those WebViews throw on `navigator.clipboard.writeText`.
+6. **Private execution**: clicking the primary action opens the user's Zo workspace URL with the brief attached as a `prompt` query param when the URL stays within a safe size, while also copying the same brief to the clipboard as a fallback. The actual work happens inside the user's own Zo Computer, not inside this published site.
 
 ### Why the old model was removed
 

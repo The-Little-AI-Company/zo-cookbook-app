@@ -24,7 +24,7 @@ const STATIC_FAQS = [
   {
     question: "Why not paste directly into Zo's text box?",
     answer:
-      "A public site cannot force-paste text into another domain's input box because browsers block that for security. The safe handoff is copy-to-clipboard plus open Zo. If Zo exposes an official prefill URL parameter, the cookbook should use that exact contract.",
+      "A public site cannot force-paste text into another domain's input box because browsers block that for security. The safe handoff is copy-to-clipboard plus open Zo. Depending on the recipe type, what gets copied is a build brief (apps and spaces), an automation prompt and config (automations), or the prompt itself (prompts). If Zo exposes an official prefill URL parameter, the cookbook uses that exact contract.",
   },
   {
     question: "How do I see what was added recently?",
