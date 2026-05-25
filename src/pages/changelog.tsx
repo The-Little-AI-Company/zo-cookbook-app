@@ -2,6 +2,15 @@ import { Link } from "react-router-dom";
 
 const changes = [
   {
+    date: "2026-05-25",
+    title: "Cookbook Recipe Generator prompt + workspace recipe-author prompt",
+    items: [
+      "Added prompt 252: Cookbook Recipe Generator. Visitors can take this to their own Zo, answer three questions, and get 3-5 deploy-ready recipes in cookbook shape.",
+      "Shipped a workspace-only recipe-author prompt at _prompts/recipe-generator.md. Run it repeatedly to grow the cookbook past 1,000 recipes; each batch adds ~50-60 and writes directly to the JSON data files.",
+      "Manifest count 661 -> 662. Prompt count 251 -> 252.",
+    ],
+  },
+  {
     date: "2026-05-24",
     title: "Recipes 101 through 110 plus Automation Interviewer",
     items: [
