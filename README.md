@@ -32,7 +32,7 @@ The cookbook now behaves like a launchpad, not a public API client.
 - 1162 total recipes: 275 Apps & Sites, 175 Spaces, 285 Automations, 427 Prompts.
 - Counts on the homepage header, tab buttons, and FAQ all read from `/data/manifest.json` at runtime. Do not hardcode counts in user-facing pages.
 - Recipes carry an optional `addedDate` field (ISO date string). When present and within the last 30 days, a small "new" badge renders on the card via `<NewBadge />`. The badge disappears automatically when the date crosses the 30-day window. No cron, no manual cleanup.
-- `/whats-new` aggregates every item with a fresh `addedDate` across all four types, grouped by type with counts, sorted newest first. It is the canonical "what changed lately" surface.
+- `/whats-new` aggregates every item with a fresh `addedDate` across all four types, grouped by type with counts, sorted newest first. It is the canonical "what changed lately" surface. For large batches, the page leads with a small curated "Editor's Picks" section (about 10 hand-selected items per type) above the full new-list, defined as a `EDITORS_PICKS` constant in `src/pages/whats-new.tsx`.
 - New batches of recipes are authored in `_plan-recipes-expansion.md` style sessions and appended directly to the type JSON files in `public/data/`. The manifest count must be updated in the same commit.
 
 ### Key files
