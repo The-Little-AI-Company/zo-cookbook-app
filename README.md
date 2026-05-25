@@ -4,7 +4,7 @@ This file provides guidance when working with code in this repository. The READM
 
 ## Zo Cookbook — Public discovery, private execution
 
-The cookbook is a gallery of 550+ recipes (apps, spaces, automations, prompts), but it no longer tries to execute them through a public proxy or ask visitors for Zo API tokens.
+The cookbook is a gallery of 661 recipes (apps, spaces, automations, prompts), but it no longer tries to execute them through a public proxy or ask visitors for Zo API tokens.
 
 ### Architecture: Browse → Copy brief → Open Zo
 
@@ -27,22 +27,26 @@ It created:
 
 The cookbook now behaves like a launchpad, not a public API client.
 
-### 650-recipe release notes
+### Current state
 
-- The cookbook now has 650 total recipes: 200 Apps & Sites, 100 Spaces, 100 Automations, and 250 Prompts.
-- New app ideas are authored as Markdown batches in `content/` and imported into `src/data/generated/app-ideas.generated.json` with `scripts/import-app-ideas.ts`.
-- Runtime recipe data is split into static JSON files in `public/data/` with `scripts/export-data-json.ts`; the app fetches `/data/manifest.json` and only loads the active type JSON instead of bundling all recipes into the main JS chunk.
-- `/faq`, `/changelog`, `/blog`, and `/ideas/:type/:slug` are first-class routes.
-- `/blog` reads recent posts from `https://salmonidaho.substack.com/feed` through `/api/blog`.
-- `/go/substack` points to `https://salmonidaho.substack.com/`.
+- 661 total recipes: 200 Apps & Sites, 100 Spaces, 110 Automations, 251 Prompts.
+- Counts on the homepage header, tab buttons, and FAQ all read from `/data/manifest.json` at runtime. Do not hardcode counts in user-facing pages.
+- Recipes carry an optional `addedDate` field (ISO date string). When present and within the last 30 days, a small "new" badge renders on the card via `<NewBadge />`. The badge disappears automatically when the date crosses the 30-day window. No cron, no manual cleanup.
+- `/whats-new` aggregates every item with a fresh `addedDate` across all four types, grouped by type with counts, sorted newest first. It is the canonical "what changed lately" surface.
+- New batches of recipes are authored in `_plan-recipes-expansion.md` style sessions and appended directly to the type JSON files in `public/data/`. The manifest count must be updated in the same commit.
 
 ### Key files
 
 - `src/pages/cookbook.tsx` — main cookbook UI, filters, category views, card rendering
+- `src/pages/whats-new.tsx` — last-30-days roll-up across all four types
+- `src/pages/faq.tsx` — reads manifest at runtime for the count answer
+- `src/components/new-badge.tsx` — the small "new" badge component
 - `src/components/recipe-actions.tsx` — shared handoff action system for prompts, automations, spaces, and apps
 - `src/data/cookbook-data.ts` — source dataset used by export scripts, not imported by runtime UI
-- `src/data/cookbook-types.ts` — shared TypeScript types without pulling the full dataset into the browser bundle
+- `src/data/cookbook-types.ts` — shared TypeScript types (Automation and Prompt include optional `addedDate`)
 - `src/lib/data-loader.ts` — client-side loader for `/data/manifest.json` and per-type JSON files
+- `src/lib/idea-slugs.ts` — canonical slug + path helpers used everywhere we link to a detail page
+- `src/lib/is-new.ts` — the 30-day freshness check used by the badge and `/whats-new`
 - `public/data/*.json` — runtime recipe data split by type for faster loading
 - `src/App.tsx` — simplified routing (cookbook only)
 - `server.ts` — minimal Bun + Hono + Vite host; no run proxy

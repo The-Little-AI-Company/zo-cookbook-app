@@ -4,6 +4,7 @@ import IdeaDetailPage from "./pages/idea-detail";
 import FAQPage from "./pages/faq";
 import ChangelogPage from "./pages/changelog";
 import BlogPage from "./pages/blog";
+import WhatsNewPage from "./pages/whats-new";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<CookbookApp />} />
         <Route path="/ideas/:type/:slug" element={<IdeaDetailPage />} />
+        <Route path="/whats-new" element={<WhatsNewPage />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/changelog" element={<ChangelogPage />} />
         <Route path="/blog" element={<BlogPage />} />
