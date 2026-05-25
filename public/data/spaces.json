@@ -5,7 +5,7 @@
     "route": "/",
     "type": "Page",
     "visibility": "public",
-    "description": "Your homepage shifts its color palette, typography weight, and greeting text based on the time of day in the visitor's timezone. Dawn gets warm ambers and a soft \"good morning,\" midnight gets deep indigo and \"you're up late.\" Not a gimmick — it makes your personal site feel alive.",
+    "description": "Your homepage shifts its color palette, typography weight, and greeting text based on the time of day in the visitor's timezone. Dawn gets warm ambers and a soft \"good morning,\" midnight gets deep indigo and \"you're up late.\" Not a gimmick \u2014 it makes your personal site feel alive.",
     "keyTech": "`useEffect` with `new Date().getHours()`, CSS custom properties for theme switching, Tailwind arbitrary values for palette injection."
   },
   {
@@ -14,7 +14,7 @@
     "route": "/now",
     "type": "Page + API",
     "visibility": "public",
-    "description": "A public `/now` page (à la nownownow.com) that pulls its content from a markdown file in your workspace (`/home/workspace/Persona/now.md`). An API route reads the file at request time, so you update the markdown and the page reflects it instantly. Shows what you're working on, reading, listening to, and thinking about.",
+    "description": "A public `/now` page (\u00e0 la nownownow.com) that pulls its content from a markdown file in your workspace (`/home/workspace/Persona/now.md`). An API route reads the file at request time, so you update the markdown and the page reflects it instantly. Shows what you're working on, reading, listening to, and thinking about.",
     "keyTech": "API route uses `Bun.file()` to read workspace markdown, page fetches from `/api/now` and renders with a simple markdown-to-JSX parser."
   },
   {
@@ -41,7 +41,7 @@
     "route": "/webring",
     "type": "Both",
     "visibility": "public",
-    "description": "Brings back the webring. A page shows the ring members (pulled from a shared JSON file or API), with \"← Previous\" and \"Next →\" navigation. The API route (`/api/webring`) returns the ring data as JSON so other members can consume it. You maintain your segment of the ring in a workspace file.",
+    "description": "Brings back the webring. A page shows the ring members (pulled from a shared JSON file or API), with \"\u2190 Previous\" and \"Next \u2192\" navigation. The API route (`/api/webring`) returns the ring data as JSON so other members can consume it. You maintain your segment of the ring in a workspace file.",
     "keyTech": "API reads a local `webring.json` with member URLs, page uses `useEffect` to fetch and render the ring with navigation links that redirect to adjacent members."
   },
   {
@@ -50,7 +50,7 @@
     "route": "/tip",
     "type": "Page",
     "visibility": "public",
-    "description": "A minimal, beautiful tip page with preset amounts ($3, $5, $10) and a custom amount field. Each button creates a Stripe Checkout session via an API route and redirects the visitor to pay. A thank-you page shows after successful payment. No storefront overhead — just a direct way for people to support your work.",
+    "description": "A minimal, beautiful tip page with preset amounts ($3, $5, $10) and a custom amount field. Each button creates a Stripe Checkout session via an API route and redirects the visitor to pay. A thank-you page shows after successful payment. No storefront overhead \u2014 just a direct way for people to support your work.",
     "keyTech": "Stripe SDK (`new Stripe(process.env.STRIPE_SECRET_KEY)`), `/api/tip` creates checkout sessions with `mode: 'payment'`, success/cancel URL redirects."
   },
   {
@@ -68,21 +68,21 @@
     "route": "/tools/palette",
     "type": "Both",
     "visibility": "public",
-    "description": "Upload an image, and the page extracts the dominant 5–8 colors using quantization. Shows the palette as swatches with hex/RGB/HSL values, a CSS variables snippet, and a Tailwind config snippet. The API route handles the image processing server-side.",
+    "description": "Upload an image, and the page extracts the dominant 5\u20138 colors using quantization. Shows the palette as swatches with hex/RGB/HSL values, a CSS variables snippet, and a Tailwind config snippet. The API route handles the image processing server-side.",
     "keyTech": "API route uses ImageMagick via `Bun.spawn([\"convert\", ...])` to extract dominant colors with `-colors 8 -format '%c' histogram:info:`), page renders swatches and copy-to-clipboard buttons."
   },
   {
     "id": 9,
-    "name": "Markdown Résumé with PDF Export",
+    "name": "Markdown R\u00e9sum\u00e9 with PDF Export",
     "route": "/resume",
     "type": "Both",
     "visibility": "public",
-    "description": "Your résumé lives as a markdown file in your workspace. The page route renders it with typographic care — proper hierarchy, print-optimized CSS, and a \"Download PDF\" button. The API route uses Pandoc to convert the markdown to PDF on the fly and streams it back.",
+    "description": "Your r\u00e9sum\u00e9 lives as a markdown file in your workspace. The page route renders it with typographic care \u2014 proper hierarchy, print-optimized CSS, and a \"Download PDF\" button. The API route uses Pandoc to convert the markdown to PDF on the fly and streams it back.",
     "keyTech": "API reads `/home/workspace/Documents/resume.md`, uses `Bun.spawn([\"pandoc\", ...])` to generate PDF, page renders the markdown with `@media print` styles and a download link to the API."
   },
   {
     "id": 10,
-    "name": "Webhook Relay for GitHub → Telegram",
+    "name": "Webhook Relay for GitHub \u2192 Telegram",
     "route": "/api/github-webhook",
     "type": "API",
     "visibility": "public",
@@ -95,7 +95,7 @@
     "route": "/go/:slug",
     "type": "API",
     "visibility": "public",
-    "description": "A URL shortener backed by a JSON file in your workspace. Hit `yourhandle.zo.space/go/gh` and get redirected to your GitHub. An authenticated API route at `/api/links` lets you add/remove/list shortened URLs. The JSON file is your database — no external dependencies.",
+    "description": "A URL shortener backed by a JSON file in your workspace. Hit `yourhandle.zo.space/go/gh` and get redirected to your GitHub. An authenticated API route at `/api/links` lets you add/remove/list shortened URLs. The JSON file is your database \u2014 no external dependencies.",
     "keyTech": "Dynamic `/:slug` route reads `links.json`, returns 302 redirect. CRUD API route with bearer auth for management. `Map` lookup for O(1) resolution."
   },
   {
@@ -114,7 +114,7 @@
     "type": "Both",
     "visibility": "public",
     "description": "Type any URL or text, get an instant QR code rendered as SVG. Customizable size, error correction level, and foreground/background colors. The API route generates the QR and returns SVG, the page provides the UI with live preview and download button.",
-    "keyTech": "`qrcode` generation via a lightweight algorithm in TypeScript (no npm needed — QR encoding is well-documented), SVG path output, page uses controlled inputs with live `useEffect` regeneration."
+    "keyTech": "`qrcode` generation via a lightweight algorithm in TypeScript (no npm needed \u2014 QR encoding is well-documented), SVG path output, page uses controlled inputs with live `useEffect` regeneration."
   },
   {
     "id": 14,
@@ -131,7 +131,7 @@
     "route": "/garden/:slug",
     "type": "Both",
     "visibility": "public",
-    "description": "A public digital garden where each page is a markdown file in `/home/workspace/Projects/garden/`. The dynamic `:slug` route loads the corresponding `.md` file. Supports `[[wiki-links]]` between notes — the renderer converts them to internal links. An index page at `/garden` lists all notes sorted by last modified.",
+    "description": "A public digital garden where each page is a markdown file in `/home/workspace/Projects/garden/`. The dynamic `:slug` route loads the corresponding `.md` file. Supports `[[wiki-links]]` between notes \u2014 the renderer converts them to internal links. An index page at `/garden` lists all notes sorted by last modified.",
     "keyTech": "API reads workspace files with `Bun.file()`, regex replaces `[[links]]` with anchor tags, `/api/garden/index` uses `readdir` to list files with `stat` for modification times."
   },
   {
@@ -140,7 +140,7 @@
     "route": "/api/og",
     "type": "API",
     "visibility": "public",
-    "description": "Pass `?title=Hello&subtitle=World&theme=dark` and get back a 1200×630 PNG suitable for social sharing. Uses ImageMagick to compose text onto a template background. Now every blog post, project, or page you share has a branded, dynamic preview image instead of a blank card.",
+    "description": "Pass `?title=Hello&subtitle=World&theme=dark` and get back a 1200\u00d7630 PNG suitable for social sharing. Uses ImageMagick to compose text onto a template background. Now every blog post, project, or page you share has a branded, dynamic preview image instead of a blank card.",
     "keyTech": "`Bun.spawn([\"convert\", ...])` with ImageMagick's `-annotate` for text rendering, `-resize` for dimensions, query param parsing for customization, returns image/png response."
   },
   {
@@ -158,7 +158,7 @@
     "route": "/subscribe",
     "type": "Both",
     "visibility": "public",
-    "description": "A clean email signup form for a newsletter or course. On submit, the API route validates the email, appends it to a subscriber list in the workspace, and triggers a Zo scheduled agent to send the first drip email via Gmail. No Mailchimp needed — it's all on your server.",
+    "description": "A clean email signup form for a newsletter or course. On submit, the API route validates the email, appends it to a subscriber list in the workspace, and triggers a Zo scheduled agent to send the first drip email via Gmail. No Mailchimp needed \u2014 it's all on your server.",
     "keyTech": "API appends to `subscribers.jsonl`, calls `/zo/ask` to trigger a welcome email via Gmail tools, page uses `useState` for form state and a success/error message after submission."
   },
   {
@@ -203,7 +203,7 @@
     "route": "/weather",
     "type": "Both",
     "visibility": "private",
-    "description": "A private weather dashboard pulling data from a free weather API (Open-Meteo, no key needed). Shows current conditions, 7-day forecast, and sunrise/sunset for Salmon, Idaho (or whatever you configure). Minimal, glanceable design — not a cluttered weather app.",
+    "description": "A private weather dashboard pulling data from a free weather API (Open-Meteo, no key needed). Shows current conditions, 7-day forecast, and sunrise/sunset for Salmon, Idaho (or whatever you configure). Minimal, glanceable design \u2014 not a cluttered weather app.",
     "keyTech": "API fetches from `api.open-meteo.com` with lat/long params, caches for 30 minutes in a workspace temp file, page renders with weather-appropriate icons from lucide-react (Sun, Cloud, CloudRain, etc.)."
   },
   {
@@ -212,7 +212,7 @@
     "route": "/tools/rate",
     "type": "Page",
     "visibility": "public",
-    "description": "Input your target annual income, desired vacation weeks, hours per week, and overhead percentage. It calculates your minimum hourly rate, day rate, weekly rate, and project rate (with a profit margin slider). Shows the math transparently. Useful for other freelancers — shareable as a public tool.",
+    "description": "Input your target annual income, desired vacation weeks, hours per week, and overhead percentage. It calculates your minimum hourly rate, day rate, weekly rate, and project rate (with a profit margin slider). Shows the math transparently. Useful for other freelancers \u2014 shareable as a public tool.",
     "keyTech": "Pure client-side calculation with `useState` for inputs, `useMemo` for derived values, range sliders for hours and margin, formatted currency output."
   },
   {
@@ -239,7 +239,7 @@
     "route": "/changelog",
     "type": "Both",
     "visibility": "public",
-    "description": "A public log of notable things you've shipped, learned, or changed — structured as dated entries with tags (shipped, learned, personal, meta). Reads from a `changelog.jsonl` file in your workspace. Each entry has a date, title, body, and tags. Shows your trajectory over time.",
+    "description": "A public log of notable things you've shipped, learned, or changed \u2014 structured as dated entries with tags (shipped, learned, personal, meta). Reads from a `changelog.jsonl` file in your workspace. Each entry has a date, title, body, and tags. Shows your trajectory over time.",
     "keyTech": "API reads and filters `changelog.jsonl`, supports `?tag=` query param, page renders entries chronologically with tag chips and a simple date grouping header."
   },
   {
@@ -275,7 +275,7 @@
     "route": "/health",
     "type": "Both",
     "visibility": "private",
-    "description": "A private dashboard tracking health metrics you log via SMS or a workspace JSON file. Shows medication adherence, seizure log, sleep quality, energy levels, and notes — all as simple time-series visualizations. Designed for someone who needs to manage energy and health proactively, not reactively.",
+    "description": "A private dashboard tracking health metrics you log via SMS or a workspace JSON file. Shows medication adherence, seizure log, sleep quality, energy levels, and notes \u2014 all as simple time-series visualizations. Designed for someone who needs to manage energy and health proactively, not reactively.",
     "keyTech": "API reads `health-log.jsonl`, page renders sparkline SVGs for trends, color-coded calendar cells for adherence, `useMemo` for streak calculations."
   },
   {
@@ -302,7 +302,7 @@
     "route": "/journal",
     "type": "Both",
     "visibility": "private",
-    "description": "A private, scrollable timeline of short journal entries. Each entry is 1–3 sentences with a timestamp. Reads from your existing journal files at `/home/workspace/Persona/Journal/`. The design feels like a private Twitter — minimal, chronological, focused on the words.",
+    "description": "A private, scrollable timeline of short journal entries. Each entry is 1\u20133 sentences with a timestamp. Reads from your existing journal files at `/home/workspace/Persona/Journal/`. The design feels like a private Twitter \u2014 minimal, chronological, focused on the words.",
     "keyTech": "API reads and parses journal markdown files, extracts entries by time dividers, page renders as a vertical timeline with `border-l` styling and relative date grouping."
   },
   {
@@ -320,7 +320,7 @@
     "route": "/tools/meeting-cost",
     "type": "Page",
     "visibility": "public",
-    "description": "Input the number of attendees, average salary tier, and meeting duration. It calculates the real cost of that meeting in dollars — total, per-minute, and annualized if recurring. A sobering tool for anyone who's ever sat through a meeting that should have been an email.",
+    "description": "Input the number of attendees, average salary tier, and meeting duration. It calculates the real cost of that meeting in dollars \u2014 total, per-minute, and annualized if recurring. A sobering tool for anyone who's ever sat through a meeting that should have been an email.",
     "keyTech": "`useState` for inputs (attendees, salary band dropdown, duration), `useMemo` for cost derivation, visual comparison (\"this meeting costs as much as...\")."
   },
   {
@@ -338,7 +338,7 @@
     "route": "/drop",
     "type": "Both",
     "visibility": "public",
-    "description": "A public file upload page where anyone can drop files for you — up to a size limit you set. Files land in a workspace directory. An API route handles `multipart/form-data` uploads and writes to `/home/workspace/Inbox/drops/`. Optional: notify you via Telegram when a file arrives.",
+    "description": "A public file upload page where anyone can drop files for you \u2014 up to a size limit you set. Files land in a workspace directory. An API route handles `multipart/form-data` uploads and writes to `/home/workspace/Inbox/drops/`. Optional: notify you via Telegram when a file arrives.",
     "keyTech": "API handles multipart parsing with `c.req.parseBody()`, writes to workspace with `Bun.write()`, size validation, page uses drag-and-drop with `onDragOver`/`onDrop` handlers."
   },
   {
@@ -365,7 +365,7 @@
     "route": "/writing/:slug",
     "type": "Both",
     "visibility": "public",
-    "description": "Mirrors your Substack posts on your own domain. A scheduled agent periodically fetches your Substack RSS feed, downloads new posts as markdown, and stores them in the workspace. The zo.space page renders them with your own typography and design — not Substack's. You own the presentation.",
+    "description": "Mirrors your Substack posts on your own domain. A scheduled agent periodically fetches your Substack RSS feed, downloads new posts as markdown, and stores them in the workspace. The zo.space page renders them with your own typography and design \u2014 not Substack's. You own the presentation.",
     "keyTech": "API reads from `/home/workspace/Projects/writing/posts/`, dynamic `/:slug` routing, markdown rendering, index page at `/writing` with post list sorted by date."
   },
   {
@@ -383,7 +383,7 @@
     "route": "/api/ping",
     "type": "API",
     "visibility": "public",
-    "description": "Returns `{\"status\":\"ok\",\"timestamp\":\"...\",\"uptime\":12345}` — a health check endpoint for external monitoring services (UptimeRobot, Healthchecks.io, etc.). Also checks that your workspace is readable and returns basic system stats. Two lines of code, permanently useful.",
+    "description": "Returns `{\"status\":\"ok\",\"timestamp\":\"...\",\"uptime\":12345}` \u2014 a health check endpoint for external monitoring services (UptimeRobot, Healthchecks.io, etc.). Also checks that your workspace is readable and returns basic system stats. Two lines of code, permanently useful.",
     "keyTech": "`process.uptime()`, `Date.now()`, optional `Bun.file()` existence check on a workspace canary file to verify filesystem health."
   },
   {
@@ -392,7 +392,7 @@
     "route": "/tools/json",
     "type": "Page",
     "visibility": "public",
-    "description": "Paste messy JSON, get it pretty-printed with syntax highlighting. Shows validation errors with line numbers if the JSON is malformed. Includes a minify toggle, a tree view, and a path copier (click any key to copy its JSONPath). Entirely client-side — nothing leaves the browser.",
+    "description": "Paste messy JSON, get it pretty-printed with syntax highlighting. Shows validation errors with line numbers if the JSON is malformed. Includes a minify toggle, a tree view, and a path copier (click any key to copy its JSONPath). Entirely client-side \u2014 nothing leaves the browser.",
     "keyTech": "`JSON.parse()` with try/catch for validation, `JSON.stringify(data, null, 2)` for formatting, recursive tree component with `useState` for expand/collapse, click-to-copy with `navigator.clipboard`."
   },
   {
@@ -446,7 +446,7 @@
     "route": "/api/usage",
     "type": "API",
     "visibility": "private",
-    "description": "Tracks how many times your other API routes get hit. Middleware-style: each API route calls a shared `logUsage(routePath)` function that appends to a JSONL file. This endpoint returns aggregated stats — requests per route per day, top callers by IP, and total monthly usage. Your own analytics without third-party scripts.",
+    "description": "Tracks how many times your other API routes get hit. Middleware-style: each API route calls a shared `logUsage(routePath)` function that appends to a JSONL file. This endpoint returns aggregated stats \u2014 requests per route per day, top callers by IP, and total monthly usage. Your own analytics without third-party scripts.",
     "keyTech": "Shared `logUsage()` function writing to `api-usage.jsonl`, aggregation with `Map` counters, bearer auth, response includes daily/weekly/monthly breakdowns."
   },
   {
@@ -455,7 +455,7 @@
     "route": "/lab/automata",
     "type": "Page",
     "visibility": "public",
-    "description": "Interactive Conway's Game of Life variant where visitors can paint initial states, choose rulesets (Life, Highlife, Seeds, Day & Night), and watch them evolve on a canvas. Preloaded with famous patterns — glider guns, puffers, spaceships. Shares patterns via URL hash encoding.",
+    "description": "Interactive Conway's Game of Life variant where visitors can paint initial states, choose rulesets (Life, Highlife, Seeds, Day & Night), and watch them evolve on a canvas. Preloaded with famous patterns \u2014 glider guns, puffers, spaceships. Shares patterns via URL hash encoding.",
     "keyTech": "`useRef` for canvas, `requestAnimationFrame` loop, `useSearchParams` for pattern sharing, typed arrays for grid state"
   },
   {
@@ -473,7 +473,7 @@
     "route": "/commits",
     "type": "Page",
     "visibility": "public",
-    "description": "Reads a workspace JSON file (populated by a scheduled agent running `git log` across all your repos nightly) and renders a GitHub-style contribution grid — but for ALL your projects, not just GitHub. Hover shows commit messages. Click a day to see that day's work summary.",
+    "description": "Reads a workspace JSON file (populated by a scheduled agent running `git log` across all your repos nightly) and renders a GitHub-style contribution grid \u2014 but for ALL your projects, not just GitHub. Hover shows commit messages. Click a day to see that day's work summary.",
     "keyTech": "`useEffect` + `fetch` to an API route reading `/home/workspace/Records/commit-heatmap.json`, CSS grid for the calendar, `useState` for selected day detail panel"
   },
   {
@@ -482,7 +482,7 @@
     "route": "/colophon",
     "type": "Page",
     "visibility": "public",
-    "description": "A single beautiful page listing every tool, font, color, framework, and service you use to build your stuff — with links, version numbers, and one-sentence opinions on each. The anti-\"uses\" page: opinionated, specific, and updated by editing a workspace markdown file that the page reads via API.",
+    "description": "A single beautiful page listing every tool, font, color, framework, and service you use to build your stuff \u2014 with links, version numbers, and one-sentence opinions on each. The anti-\"uses\" page: opinionated, specific, and updated by editing a workspace markdown file that the page reads via API.",
     "keyTech": "API route parsing `/home/workspace/Persona/colophon.md` with frontmatter, React rendering with typography-forward layout, Instrument Serif + JetBrains Mono pairing"
   },
   {
@@ -500,7 +500,7 @@
     "route": "/wallpaper",
     "type": "Page",
     "visibility": "public",
-    "description": "Generates unique abstract wallpapers using seeded randomness — flow fields, voronoi tessellations, or gradient meshes. Each visit produces a new pattern. Lock a seed you like, pick a resolution (phone, desktop, ultrawide), and download as PNG via canvas `toBlob()`. Visitors can make wallpapers without signing up for anything.",
+    "description": "Generates unique abstract wallpapers using seeded randomness \u2014 flow fields, voronoi tessellations, or gradient meshes. Each visit produces a new pattern. Lock a seed you like, pick a resolution (phone, desktop, ultrawide), and download as PNG via canvas `toBlob()`. Visitors can make wallpapers without signing up for anything.",
     "keyTech": "`<canvas>` with 2D context, seeded PRNG (mulberry32), `useState` for seed/resolution/style controls, `toBlob` + download link generation"
   },
   {
@@ -509,7 +509,7 @@
     "route": "/decide",
     "type": "Page",
     "visibility": "private",
-    "description": "Paste in a list of options (or load saved lists from workspace). Spin a weighted roulette wheel with satisfying CSS animation. Saves decision history to a workspace file so you can review what you decided and when. For the chronically indecisive — restaurants, task priority, what to work on next.",
+    "description": "Paste in a list of options (or load saved lists from workspace). Spin a weighted roulette wheel with satisfying CSS animation. Saves decision history to a workspace file so you can review what you decided and when. For the chronically indecisive \u2014 restaurants, task priority, what to work on next.",
     "keyTech": "CSS `transform: rotate()` with cubic-bezier easing, `useState` for options/weights, API route writing to `/home/workspace/Records/decisions.json`"
   },
   {
@@ -536,7 +536,7 @@
     "route": "/",
     "type": "Page",
     "visibility": "public",
-    "description": "Your homepage shifts its entire color palette based on time of day and day of week. Dawn is warm amber. Midday is crisp white. Evening is deep indigo. Weekends get a looser, more playful layout. Content stays the same — but the vibe changes. Visitors at 2am see a different site than visitors at 2pm.",
+    "description": "Your homepage shifts its entire color palette based on time of day and day of week. Dawn is warm amber. Midday is crisp white. Evening is deep indigo. Weekends get a looser, more playful layout. Content stays the same \u2014 but the vibe changes. Visitors at 2am see a different site than visitors at 2pm.",
     "keyTech": "`new Date()` with timezone offset to `Etc/GMT+7`, CSS custom properties set via `useEffect`, HSL color interpolation between time-of-day keyframes"
   },
   {
@@ -554,7 +554,7 @@
     "route": "/card",
     "type": "Page",
     "visibility": "public",
-    "description": "A digital business card page with your info, styled distinctively — but the real move is the giant QR code that encodes a vCard. Someone scans it at a conference and your contact info drops straight into their phone. No app, no NFC, no \"let me find you on LinkedIn.\" Config lives in a workspace file so you update once, everywhere.",
+    "description": "A digital business card page with your info, styled distinctively \u2014 but the real move is the giant QR code that encodes a vCard. Someone scans it at a conference and your contact info drops straight into their phone. No app, no NFC, no \"let me find you on LinkedIn.\" Config lives in a workspace file so you update once, everywhere.",
     "keyTech": "QR code generation via canvas (qrcode algorithm in-route), vCard 3.0 string encoding, config read from `/home/workspace/Persona/contact.json`"
   },
   {
@@ -572,8 +572,8 @@
     "route": "/color",
     "type": "Page",
     "visibility": "public",
-    "description": "Each day, a deterministic hash of the date picks a color from a curated 365-color palette stored in the route. The entire page is that color — full bleed — with the hex code, a poetic name, and the date in small type at the bottom. Bookmarkable. Shareable. Strangely satisfying to check daily.",
-    "keyTech": "Date string → simple hash → index into color array, `document.body.style`, `useMemo` for hash computation, Fraunces for the color name"
+    "description": "Each day, a deterministic hash of the date picks a color from a curated 365-color palette stored in the route. The entire page is that color \u2014 full bleed \u2014 with the hex code, a poetic name, and the date in small type at the bottom. Bookmarkable. Shareable. Strangely satisfying to check daily.",
+    "keyTech": "Date string \u2192 simple hash \u2192 index into color array, `document.body.style`, `useMemo` for hash computation, Fraunces for the color name"
   },
   {
     "id": 65,
@@ -599,7 +599,7 @@
     "route": "/standup",
     "type": "Both",
     "visibility": "private",
-    "description": "Private page with three text fields: yesterday, today, blockers. Submit and it appends to a dated markdown file in your workspace. Below the form, it shows your last 7 standups. Simple, fast, no Slack thread, no Jira ticket — just the record. Optional: a scheduled agent reads the latest standup and posts it to a Linear comment or sends it via email.",
+    "description": "Private page with three text fields: yesterday, today, blockers. Submit and it appends to a dated markdown file in your workspace. Below the form, it shows your last 7 standups. Simple, fast, no Slack thread, no Jira ticket \u2014 just the record. Optional: a scheduled agent reads the latest standup and posts it to a Linear comment or sends it via email.",
     "keyTech": "`POST /api/standup` writes to `/home/workspace/Records/Standups/YYYY-MM-DD.md`, `GET` reads recent files, React form with `onSubmit`"
   },
   {
@@ -644,7 +644,7 @@
     "route": "/ice",
     "type": "Page",
     "visibility": "public",
-    "description": "\"In Case of Emergency\" — a minimal page with your name, blood type, allergies, medications, emergency contacts, and medical conditions. Designed to be accessed quickly on a phone. No login required (public), high-contrast, large type, works offline once loaded. Link it from your phone's lock screen.",
+    "description": "\"In Case of Emergency\" \u2014 a minimal page with your name, blood type, allergies, medications, emergency contacts, and medical conditions. Designed to be accessed quickly on a phone. No login required (public), high-contrast, large type, works offline once loaded. Link it from your phone's lock screen.",
     "keyTech": "Static data from workspace config, semantic HTML for accessibility, `<meta name=\"theme-color\">` for status bar, minimal CSS for fast load, no JavaScript required for core content"
   },
   {
@@ -662,7 +662,7 @@
     "route": "/focus",
     "type": "Page",
     "visibility": "private",
-    "description": "Full-screen timer with 25/5 pomodoro cycles. No settings bloat — just start. The background color slowly shifts from cool (focus) to warm (break approaching). Plays a gentle tone via Web Audio API when the interval ends. Logs completed pomodoros to a workspace file. Shows your weekly count in the corner.",
+    "description": "Full-screen timer with 25/5 pomodoro cycles. No settings bloat \u2014 just start. The background color slowly shifts from cool (focus) to warm (break approaching). Plays a gentle tone via Web Audio API when the interval ends. Logs completed pomodoros to a workspace file. Shows your weekly count in the corner.",
     "keyTech": "`useEffect` interval, Web Audio API oscillator for notification tone, CSS transition on background HSL, API route logging to `/home/workspace/Records/pomodoros.json`"
   },
   {
@@ -716,7 +716,7 @@
     "route": "/api/feed.xml",
     "type": "API",
     "visibility": "public",
-    "description": "Generates a valid RSS 2.0 XML feed from markdown files in a workspace directory (e.g., `/home/workspace/Writing/`). Anyone can subscribe to your writing in their RSS reader — no Medium, no Substack, no platform. You write markdown files, the feed updates automatically.",
+    "description": "Generates a valid RSS 2.0 XML feed from markdown files in a workspace directory (e.g., `/home/workspace/Writing/`). Anyone can subscribe to your writing in their RSS reader \u2014 no Medium, no Substack, no platform. You write markdown files, the feed updates automatically.",
     "keyTech": "`fs.readdir` + frontmatter parsing, RFC 822 date formatting, XML string construction, `c.header(\"Content-Type\", \"application/rss+xml\")`"
   },
   {
@@ -743,7 +743,7 @@
     "route": "/badge",
     "type": "Page",
     "visibility": "public",
-    "description": "When you're at a conference, set this as your \"digital badge\" — your name, title, one-sentence bio, photo, QR code to your vCard, and links to your projects. Designed to be shown on a phone screen. Update it per event by editing a workspace file. Better than a paper badge with \"JEFF\" in Sharpie.",
+    "description": "When you're at a conference, set this as your \"digital badge\" \u2014 your name, title, one-sentence bio, photo, QR code to your vCard, and links to your projects. Designed to be shown on a phone screen. Update it per event by editing a workspace file. Better than a paper badge with \"JEFF\" in Sharpie.",
     "keyTech": "Config from workspace file, full-viewport mobile-first layout, large type, QR canvas generation, `<meta name=\"apple-mobile-web-app-capable\">`"
   },
   {
@@ -761,7 +761,7 @@
     "route": "/poem",
     "type": "Page",
     "visibility": "public",
-    "description": "A scheduled agent writes one short poem per day — pulled from a theme list or inspired by the current weather/season — and saves it to workspace. The page renders today's poem in beautiful typography on a solid color background. Archive accessible via `/poem/archive`. An automated poetry installation.",
+    "description": "A scheduled agent writes one short poem per day \u2014 pulled from a theme list or inspired by the current weather/season \u2014 and saves it to workspace. The page renders today's poem in beautiful typography on a solid color background. Archive accessible via `/poem/archive`. An automated poetry installation.",
     "keyTech": "Agent uses Zo API for generation + `web_search` for weather context, writes to `/home/workspace/Records/poems/YYYY-MM-DD.md`, Newsreader at 2.5rem, single-poem-per-page layout"
   },
   {
@@ -770,7 +770,7 @@
     "route": "/tools/whois",
     "type": "Both",
     "visibility": "public",
-    "description": "Enter a domain, see registration date, expiry, registrar, nameservers, and status codes — parsed into readable format instead of raw WHOIS dump. API returns structured JSON. Handy for checking if a domain you want is squatted, when your own domains expire, or vetting a sketchy link.",
+    "description": "Enter a domain, see registration date, expiry, registrar, nameservers, and status codes \u2014 parsed into readable format instead of raw WHOIS dump. API returns structured JSON. Handy for checking if a domain you want is squatted, when your own domains expire, or vetting a sketchy link.",
     "keyTech": "`child_process.exec(\"whois domain\")` in API route, regex parsing of WHOIS output into structured fields, React table display"
   },
   {
@@ -788,7 +788,7 @@
     "route": "/graveyard",
     "type": "Page",
     "visibility": "public",
-    "description": "A public page listing project ideas you had but killed — with a one-paragraph obituary for each explaining what it was, why you killed it, and what you learned. Reverse-portfolio energy. Shows you think critically about what to build, not just what you ship. Reads from a workspace markdown file.",
+    "description": "A public page listing project ideas you had but killed \u2014 with a one-paragraph obituary for each explaining what it was, why you killed it, and what you learned. Reverse-portfolio energy. Shows you think critically about what to build, not just what you ship. Reads from a workspace markdown file.",
     "keyTech": "API route parsing `/home/workspace/Persona/graveyard.md`, each entry as a `## heading` with metadata in frontmatter-style block, tombstone-inspired card design"
   },
   {
@@ -815,8 +815,8 @@
     "route": "/",
     "type": "Page",
     "visibility": "public",
-    "description": "Your homepage auto-switches its visual theme based on season — not just colors, but layout emphasis and featured content. Spring highlights new projects. Summer shows your availability. Fall features your writing. Winter goes minimal and reflective. Reads season from date + a config file mapping season to featured content.",
-    "keyTech": "`Date` month → season mapping, config from workspace, CSS custom properties per season, `useEffect` for theme application, content blocks conditionally rendered"
+    "description": "Your homepage auto-switches its visual theme based on season \u2014 not just colors, but layout emphasis and featured content. Spring highlights new projects. Summer shows your availability. Fall features your writing. Winter goes minimal and reflective. Reads season from date + a config file mapping season to featured content.",
+    "keyTech": "`Date` month \u2192 season mapping, config from workspace, CSS custom properties per season, `useEffect` for theme application, content blocks conditionally rendered"
   },
   {
     "id": 92,
@@ -869,7 +869,7 @@
     "route": "/changelog",
     "type": "Page",
     "visibility": "public",
-    "description": "A public page documenting changes to your life and work — new projects launched, skills learned, tools adopted, cities visited, milestones hit. Not a blog. Not a resume. A versioned log of your own evolution. Entries from a workspace markdown file, rendered as a vertical timeline with version numbers.",
+    "description": "A public page documenting changes to your life and work \u2014 new projects launched, skills learned, tools adopted, cities visited, milestones hit. Not a blog. Not a resume. A versioned log of your own evolution. Entries from a workspace markdown file, rendered as a vertical timeline with version numbers.",
     "keyTech": "API route parsing `/home/workspace/Persona/changelog.md`, semver-style version numbers (v2026.4.1), timeline CSS with alternating left/right cards, Syne for headings"
   },
   {
@@ -878,7 +878,7 @@
     "route": "/tools/fingerprint",
     "type": "Page",
     "visibility": "public",
-    "description": "Shows visitors exactly what their browser reveals about them: user agent, screen resolution, timezone, installed fonts (via canvas fingerprinting), WebGL renderer, language, do-not-track status, and a rough uniqueness estimate. Educational — makes tracking tangible. No data is stored or sent anywhere.",
+    "description": "Shows visitors exactly what their browser reveals about them: user agent, screen resolution, timezone, installed fonts (via canvas fingerprinting), WebGL renderer, language, do-not-track status, and a rough uniqueness estimate. Educational \u2014 makes tracking tangible. No data is stored or sent anywhere.",
     "keyTech": "`navigator` API, `canvas.getContext(\"2d\")` for font detection, `WebGLRenderingContext.getParameter` for GPU info, all computation client-side, results never leave the browser"
   },
   {
@@ -896,7 +896,757 @@
     "route": "/404 (catch-all)",
     "type": "Page",
     "visibility": "public",
-    "description": "Instead of a generic \"page not found,\" this page shows a random interesting fact, a random project from your portfolio, or a random poem from your poem archive — different each visit. Includes a search bar and sitemap links. Turns a dead end into a reason to stay. The page nobody means to visit but everyone remembers.",
+    "description": "Instead of a generic \"page not found,\" this page shows a random interesting fact, a random project from your portfolio, or a random poem from your poem archive \u2014 different each visit. Includes a search bar and sitemap links. Turns a dead end into a reason to stay. The page nobody means to visit but everyone remembers.",
     "keyTech": "`Math.random()` selection from content arrays (fetched via API from workspace files), `useEffect` for random selection on mount, search input linking to `/map`, warm color palette distinct from main site"
+  },
+  {
+    "id": 101,
+    "name": "Fridge Door Note",
+    "route": "/fridge-door-note",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "A single sticky note for the household. Whoever opens it last writes what is gone. A text fires when nothing has been written in three days.",
+    "keyTech": "React, Hono, SQLite, Twilio API",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 102,
+    "name": "The Sunday Reset Page",
+    "route": "/sunday-reset",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A Sunday-only checklist that wipes every week. Laundry, meal prep, calendar peek, and one small joy. Hidden the other six days.",
+    "keyTech": "React, Tailwind, localStorage",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 103,
+    "name": "Babysitter Briefing Sheet",
+    "route": "/babysitter-briefing",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A printable one-pager with bedtime, allergies, the neighbor's number, and where the snacks live. Share by link, nothing to install.",
+    "keyTech": "React, Tailwind, print stylesheet",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 104,
+    "name": "Pet Medication Calendar",
+    "route": "/pet-meds",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Tracks every pill and dose for each pet. Marks today, warns about refills, keeps a history the vet can actually read.",
+    "keyTech": "React, Hono, SQLite, Cron",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 105,
+    "name": "The Did I Take My Meds Log",
+    "route": "/meds-log",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "One tap per pill. Shows a green dot for today and a grid for the month, so you stop second-guessing at 9pm.",
+    "keyTech": "React, Hono, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 106,
+    "name": "Recipe Doubler",
+    "route": "/recipe-doubler",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Paste a recipe, pick a multiplier, get clean fractions back instead of 1.3333 cups. Handles metric too.",
+    "keyTech": "React, Tailwind, regex parser",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 107,
+    "name": "The Lunch Decision Wheel",
+    "route": "/lunch-wheel",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A spinning wheel of the six places you actually order from. Removes the option you picked last time so you stop landing on the same thing.",
+    "keyTech": "React, Canvas API, localStorage",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 108,
+    "name": "Dog Walk Log",
+    "route": "/dog-walks",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Hit one button when you leave, another when you get back. Builds a weekly map of walk minutes and gentle nudges when the streak slips.",
+    "keyTech": "React, Hono, SQLite, Geolocation API",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 109,
+    "name": "The Tuesday Dinner Rotation",
+    "route": "/tuesday-dinners",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A six-week rotation of dinners the family eats without arguing. Shows tonight, prints the grocery list, retires anything that flopped.",
+    "keyTech": "React, Tailwind, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 110,
+    "name": "Permission Slip Stash",
+    "route": "/permission-slips",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "A drop box for school forms. Snap a photo, get a clean PDF and a due date, then a text the morning it has to go back.",
+    "keyTech": "React, Hono, Tesseract OCR, Twilio API",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 111,
+    "name": "The Drawer Inventory",
+    "route": "/drawer-inventory",
+    "type": "Page",
+    "visibility": "private",
+    "description": "One photo per drawer, tagged with what is inside. Search passport and find out it lives in the kitchen junk drawer.",
+    "keyTech": "React, Hono, SQLite, file uploads",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 112,
+    "name": "School Pickup Roster",
+    "route": "/pickup-roster",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Today's pickup driver, today's pickup time, today's after-school activity. One screen the whole family can read at a glance.",
+    "keyTech": "React, Tailwind, Google Calendar API",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 113,
+    "name": "The Grocery List That Remembers Last Week",
+    "route": "/grocery-list",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Type the usual and it pre-fills with what you bought last Saturday. Cross items off on your phone, add new ones, never lose the list.",
+    "keyTech": "React, Hono, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 114,
+    "name": "Birthday Wall for People You Forget",
+    "route": "/birthday-wall",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Pulls birthdays from Google Contacts and shows the next four. Texts you the morning of, with a one-line draft message to copy.",
+    "keyTech": "React, Hono, Google People API, Cron",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 115,
+    "name": "The Where Did I Park Tracker",
+    "route": "/where-i-parked",
+    "type": "Page",
+    "visibility": "private",
+    "description": "One big button. Tap it when you get out of the car. Tap Find Car to see the spot on a map and the photo you took.",
+    "keyTech": "React, Geolocation API, Camera API",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 116,
+    "name": "Houseplant Mood Diary",
+    "route": "/plant-mood",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "For each plant: last watered, current mood (drooping, thriving, dramatic), and a short log of what you tried. Less of a tracker, more of a journal.",
+    "keyTech": "React, Hono, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 117,
+    "name": "Library Book Due Date Page",
+    "route": "/library-books",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Scan a barcode, set the due date, get a reminder two days before. Shows which books match which kid's reading level.",
+    "keyTech": "React, Hono, ZXing barcode scanner, Cron",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 118,
+    "name": "The Spice Rack Audit",
+    "route": "/spice-audit",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A grid of every spice you own with a still smells like cumin toggle. Flags anything older than a year so you stop sprinkling sawdust.",
+    "keyTech": "React, Tailwind, localStorage",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 119,
+    "name": "Allowance Tracker for Kids",
+    "route": "/allowance",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "One row per kid, one column per chore. The kids check off their own boxes, payday math happens on Sunday automatically.",
+    "keyTech": "React, Hono, SQLite, Cron",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 120,
+    "name": "Holiday Card Address Book",
+    "route": "/holiday-cards",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Last year's list, who sent one back, who you forgot, and a print-ready label sheet for this year. Quiet from January to October.",
+    "keyTech": "React, Hono, SQLite, CSS print",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 121,
+    "name": "Car Maintenance Memory",
+    "route": "/car-memory",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Last oil change, last tire rotation, last weird noise. The page that finally answers when did we get the brakes done.",
+    "keyTech": "React, Hono, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 122,
+    "name": "Subscriptions I Forgot About",
+    "route": "/subscriptions",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "A wall of every recurring charge pulled from your inbox. Sorts by haven't opened in 90 days so cancelling becomes a Saturday hobby.",
+    "keyTech": "React, Hono, Gmail API, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 123,
+    "name": "The Refrigerator Calendar",
+    "route": "/fridge-calendar",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A full-screen week view designed to live on a kitchen tablet. Pulls from Google Calendar, big text, no chrome, readable from across the room.",
+    "keyTech": "React, Tailwind, Google Calendar API",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 124,
+    "name": "The OAuth Token Funeral",
+    "route": "/token-funeral",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Lists every API token stashed in env vars, sorted by how soon it expires. Sends a heads-up two weeks before each one dies.",
+    "keyTech": "React, Hono, SQLite, Cron",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 125,
+    "name": "PR Idle Time Wall",
+    "route": "/pr-idle",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Every open pull request across your repos, sorted by hours since last activity. The ones past three days turn red and start blinking.",
+    "keyTech": "React, Tailwind, GitHub API",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 126,
+    "name": "Build Time Leaderboard",
+    "route": "/build-times",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Tracks how long each CI run takes. Charts the trend per branch and shouts when a build slips past the ten minute line.",
+    "keyTech": "React, Hono, GitHub Actions API, Recharts",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 127,
+    "name": "The Dependency Bump Diary",
+    "route": "/dep-bumps",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Every package update across your projects in one feed. Major bumps get a yellow tag, breaking changes get a red one, you decide what to read.",
+    "keyTech": "React, Tailwind, npm registry API, GitHub API",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 128,
+    "name": "Customer Quote Wall",
+    "route": "/customer-quotes",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "A wall of nice things customers said, pulled from your support inbox. Click any to copy the quote with attribution into a slide deck.",
+    "keyTech": "React, Hono, Gmail API, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 129,
+    "name": "The Pricing Variant Switcher",
+    "route": "/pricing-variant",
+    "type": "Page + API",
+    "visibility": "public",
+    "description": "Serves a different pricing page to half your visitors, logs conversion events, and tells you when one variant is statistically ahead.",
+    "keyTech": "React, Hono, SQLite, cookies, Stripe API",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 130,
+    "name": "Database Backup Status Board",
+    "route": "/backup-board",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Green dot when last night's backup ran, red dot when it did not. Charts backup size trend so you notice when something stopped being included.",
+    "keyTech": "React, Hono, SQLite, S3 API, Cron",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 131,
+    "name": "The Failed Webhook Bin",
+    "route": "/failed-webhooks",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Catches webhooks your app dropped, stores the full payload, and gives you a one-click retry button. Stripe, GitHub, Linear, anyone.",
+    "keyTech": "React, Hono, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 132,
+    "name": "Stripe MRR Mirror",
+    "route": "/mrr-mirror",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Today's MRR, this month's change, the five newest customers, the three most recent churns. Loads in under a second from a cached snapshot.",
+    "keyTech": "React, Hono, Stripe API, SQLite, Cron",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 133,
+    "name": "The Beta Tester Invite Door",
+    "route": "/beta-door",
+    "type": "Page + API",
+    "visibility": "public",
+    "description": "A waitlist page that hands out one invite code per day. Tracks who actually showed up and quietly demotes the ones who never logged in.",
+    "keyTech": "React, Hono, SQLite, Resend API",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 134,
+    "name": "API Rate Limit Dashboard",
+    "route": "/rate-limits",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "One row per third-party API you depend on. Shows current usage against the cap, projected exhaustion time, and which endpoint is the loudest.",
+    "keyTech": "React, Hono, SQLite, Recharts",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 135,
+    "name": "Open Source Star History Chart",
+    "route": "/star-history",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Paste a repo URL, get a clean star-over-time chart. Compare up to three repos side by side without the noisy hosted versions.",
+    "keyTech": "React, GitHub GraphQL API, Recharts",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 136,
+    "name": "The Postmortem Template Wall",
+    "route": "/postmortems",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "One folder of post-incident docs in a consistent template. Tagged by service, severity, and root cause so the same fire stays put out.",
+    "keyTech": "React, Hono, SQLite, Markdown",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 137,
+    "name": "Indie Launch Day Page",
+    "route": "/launch-day",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A single page that flips from soon to live the moment your countdown hits zero. Pulls early signups from a Stripe waitlist link.",
+    "keyTech": "React, Tailwind, Stripe API, Cron",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 138,
+    "name": "The Sentry Error Triage Board",
+    "route": "/error-triage",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Pulls open errors from your error tracker, groups them by file, and lets you assign owners with one click. Quiet when nothing is on fire.",
+    "keyTech": "React, Hono, Sentry API, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 139,
+    "name": "Sunday Week-Ahead Glance",
+    "route": "/sunday-glance",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A single calm page that pulls next week from Google Calendar and shows it as one quiet column. No notifications, no badges, just the shape of the week.",
+    "keyTech": "React, Hono, Google Calendar API, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 140,
+    "name": "Fridge Whiteboard",
+    "route": "/fridge",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A shared family note that anyone in the household can edit from their phone. Big text, autosaves, no login fuss.",
+    "keyTech": "React, Hono, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 141,
+    "name": "The Pantry Ledger",
+    "route": "/pantry",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A tap-to-decrement list of what's actually in the kitchen. Click a can of beans, it goes down by one. Empty items float to a shopping section.",
+    "keyTech": "React, SQLite, Hono, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 142,
+    "name": "Inbox Triage Mailbox",
+    "route": "/inbox-triage",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Pulls the last twenty Gmail threads and sorts them into Reply, Read, Trash piles with one keystroke per email. Apply changes in a batch at the end.",
+    "keyTech": "React, Hono, Gmail API, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 143,
+    "name": "The Refund Tracker",
+    "route": "/refunds",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A small ledger for refunds you are owed but have not received. Reminds you on day seven and day fourteen so nothing quietly disappears.",
+    "keyTech": "React, SQLite, Cron, Hono",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 144,
+    "name": "Birthday Radar",
+    "route": "/birthday-radar",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Reads contacts and shows the next eight birthdays as a horizon line. Tap one to draft a Gmail with a starting sentence already written.",
+    "keyTech": "React, Hono, Gmail API, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 145,
+    "name": "The Grandma Letter Page",
+    "route": "/letters",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A page that nudges you once a month to write one paragraph to someone who matters. Saves the letters as a private archive you can print later.",
+    "keyTech": "React, SQLite, Cron, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 146,
+    "name": "Closet Inventory Page",
+    "route": "/closet",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Snap a photo, add a one-word tag, and your wardrobe lives in a scrollable grid. Filter by color when you cannot decide what to wear.",
+    "keyTech": "React, Hono, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 147,
+    "name": "The Subscription Wall",
+    "route": "/subscription-wall",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Every recurring charge you pay, listed by monthly cost with renewal dates. A red dot appears next to anything you have not opened in 60 days.",
+    "keyTech": "React, SQLite, Hono, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 148,
+    "name": "Tonight's One Thing",
+    "route": "/one-thing",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A single input every morning that asks for the one thing that would make tonight feel okay. Saves a quiet history of those answers.",
+    "keyTech": "React, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 149,
+    "name": "Doctor Visit Notes",
+    "route": "/doctor-notes",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A simple form you fill in the parking lot after an appointment. Date, doctor, three things they said, what you decided. Easy to read later.",
+    "keyTech": "React, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 150,
+    "name": "The Borrowed-Things Ledger",
+    "route": "/borrowed",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Track who has your stuff and what you have of theirs. Two columns, no shame, gentle reminders after a month.",
+    "keyTech": "React, SQLite, Cron, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 151,
+    "name": "Family Recipe Card Wall",
+    "route": "/recipe-wall",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A grid of handwritten-feeling recipe cards from your own kitchen. Click one to flip it over for the method. No ads, no life story above the recipe.",
+    "keyTech": "React, Hono, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 152,
+    "name": "The Quiet Receipt Page",
+    "route": "/quiet-receipts",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A page that swallows photos of paper receipts, names them by date and merchant, and quietly stores them as a tax-time archive.",
+    "keyTech": "React, Hono, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 153,
+    "name": "Permission Slip Generator",
+    "route": "/permission-slip",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Pick a kid, pick a field trip, get a printable PDF ready to sign. Lives quietly in case the next teacher asks for the same form.",
+    "keyTech": "React, Hono, jsPDF, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 154,
+    "name": "Pet Medication Schedule",
+    "route": "/pet-meds",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A small grid showing which dog gets which pill on which day, with a check-off you can hit from a phone in the kitchen.",
+    "keyTech": "React, SQLite, Cron, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 155,
+    "name": "The Permission-to-Rest Page",
+    "route": "/rest",
+    "type": "Page",
+    "visibility": "private",
+    "description": "A page that does almost nothing. It says, in serious typography, that you are allowed to rest today, and shows the date so you remember when you needed it.",
+    "keyTech": "React, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 156,
+    "name": "Funeral RSVP Page",
+    "route": "/funeral-rsvp",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A respectful single page for a memorial: time, place, parking, who to call, and a yes-or-no form. No emojis, no banner, no theme music.",
+    "keyTech": "React, Hono, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 157,
+    "name": "The Lawn-Mowing Memory",
+    "route": "/lawn",
+    "type": "Page",
+    "visibility": "private",
+    "description": "One tap when you mow the lawn. The page shows how many days since last cut and quietly predicts the next one based on the season.",
+    "keyTech": "React, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 158,
+    "name": "The Soft Goodbye Page",
+    "route": "/goodbye",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A page you give a friend who is leaving the company or the city. They scribble notes, you read them later. Slow, written, not a Slack thread.",
+    "keyTech": "React, Hono, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 159,
+    "name": "The 'Did I Eat' Tracker",
+    "route": "/did-i-eat",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Three buttons for breakfast, lunch, dinner. That is it. A calendar fills in over a month so you can see the pattern without judgement.",
+    "keyTech": "React, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 160,
+    "name": "The Power Outage Page",
+    "route": "/outage",
+    "type": "Page",
+    "visibility": "public",
+    "description": "A bare-bones page for a household to point at during a storm. Phone numbers, who to call first, where the flashlights live, when the last outage was.",
+    "keyTech": "React, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 161,
+    "name": "Pre-Commit Hook Inspector",
+    "route": "/precommit-inspector",
+    "type": "Page + API",
+    "visibility": "public",
+    "description": "Paste a repo URL, see every Git pre-commit hook and which files would block a commit. Helpful when joining a new codebase.",
+    "keyTech": "React, Hono, GitHub API, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 162,
+    "name": "The Stale PR Wall",
+    "route": "/stale-prs",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Every PR you opened that has been open more than seven days, sorted by silence. Click one to draft a polite nudge in your voice.",
+    "keyTech": "React, Hono, GitHub API, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 163,
+    "name": "Stripe Refund Reason Histogram",
+    "route": "/refund-reasons",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Reads the last 90 days of Stripe refunds and groups the reason field into a bar chart. Tells you what is actually breaking, not what you think is.",
+    "keyTech": "React, Hono, Stripe API, Chart.js",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 164,
+    "name": "The Bus-Factor Page",
+    "route": "/bus-factor",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Looks at the last 90 days of GitHub commits per repo and flags any file only one person has touched. The quiet pre-mortem for a small team.",
+    "keyTech": "React, Hono, GitHub API, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 165,
+    "name": "Cold DM Composer",
+    "route": "/cold-dm",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Paste a person's bio and a one-sentence ask. Returns three short opener drafts in your own voice, none of them starting with 'Hope you are doing well'.",
+    "keyTech": "React, Hono, Zo Ask API",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 166,
+    "name": "Linear Issue Smell Test",
+    "route": "/issue-smell-test",
+    "type": "API",
+    "visibility": "public",
+    "description": "POST a Linear issue ID and get back a short critique: is the title specific, is there a clear acceptance criterion, is the scope honest. Returns JSON.",
+    "keyTech": "Hono, Linear API, Zo Ask API",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 167,
+    "name": "API Latency Honesty Page",
+    "route": "/latency-honesty",
+    "type": "Page + API",
+    "visibility": "public",
+    "description": "Pings your own endpoints from five public locations every fifteen minutes and shows the p50, p95, and worst day. The numbers your status page hides.",
+    "keyTech": "React, Hono, Cron, Chart.js",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 168,
+    "name": "Indie Hacker Pricing A/B Page",
+    "route": "/pricing-ab",
+    "type": "Page + API",
+    "visibility": "public",
+    "description": "Two pricing pages at one route, served at random, tracking which one leads to a Stripe checkout. No third-party script, no banner, no cookie wall.",
+    "keyTech": "React, Hono, Stripe API, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 169,
+    "name": "The Changelog Comparison Page",
+    "route": "/changelog-diff",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Paste two GitHub release tags and see the merged PR titles between them, grouped by author and label. Useful before writing a real changelog.",
+    "keyTech": "React, Hono, GitHub API, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 170,
+    "name": "The Cron Drift Reporter",
+    "route": "/cron-drift",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Tracks the actual run times of your scheduled jobs against their cron expressions. Tells you when a midnight job is silently firing at 12:11.",
+    "keyTech": "React, SQLite, Cron, Hono",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 171,
+    "name": "The Open Graph Auditor",
+    "route": "/og-audit",
+    "type": "Page + API",
+    "visibility": "public",
+    "description": "Paste a domain, get a grid of every public URL's Open Graph card rendered exactly as Slack, X, and LinkedIn would render it. Spot the broken ones at a glance.",
+    "keyTech": "React, Hono, Playwright, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 172,
+    "name": "The Postmortem Folder Page",
+    "route": "/postmortems",
+    "type": "Page",
+    "visibility": "private",
+    "description": "An index of every incident you have written up, with the date, the duration, the one-sentence cause, and the lesson. A reading room, not a database.",
+    "keyTech": "React, Markdown, Hono, SQLite",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 173,
+    "name": "The Friday Demo Page",
+    "route": "/friday-demo",
+    "type": "Page",
+    "visibility": "private",
+    "description": "Drop a loom link, a GIF, or a paragraph by Friday at noon. The page shows the team's week as five small tiles. No standup, no slide deck.",
+    "keyTech": "React, Hono, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 174,
+    "name": "Webhook Replay Console",
+    "route": "/webhook-replay",
+    "type": "Page + API",
+    "visibility": "private",
+    "description": "Catches incoming webhooks, stores the raw payload, and lets you replay any of them against a local endpoint with one click. The debugger Stripe never gave you.",
+    "keyTech": "React, Hono, SQLite, Tailwind",
+    "addedDate": "2026-05-25"
+  },
+  {
+    "id": 175,
+    "name": "Repo Onboarding Map",
+    "route": "/repo-map",
+    "type": "Page",
+    "visibility": "public",
+    "description": "Point it at a GitHub repo and get a one-screen map: top folders, most-edited files this quarter, the people to ask about each one. For your first day.",
+    "keyTech": "React, Hono, GitHub API, Tailwind",
+    "addedDate": "2026-05-25"
   }
 ]
