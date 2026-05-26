@@ -15,38 +15,31 @@ export type ValidationResult = {
 
 // Plain substring matches (case-insensitive). Low context dependence.
 const BANNED_SUBSTRINGS: string[] = [
-  "imagine if",
-  "imagine a world",
+  "your x will never be the same",
+  "imagine if", "imagine a world",
   "stop wasting time",
   "the smart way to",
   "powerful yet simple",
   "seamlessly",
-  "game-changer",
-  "game-changing",
-  "revolutionize",
-  "revolutionary",
+  "game-changer", "game-changing",
+  "revolutionize", "revolutionary",
   "next-level",
-  "cutting-edge",
-  "state-of-the-art",
+  "cutting-edge", "state-of-the-art",
   "in today's fast-paced world",
   "in today's digital landscape",
   "at the end of the day",
-  "delve",
-  "utilize",
-  "holistic",
-  "synergy",
+  "delve", "utilize",
+  "holistic", "synergy",
 ];
 
-// Patterned matches. "leverage", "unlock", "empower", "elevate" all have
-// legitimate uses — only flag them when paired with the SaaS-tell objects.
-const BANNED_PATTERNS: { name: string; re: RegExp }[] = [
-  { name: "leverage-as-verb", re: /\bleverage\b\s+(your|the|our|its|a|an|my|this|these|those)\b/i },
-  { name: "unlock-saas",       re: /\bunlock\b\s+(your|the|new|hidden|untapped|powerful|fresh)\b/i },
-  { name: "empower-saas",      re: /\bempower\b\s+(your|the|users?|teams?|people|customers?)\b/i },
-  { name: "elevate-saas",      re: /\belevate\b\s+(your|the|users?|teams?|brand|business|content)\b/i },
-  { name: "unleash",           re: /\bunleash\b/i },
-  { name: "tracks-x-automatically", re: /tracks?\s+your\s+\w+\s+automatically/i },
-  { name: "your-x-never-the-same", re: /your\s+\w+\s+will\s+never\s+be\s+the\s+same/i },
+// Verb-form patterns. These would all false-positive as substrings because
+// "Unleash" / "Unlock" / "Elevate" / "Empower" are real product names in the
+// SaaS catalog. Require an object phrase to confirm marketing usage.
+const BANNED_PATTERNS: RegExp[] = [
+  /\bunleash\s+(your|the)\s+(potential|power|inner|hidden|next|true|full|business|brand)\b/i,
+  /\bunlock\s+(your|the)\s+(potential|power|value|growth|secret|future|hidden\s+\w+|next|full)\b/i,
+  /\bempower\s+(your|the|its|my|our|a|an|all|users|teams|customers|builders|people)\b/i,
+  /\belevate\s+(your|the|its|my|our|a|an|all|business|brand|game|experience)\b/i,
 ];
 
 const EM_DASH_RE = /—/g;
@@ -82,6 +75,28 @@ const DELIVERY_INSTRUCTIONS = [
   "discord", "slack", "write to", "save to", "post to", "deliver to",
   "drop in", "ping me",
 ];
+
+// Broader regex patterns for delivery instructions. Catches cases like
+// "Write all drafts to /home/..." or "Email the result back to me" that the
+// strict substring list misses without false-positiving on narrative prose.
+const DELIVERY_PATTERNS: RegExp[] = [
+  /\b(write|save|append|prepend|store|log|file|export|publish|drop)\s+(\w+\s+){0,3}(to|into|at|in)\s+\//i,
+  /\b(write|save|store|export|publish|deposit)\s+(it|them|the|a|an|all|any|each|this|that)\b/i,
+  /\b(email|telegram|sms|text|message|notify|alert|ping|dm)\s+(me|jeff|the user|us)\b/i,
+  /\b(send|deliver|return|reply)\s+(me|it|them|the|a|an|all|each|this|that|back|one|two)\b/i,
+  /\b(post|publish|share)\s+to\s+\w/i,
+  /\bcreate\s+(a\s+)?(draft|file|note|task|issue|email|markdown|json|csv|message)\b/i,
+  /\bcreate_automation\b/i,
+  /\bsend_sms_to_user\b/i,
+  /\bsend_email_to_user\b/i,
+  /\bsend_telegram_message\b/i,
+  /\bsend_discord_message\b/i,
+];
+
+function hasDeliveryInstruction(prompt: string): boolean {
+  if (hasAny(prompt, DELIVERY_INSTRUCTIONS)) return true;
+  return DELIVERY_PATTERNS.some((re) => re.test(prompt));
+}
 
 // Prompt output-format instructions (§6)
 const OUTPUT_FORMATS = [
@@ -162,15 +177,45 @@ function hasNumber(text: string): boolean {
   return /\d/.test(text);
 }
 
+// Strip content inside straight quotes (single, double) and backticks before
+// running slop checks. Prompts that teach anti-slop ("avoid 'game-changer'")
+// or quote bad copy as a negative example ("a generic 'Happy Birthday!'
+// feels lazy") would otherwise false-positive.
+function stripQuotedContent(text: string): string {
+  return text
+    .replace(/"[^"]*"/g, '""')
+    // Single-quote pairs: require the closing quote to be at a word boundary
+    // (followed by non-word char or end of string) so contractions like
+    // "Someone's" don't accidentally open a quote region.
+    .replace(/'([^']{1,200}?)'(?=\W|$)/g, "''")
+    .replace(/`[^`]*`/g, "``");
+}
+
+const NEGATION_RE = /\b(avoid|don't|do not|never|no\s|ban|banned|forbidden|skip|stop using|never use|reject|exclude|disallowed|not allowed|do\s+not\s+use)\b/i;
+
+function isInNegationContext(text: string, matchIndex: number): boolean {
+  const before = text.slice(Math.max(0, matchIndex - 200), matchIndex);
+  const lastBreak = before.lastIndexOf("\n\n");
+  const window = lastBreak >= 0 ? before.slice(lastBreak) : before;
+  return NEGATION_RE.test(window);
+}
+
 // ----- Cross-field checks -----
 
 function checkBannedContent(allText: string, errors: string[]): void {
-  const hit = hasAny(allText, BANNED_SUBSTRINGS);
-  if (hit) errors.push(`banned phrase present: "${hit}"`);
-  for (const p of BANNED_PATTERNS) {
-    if (p.re.test(allText)) {
-      const match = allText.match(p.re);
-      errors.push(`banned pattern present (${p.name}): "${match?.[0] ?? ""}"`);
+  const unquoted = stripQuotedContent(allText);
+  const lower = unquoted.toLowerCase();
+  for (const phrase of BANNED_SUBSTRINGS) {
+    const idx = lower.indexOf(phrase.toLowerCase());
+    if (idx >= 0 && !isInNegationContext(unquoted, idx)) {
+      errors.push(`banned phrase present: "${phrase}"`);
+      break; // one banned-phrase error per entry is enough signal
+    }
+  }
+  for (const re of BANNED_PATTERNS) {
+    const match = unquoted.match(re);
+    if (match && match.index !== undefined && !isInNegationContext(unquoted, match.index)) {
+      errors.push(`banned pattern present: "${match[0]}"`);
     }
   }
   if (EM_DASH_RE.test(allText)) {
@@ -179,10 +224,18 @@ function checkBannedContent(allText: string, errors: string[]): void {
   }
 }
 
+// Replace the existing exclamation-point check. `!=` is a code operator
+// (jq, JS, shell), not a marketing exclamation — ignore it.
+function hasMarketingExclamation(text: string): boolean {
+  const unquoted = stripQuotedContent(text);
+  const stripped = unquoted.replace(/!=/g, "__NEQ__");
+  return stripped.includes("!");
+}
+
 function checkExclamationInBodyFields(entry: Record<string, unknown>, bodyFields: string[], errors: string[]): void {
   for (const f of bodyFields) {
     const v = entry[f];
-    if (typeof v === "string" && v.includes("!")) {
+    if (typeof v === "string" && hasMarketingExclamation((v as string))) {
       errors.push(`exclamation point in body field "${f}"`);
     }
   }
@@ -324,8 +377,8 @@ function validateAutomation(item: Automation): ValidationResult {
   if (!numbered && !phased) {
     errors.push(`prompt has no ordered list (1. or 1)) or phase markers (Phase 1, Step 1)`);
   }
-  if (!hasAny(prompt, DELIVERY_INSTRUCTIONS)) {
-    errors.push(`prompt has no delivery instruction (send to, email me, write to, save to, post to, etc.)`);
+  if (!hasDeliveryInstruction(prompt)) {
+    errors.push(`prompt has no delivery instruction (send to, email me, write to /path, save to, post to, etc.)`);
   }
   if (typeof item.customization === "string" && item.customization.length > 0 && item.customization.length < 40) {
     warnings.push(`customization is suspiciously short (${item.customization.length} chars); may be filler`);
@@ -357,9 +410,16 @@ function validatePrompt(item: Prompt): ValidationResult {
     errors.push(`prompt too short: ${countChars(prompt)} chars, need ≥ 300`);
   }
   const hasPlaceholder = /\{\{[^}]+\}\}/.test(prompt);
-  const hasPasteInstruction = /paste\s+(your|the|in|below|here)/i.test(prompt);
+  const PASTE_INSTRUCTIONS = [
+    "paste your", "paste the", "paste in", "share your", "share the",
+    "tell me about", "ask me about", "ask these one at a time",
+    "wait for each answer", "wait for my answer", "answer these",
+    "answer one at a time", "one at a time", "give me your",
+    "describe your", "describe the",
+  ];
+  const hasPasteInstruction = PASTE_INSTRUCTIONS.some((s) => prompt.toLowerCase().includes(s));
   if (!hasPlaceholder && !hasPasteInstruction) {
-    errors.push(`prompt has no {{placeholder}} and no explicit "paste your X" instruction`);
+    errors.push(`prompt has no {{placeholder}} and no explicit "paste your X" / interview-style instruction`);
   }
   const hasBulletList = /^\s*[-*•]\s+\S/m.test(prompt);
   const hasNumberedList = /^\s*\d+[.)]\s+\S/m.test(prompt);

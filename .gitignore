@@ -2,3 +2,5 @@ node_modules/
 dist/
 
 backups/
+_regen-staging/
+public/data/*.bak.*

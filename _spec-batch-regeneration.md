@@ -2,7 +2,7 @@
 
 **Project**: zo-cookbook-app
 **Author**: 2026-05-25 session (Jeeves)
-**Status**: validator built and calibrated against live data. Awaiting Jeff's review on exemplars and open questions before any generation runs.
+**Status**: validator built and calibrated. Decisions locked in §14. Generation in progress.
 **Supersedes**: the parallel /zo/ask generation approach used on 2026-05-25 (which is what produced the problem this spec exists to fix)
 
 ---
@@ -368,15 +368,18 @@ The originals (`addedDate < "2026-05-20"`) are never touched by merge.
 
 ---
 
-## 14. Open questions for Jeff
+## 14. Decisions (Jeff, 2026-05-25)
 
-1. **Exemplars (§ 5)**: are the 12 candidates the right ones, or should some be swapped? Naming them now beats discovering mid-run that one is off-voice.
-2. **Customization (§ 8)**: how strict? My read of "only when the idea needs it" is roughly "include for maybe 20-30% of in-scope entries." If you want it tighter ("10%, only when there's a real knob with a real tradeoff") or looser, say so.
-3. **Failure handling at merge**: if 12 entries out of 512 fail validation after the rewrite loop, do we (a) ship the 500 that passed and leave the 12 as their current flawed version, or (b) hold the entire merge until all 512 pass?
-4. **Budget**: realistic estimate is now $30-60 of model spend plus a few hours of agent wallclock. Acceptable?
-5. **Verification step**: do you want to spot-read a sample (say 20 entries pulled at random) before the merge runs? Recommended.
-6. **Concept replacement budget**: if a particular concept is fundamentally generic ("AI Email Sorter") and can't be saved by rewriting, do we get a budget to rename/replace it? Recommend 0%, 5%, or 10% of in-scope.
-7. **Prompt scope reduction** (new, from §6a calibration): the recent prompt batch passes the validator at 97%. The structural rewrite may not be needed for the 177 prompts. Want to (a) do the full rewrite anyway, (b) restrict the prompt slice to a voice-only pass (anti-slop scrub, em-dash removal, exclamation cleanup), or (c) skip prompts entirely and regenerate only apps + spaces + automations (335 entries)?
+1. **Exemplars**: my candidates accepted as-is. The 12 names in §5 are the voice anchors.
+2. **Customization**: include for roughly 20% of in-scope entries — only where the idea has a real tradeoff knob (schedule cadence, source list, tone profile, currency, etc.). Renaming/recoloring does not count.
+3. **Failure handling at merge**: ship-what-passes. Entries that fail the validator after the rewrite loop stay as their current flawed 2026-05-25 version. No per-type atomic merge — per-entry replacement only.
+4. **Budget**: accepted. Estimate $30-60 of model spend.
+5. **Verification**: spot-read 20 random new entries after merge.
+6. **Concept replacement**: 0%. Rewrite within the existing concept. If a name is generic, the body has to carry the specificity.
+7. **Prompt scope**: voice-only pass on the 5 failing entries (banned phrases, exclamation, missing placeholder). The other 172 stay as-is. Full prompt rewrite is skipped — the validator says they're already structurally stronger than the originals.
+8. **Objection hedge** (§6 Apps monetization warning): soft signal only. Critique step (§10) enforces it as judgment, validator does not gate on it.
+
+In-scope after Q7: **335 entries (75 apps + 75 spaces + 185 automations) get the full rewrite. 5 prompts get a voice fix. 172 prompts and all 650 originals untouched.**
 
 ---
 
