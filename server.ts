@@ -23,7 +23,7 @@ app.use("*", async (c, next) => {
 });
 
 const outboundLinks: Record<string, string> = {
-  zo: "https://zocomputer.com/",
+  zo: "https://zo-computer.cello.so/X9jcdFXqh9Z",
   reddit: "https://www.reddit.com/r/ZoComputerClub/",
   facebook: "https://www.facebook.com/profile.php?id=61588689719800",
   substack: "https://salmonidaho.substack.com/",

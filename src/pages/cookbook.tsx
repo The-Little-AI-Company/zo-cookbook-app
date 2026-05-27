@@ -807,12 +807,9 @@ export default function CookbookApp() {
         <div className="max-w-5xl mx-auto px-4 py-4">
           <div className="rounded-md border border-[var(--border)] bg-[var(--card)]/65 px-4 py-4 md:px-5 md:py-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div className="md:max-w-2xl">
-              <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--blue)]">Need somewhere to run these?</p>
+              <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--blue)]">Need Zo Computer AI credits?</p>
               <p className="mt-1 text-base md:text-lg font-medium text-[var(--foreground)]">
-                The recipes run inside your own Zo Computer.
-              </p>
-              <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-                Spin one up, paste a brief from the cookbook, and the work happens on your machine.
+                Get $10 when you sign up with my link.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2 md:flex-nowrap md:shrink-0">
