@@ -812,7 +812,7 @@ export default function CookbookApp() {
                 The recipes run inside your own Zo Computer.
               </p>
               <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-                Spin one up, paste a brief from the cookbook, and the work happens on your machine, not mine.
+                Spin one up, paste a brief from the cookbook, and the work happens on your machine.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2 md:flex-nowrap md:shrink-0">
