@@ -6,6 +6,7 @@ export type App = {
   howToBuild: string;
   monetization: string;
   difficulty: string;
+  addedDate?: string;
 };
 
 export type Space = {
@@ -16,6 +17,7 @@ export type Space = {
   visibility: "public" | "private";
   description: string;
   keyTech: string;
+  addedDate?: string;
 };
 
 export type Automation = {

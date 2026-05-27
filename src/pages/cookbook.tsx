@@ -265,6 +265,7 @@ function CopyButton({ text }: { text: string }) {
 function AppCard({ item, expanded, onToggle }: { item: App; expanded: boolean; onToggle: () => void }) {
   const group = normalizeCategory(item.category);
   const meta = getGroupMeta(group);
+  const fresh = isNew(item.addedDate);
   return (
     <div className="group border border-[var(--border)] rounded-lg bg-[var(--card)] hover:border-[var(--red)]/30 transition-colors">
       <button onClick={onToggle} className="w-full text-left p-4 cursor-pointer">
@@ -276,6 +277,7 @@ function AppCard({ item, expanded, onToggle }: { item: App; expanded: boolean; o
             <p className="text-sm text-[var(--muted-foreground)] mt-1 line-clamp-2">{item.description}</p>
           </div>
           <div className="flex flex-col items-end gap-1.5 shrink-0">
+            {fresh && <NewBadge />}
             <span className="text-[10px] font-mono px-2 py-0.5 rounded" style={{ background: `color-mix(in srgb, ${meta.color} 12%, transparent)`, color: meta.color }}>
               {group}
             </span>
@@ -310,6 +312,7 @@ function AppCard({ item, expanded, onToggle }: { item: App; expanded: boolean; o
 }
 
 function SpaceCard({ item, expanded, onToggle }: { item: Space; expanded: boolean; onToggle: () => void }) {
+  const fresh = isNew(item.addedDate);
   return (
     <div className="group border border-[var(--border)] rounded-lg bg-[var(--card)] hover:border-[var(--blue)]/30 transition-colors">
       <button onClick={onToggle} className="w-full text-left p-4 cursor-pointer">
@@ -322,6 +325,7 @@ function SpaceCard({ item, expanded, onToggle }: { item: Space; expanded: boolea
             <p className="text-sm text-[var(--muted-foreground)] mt-1 line-clamp-2">{item.description}</p>
           </div>
           <div className="flex flex-col items-end gap-1.5 shrink-0">
+            {fresh && <NewBadge />}
             <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[var(--blue)]/10 text-[var(--blue)]">
               {item.type}
             </span>
@@ -800,9 +804,38 @@ export default function CookbookApp() {
       </section>
 
       <section className="relative z-10 border-b border-[var(--border)] bg-[var(--background)]">
+        <div className="max-w-5xl mx-auto px-4 py-4">
+          <div className="rounded-md border border-[var(--border)] bg-[var(--card)]/65 px-4 py-4 md:px-5 md:py-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+            <div className="md:max-w-2xl">
+              <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--blue)]">Need a Zo Computer?</p>
+              <p className="mt-1 text-base md:text-lg font-medium text-[var(--foreground)]">
+                The recipes are free to read. They run inside a Zo.
+              </p>
+              <p className="mt-1 text-sm text-[var(--muted-foreground)]">
+                Free plan runs most of them. Paid runs them all without thinking about credits. Paid is what I use.
+              </p>
+            </div>
+            <div className="flex flex-wrap items-center gap-2 md:flex-nowrap md:shrink-0">
+              <a
+                href="/go/zo"
+                className="rounded-md border border-[var(--foreground)] bg-[var(--foreground)] px-4 py-2 text-sm font-mono text-[var(--background)] hover:opacity-90 transition-opacity"
+              >
+                Get a Zo Computer
+              </a>
+              <a
+                href="/go/zo-paid"
+                className="rounded-md border border-[var(--border)] px-4 py-2 text-sm font-mono text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors"
+              >
+                See plans
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative z-10 border-b border-[var(--border)] bg-[var(--background)]">
         <div className="max-w-5xl mx-auto px-4 py-2 flex flex-wrap items-center gap-2 text-xs font-mono text-[var(--muted-foreground)]">
           <span className="mr-1 uppercase tracking-[0.16em] text-[10px]">More Zo</span>
-          <a href="/go/zo" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Get Zo</a>
           <Link to="/whats-new" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">What's New</Link>
           <Link to="/faq" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">FAQ</Link>
           <Link to="/changelog" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Changelog</Link>
