@@ -807,12 +807,12 @@ export default function CookbookApp() {
         <div className="max-w-5xl mx-auto px-4 py-4">
           <div className="rounded-md border border-[var(--border)] bg-[var(--card)]/65 px-4 py-4 md:px-5 md:py-4 flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
             <div className="md:max-w-2xl">
-              <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--blue)]">Need a Zo Computer?</p>
+              <p className="text-[10px] font-mono uppercase tracking-[0.18em] text-[var(--blue)]">Need somewhere to run these?</p>
               <p className="mt-1 text-base md:text-lg font-medium text-[var(--foreground)]">
-                The recipes are free to read. They run inside a Zo.
+                The recipes run inside your own Zo Computer.
               </p>
               <p className="mt-1 text-sm text-[var(--muted-foreground)]">
-                Free plan runs most of them. Paid runs them all without thinking about credits. Paid is what I use.
+                Spin one up, paste a brief from the cookbook, and the work happens on your machine, not mine.
               </p>
             </div>
             <div className="flex flex-wrap items-center gap-2 md:flex-nowrap md:shrink-0">
@@ -820,13 +820,7 @@ export default function CookbookApp() {
                 href="/go/zo"
                 className="rounded-md border border-[var(--foreground)] bg-[var(--foreground)] px-4 py-2 text-sm font-mono text-[var(--background)] hover:opacity-90 transition-opacity"
               >
-                Get a Zo Computer
-              </a>
-              <a
-                href="/go/zo-paid"
-                className="rounded-md border border-[var(--border)] px-4 py-2 text-sm font-mono text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:border-[var(--foreground)] transition-colors"
-              >
-                See plans
+                Get Zo Computer
               </a>
             </div>
           </div>
