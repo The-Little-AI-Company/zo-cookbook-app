@@ -832,6 +832,7 @@ export default function CookbookApp() {
           <Link to="/faq" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">FAQ</Link>
           <Link to="/changelog" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Changelog</Link>
           <Link to="/blog" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Blog</Link>
+          <a href="/go/101" className="rounded border border-[var(--teal)] px-2 py-1 text-[var(--teal)] hover:bg-[var(--teal)] hover:text-[var(--background)]">Zo Computer 101</a>
           <a href="/go/substack" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Substack</a>
           <a href="/go/reddit" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Reddit</a>
           <a href="/go/facebook" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Facebook</a>
@@ -1104,6 +1105,7 @@ export default function CookbookApp() {
             <Link to="/faq" className="hover:text-[var(--foreground)]">FAQ</Link>
             <Link to="/changelog" className="hover:text-[var(--foreground)]">Changelog</Link>
             <Link to="/blog" className="hover:text-[var(--foreground)]">Blog</Link>
+            <a href="/go/101" className="hover:text-[var(--foreground)]">Zo Computer 101</a>
             <a href="/go/zo" className="hover:text-[var(--foreground)]">Get Zo</a>
             <span>{totalItems} recipes</span>
           </nav>
