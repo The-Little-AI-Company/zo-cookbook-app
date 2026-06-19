@@ -3,6 +3,7 @@ import type { ViteDevServer } from "vite";
 import { createServer as createViteServer } from "vite";
 import config from "./zosite.json";
 import { Hono } from "hono";
+import { appendFile, mkdir } from "node:fs/promises";
 
 // AI agents: read README.md for navigation and contribution guidance.
 type Mode = "development" | "production";
@@ -82,6 +83,165 @@ const mode: Mode =
  * Add any API routes here.
  */
 app.get("/api/hello-zo", (c) => c.json({ msg: "Hello from Zo" }));
+
+/**
+ * Public submission endpoint.
+ *
+ * Visitors use /submit to send Jeff a recipe, automation, prompt, site,
+ * or question. Each submission is appended to submissions/inbox.jsonl so
+ * nothing is ever lost. If ZO_API_KEY is set, the endpoint also asks Zo
+ * to email Jeff a copy.
+ */
+const SUBMISSIONS_PATH =
+  "/home/workspace/Projects/zo-cookbook-app/submissions/inbox.jsonl";
+const SUBMISSION_KINDS = new Set([
+  "recipe",
+  "site",
+  "automation",
+  "prompt",
+  "question",
+  "other",
+]);
+const submissionHits = new Map<string, { count: number; resetAt: number }>();
+const SUBMISSION_WINDOW_MS = 10 * 60 * 1000;
+const SUBMISSION_MAX_PER_WINDOW = 5;
+
+function clientIp(c: { req: { header: (k: string) => string | undefined } }) {
+  const fwd = c.req.header("x-forwarded-for");
+  if (fwd) return fwd.split(",")[0]?.trim() || "unknown";
+  return c.req.header("x-real-ip") || "unknown";
+}
+
+function rateLimited(ip: string): boolean {
+  const now = Date.now();
+  const entry = submissionHits.get(ip);
+  if (!entry || entry.resetAt < now) {
+    submissionHits.set(ip, { count: 1, resetAt: now + SUBMISSION_WINDOW_MS });
+    return false;
+  }
+  entry.count += 1;
+  if (entry.count > SUBMISSION_MAX_PER_WINDOW) return true;
+  return false;
+}
+
+function clamp(value: unknown, max: number): string {
+  if (typeof value !== "string") return "";
+  return value.trim().slice(0, max);
+}
+
+async function relayToZo(payload: Record<string, unknown>): Promise<{ ok: boolean; error?: string }> {
+  const key = process.env.ZO_API_KEY;
+  if (!key) return { ok: false, error: "ZO_API_KEY not set" };
+  const summary = [
+    `Kind: ${payload.kind}`,
+    `Title: ${payload.title}`,
+    payload.link ? `Link: ${payload.link}` : null,
+    payload.name ? `From: ${payload.name}` : null,
+    payload.email ? `Reply to: ${payload.email}` : null,
+    "",
+    "Description:",
+    String(payload.description ?? ""),
+  ]
+    .filter(Boolean)
+    .join("\n");
+
+  const prompt = [
+    "A visitor just submitted something to the Zo Cookbook public submission form.",
+    "Send Jeff an email to jeffkazzee@gmail.com with the subject:",
+    `"Cookbook submission: ${payload.kind} — ${payload.title}"`,
+    "and the body below. Do not reply to me in chat, just send the email.",
+    "",
+    summary,
+  ].join("\n");
+
+  try {
+    const res = await fetch("https://api.zo.computer/zo/ask", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ input: prompt }),
+    });
+    if (!res.ok) return { ok: false, error: `zo/ask ${res.status}` };
+    return { ok: true };
+  } catch (err) {
+    return { ok: false, error: String(err) };
+  }
+}
+
+app.post("/api/submissions", async (c) => {
+  const ip = clientIp(c);
+  if (rateLimited(ip)) {
+    return c.json({ error: "Too many submissions. Try again later." }, 429);
+  }
+
+  const raw = await c.req.text();
+  if (raw.length > 20_000) {
+    return c.json({ error: "Submission too large." }, 413);
+  }
+
+  let body: Record<string, unknown>;
+  try {
+    body = JSON.parse(raw);
+  } catch {
+    return c.json({ error: "Invalid JSON." }, 400);
+  }
+
+  // Honeypot — bots fill the hidden "website" field; humans never see it.
+  if (typeof body.website === "string" && body.website.trim().length > 0) {
+    return c.json({ ok: true });
+  }
+
+  const kind = clamp(body.kind, 32).toLowerCase();
+  const title = clamp(body.title, 200);
+  const description = clamp(body.description, 8000);
+  const link = clamp(body.link, 500);
+  const name = clamp(body.name, 120);
+  const email = clamp(body.email, 200);
+
+  if (!SUBMISSION_KINDS.has(kind)) {
+    return c.json({ error: "Pick a submission type." }, 400);
+  }
+  if (title.length < 2) {
+    return c.json({ error: "Give it a title." }, 400);
+  }
+  if (description.length < 10) {
+    return c.json({ error: "Tell Jeff a little more — at least a sentence." }, 400);
+  }
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return c.json({ error: "That email doesn't look right." }, 400);
+  }
+
+  const record = {
+    id: crypto.randomUUID(),
+    receivedAt: new Date().toISOString(),
+    ip,
+    userAgent: c.req.header("user-agent") || null,
+    kind,
+    title,
+    description,
+    link: link || null,
+    name: name || null,
+    email: email || null,
+  };
+
+  try {
+    await mkdir("/home/workspace/Projects/zo-cookbook-app/submissions", { recursive: true });
+    await appendFile(SUBMISSIONS_PATH, JSON.stringify(record) + "\n");
+  } catch (err) {
+    console.error("Failed to persist submission", err);
+    return c.json({ error: "Server failed to save your submission. Try again later." }, 500);
+  }
+
+  const relay = await relayToZo(record);
+  if (!relay.ok) {
+    console.warn("Submission saved but email relay skipped:", relay.error);
+  }
+
+  return c.json({ ok: true, id: record.id, emailed: relay.ok });
+});
 
 if (mode === "production") {
   configureProduction(app);

@@ -827,6 +827,7 @@ export default function CookbookApp() {
       <section className="relative z-10 border-b border-[var(--border)] bg-[var(--background)]">
         <div className="max-w-5xl mx-auto px-4 py-2 flex flex-wrap items-center gap-2 text-xs font-mono text-[var(--muted-foreground)]">
           <span className="mr-1 uppercase tracking-[0.16em] text-[10px]">More Zo</span>
+          <Link to="/submit" className="rounded border border-[var(--teal)] px-2 py-1 text-[var(--teal)] hover:bg-[var(--teal)] hover:text-[var(--background)]">Submit a recipe</Link>
           <Link to="/whats-new" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">What's New</Link>
           <Link to="/faq" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">FAQ</Link>
           <Link to="/changelog" className="rounded border border-[var(--border)] px-2 py-1 hover:text-[var(--foreground)] hover:border-[var(--foreground)]">Changelog</Link>
@@ -1098,6 +1099,7 @@ export default function CookbookApp() {
             Built on Zo Computer · 2026
           </span>
           <nav className="flex flex-wrap items-center gap-3 text-[10px] font-mono text-[var(--muted-foreground)]">
+            <Link to="/submit" className="hover:text-[var(--foreground)]">Submit</Link>
             <Link to="/whats-new" className="hover:text-[var(--foreground)]">What's New</Link>
             <Link to="/faq" className="hover:text-[var(--foreground)]">FAQ</Link>
             <Link to="/changelog" className="hover:text-[var(--foreground)]">Changelog</Link>

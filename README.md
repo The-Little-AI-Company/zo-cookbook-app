@@ -4,7 +4,7 @@ This file provides guidance when working with code in this repository. The READM
 
 ## Zo Cookbook — Public discovery, private execution
 
-The cookbook is a gallery of 1162 recipes (apps, spaces, automations, prompts), but it no longer tries to execute them through a public proxy or ask visitors for Zo API tokens.
+The cookbook is a gallery of 1232 recipes (apps, spaces, automations, prompts), but it no longer tries to execute them through a public proxy or ask visitors for Zo API tokens.
 
 ### Architecture: Browse → Copy brief → Open Zo
 
@@ -32,7 +32,7 @@ The cookbook now behaves like a launchpad, not a public API client.
 
 ### Current state
 
-- 1162 total recipes: 275 Apps & Sites, 175 Spaces, 285 Automations, 427 Prompts.
+- 1232 total recipes: 275 Apps & Sites, 175 Spaces, 355 Automations, 427 Prompts.
 - Counts on the homepage header, tab buttons, and FAQ all read from `/data/manifest.json` at runtime. Do not hardcode counts in user-facing pages.
 - Recipes carry an optional `addedDate` field (ISO date string). When present and within the last 30 days, a small "new" badge renders on the card via `<NewBadge />`. The badge disappears automatically when the date crosses the 30-day window. No cron, no manual cleanup.
 - `/whats-new` aggregates every item with a fresh `addedDate` across all four types, grouped by type with counts, sorted newest first. It is the canonical "what changed lately" surface. For large batches, the page leads with a small curated "Editor's Picks" section (about 10 hand-selected items per type) above the full new-list, defined as a `EDITORS_PICKS` constant in `src/pages/whats-new.tsx`.

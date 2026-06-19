@@ -5,6 +5,7 @@ import FAQPage from "./pages/faq";
 import ChangelogPage from "./pages/changelog";
 import BlogPage from "./pages/blog";
 import WhatsNewPage from "./pages/whats-new";
+import SubmitPage from "./pages/submit";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/changelog" element={<ChangelogPage />} />
         <Route path="/blog" element={<BlogPage />} />
+        <Route path="/submit" element={<SubmitPage />} />
       </Routes>
     </BrowserRouter>
   );

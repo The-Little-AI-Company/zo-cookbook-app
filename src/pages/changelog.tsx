@@ -2,6 +2,18 @@ import { Link } from "react-router-dom";
 
 const changes = [
   {
+    date: "2026-06-18",
+    title: "70 workflow automations across 14 white-collar roles",
+    items: [
+      "Added 70 automation recipes built around real recurring work for bookkeepers, sales reps, recruiters, customer success, project managers, HR, executive assistants, marketers, support leads, ecommerce operators, data analysts, procurement, real estate agents, paralegals, and grant writers.",
+      "Each one is broken to first-principles steps: read a source, reason, verify the work, write an output, stop on a checkable condition. The full step list, the proof gate, and the stop condition live in every recipe's prompt.",
+      "This batch deliberately widened integration coverage. The old library leaned on Gmail, Calendar, and Linear; these reach QuickBooks, Xero, HubSpot, Salesforce, Pipedrive, Zendesk, Intercom, Shopify, Calendly, Typeform, Mailchimp, Asana, Trello, Jira, BambooHR, Airtable, and Stripe. Roughly 20 distinct connections instead of 6.",
+      "Every recipe is schedule-first to match how Zo automations actually run. There is no instant event trigger in Zo, so anything that sounded like \"on new lead\" is written as a scheduled scan with a watermark file so it never reprocesses the same record twice.",
+      "Catalog apps are named honestly. Each brief says to connect the app via Plugins, and tells the run to stop and report if a tool errors instead of faking a result.",
+      "Automation count 285 -> 355. Cookbook total 1162 -> 1232. Manifest, FAQ, homepage, and the /whats-new feed pick this up at runtime.",
+    ],
+  },
+  {
     date: "2026-05-25",
     title: "Massive batch: 500 new recipes",
     items: [
@@ -61,7 +73,10 @@ export default function ChangelogPage() {
       <div className="mx-auto max-w-4xl">
         <nav className="mb-6 flex items-center justify-between text-xs font-mono text-[var(--muted-foreground)]">
           <Link to="/" className="hover:text-[var(--foreground)]">← Cookbook</Link>
-          <Link to="/faq" className="hover:text-[var(--foreground)]">FAQ</Link>
+          <div className="flex gap-3">
+            <Link to="/whats-new" className="hover:text-[var(--foreground)]">What's New</Link>
+            <Link to="/faq" className="hover:text-[var(--foreground)]">FAQ</Link>
+          </div>
         </nav>
 
         <header className="rounded-xl border border-[var(--border)] bg-[var(--card)] p-6 sm:p-8">
