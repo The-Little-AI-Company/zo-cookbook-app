@@ -77,6 +77,118 @@ app.get("/api/blog", async (c) => {
   }
 });
 
+// ---------------------------------------------------------------------------
+// SEO / AEO surfaces: robots.txt, llms.txt, sitemap.xml
+// ---------------------------------------------------------------------------
+
+const SITE_ORIGIN = "https://www.zo-cookbook.space";
+const DATA_DIR = "/home/workspace/Projects/zo-cookbook-app/public/data";
+
+type IdeaKind = "apps" | "spaces" | "automations" | "prompts";
+const IDEA_SUFFIX: Record<IdeaKind, string> = {
+  apps: "app",
+  spaces: "space",
+  automations: "automation",
+  prompts: "prompt",
+};
+
+function seoBaseSlug(value: string) {
+  return value
+    .toLowerCase()
+    .replace(/[`'"“”‘’]/g, "")
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 90);
+}
+
+async function loadIdeas(kind: IdeaKind): Promise<Array<{ id: string | number; name: string }>> {
+  try {
+    const raw = await Bun.file(`${DATA_DIR}/${kind}.json`).json();
+    const arr = Array.isArray(raw) ? raw : Object.values(raw)[0];
+    return Array.isArray(arr) ? arr : [];
+  } catch {
+    return [];
+  }
+}
+
+function ideaUrl(kind: IdeaKind, item: { id: string | number; name: string }) {
+  const slug = `${seoBaseSlug(item.name ?? "idea")}-${item.id}-${IDEA_SUFFIX[kind]}`;
+  return `${SITE_ORIGIN}/ideas/${kind}/${slug}`;
+}
+
+const STATIC_PATHS = ["/", "/whats-new", "/submit", "/faq", "/blog"];
+
+app.get("/robots.txt", (c) =>
+  c.text(
+    [
+      "User-agent: *",
+      "Allow: /",
+      "",
+      "# AI agents: a plain-text index of this site lives at /llms.txt",
+      `Sitemap: ${SITE_ORIGIN}/sitemap.xml`,
+      "",
+    ].join("\n"),
+    200,
+    { "Content-Type": "text/plain; charset=utf-8" },
+  ),
+);
+
+app.get("/sitemap.xml", async (c) => {
+  const kinds: IdeaKind[] = ["apps", "spaces", "automations", "prompts"];
+  const ideaLists = await Promise.all(kinds.map(loadIdeas));
+  const today = new Date().toISOString().slice(0, 10);
+
+  const urls: string[] = [];
+  for (const path of STATIC_PATHS) {
+    urls.push(
+      `  <url><loc>${SITE_ORIGIN}${path === "/" ? "/" : path}</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>${path === "/" ? "1.0" : "0.7"}</priority></url>`,
+    );
+  }
+  kinds.forEach((kind, i) => {
+    for (const item of ideaLists[i]) {
+      urls.push(
+        `  <url><loc>${ideaUrl(kind, item)}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>`,
+      );
+    }
+  });
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join("\n")}\n</urlset>\n`;
+  return c.body(xml, 200, { "Content-Type": "application/xml; charset=utf-8" });
+});
+
+app.get("/llms.txt", async (c) => {
+  const kinds: IdeaKind[] = ["apps", "spaces", "automations", "prompts"];
+  const ideaLists = await Promise.all(kinds.map(loadIdeas));
+  const counts = Object.fromEntries(kinds.map((k, i) => [k, ideaLists[i].length]));
+  const total = Object.values(counts).reduce((a, b) => a + b, 0);
+
+  const lines: string[] = [
+    "# Zo Cookbook",
+    "",
+    `> ${total} copy-paste recipes for Zo Computer: app ideas, Space configs, automation recipes, and high-leverage prompts. Browse a recipe, copy its build brief, and open it inside your own Zo Computer.`,
+    "",
+    "Zo Computer is an AI-native personal cloud computer. This site is an independent, community-built catalog by Jeff Kazzee — not an official Zo product.",
+    "",
+    "## Sections",
+    `- Apps & Sites (${counts.apps}): buildable web apps and sites — /ideas/apps/`,
+    `- Spaces (${counts.spaces}): zo.space page + API route configs — /ideas/spaces/`,
+    `- Automations (${counts.automations}): scheduled-agent recipes — /ideas/automations/`,
+    `- Prompts (${counts.prompts}): high-leverage prompts — /ideas/prompts/`,
+    "",
+    "## Key pages",
+    `- Home / search: ${SITE_ORIGIN}/`,
+    `- What's new: ${SITE_ORIGIN}/whats-new`,
+    `- Submit a recipe: ${SITE_ORIGIN}/submit`,
+    `- Full sitemap (every recipe URL): ${SITE_ORIGIN}/sitemap.xml`,
+    "",
+    "## Related",
+    "- Zo Computer 101 — beginner field guide: https://zo-101-jeffkazzee.zocomputer.io",
+    "",
+  ];
+  return c.text(lines.join("\n"), 200, { "Content-Type": "text/plain; charset=utf-8" });
+});
+
 const mode: Mode =
   process.env.NODE_ENV === "production" ? "production" : "development";
 
