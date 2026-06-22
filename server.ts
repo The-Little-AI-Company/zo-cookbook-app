@@ -28,7 +28,7 @@ const outboundLinks: Record<string, string> = {
   "101": "https://zo-101-jeffkazzee.zocomputer.io",
   reddit: "https://www.reddit.com/r/ZoComputerClub/",
   facebook: "https://www.facebook.com/profile.php?id=61588689719800",
-  substack: "https://salmonidaho.substack.com/",
+  substack: "https://jeffkazzee.substack.com/",
   discord: "https://discord.gg/invite/zocomputer",
 };
 
@@ -55,7 +55,7 @@ function getXmlTag(item: string, tag: string) {
 
 app.get("/api/blog", async (c) => {
   try {
-    const response = await fetch("https://salmonidaho.substack.com/feed", {
+    const response = await fetch("https://jeffkazzee.substack.com/feed", {
       headers: { "User-Agent": "Zo-Cookbook/1.0" },
     });
     if (!response.ok) throw new Error(`Substack feed returned ${response.status}`);
